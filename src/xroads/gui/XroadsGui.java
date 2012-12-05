@@ -14,12 +14,19 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.ListSelectionModel;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 public class XroadsGui extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField widthDimens;
 	private JTextField heightDimens;
+	private CityGenerator city;
 
 	/**
 	 * Create the frame.
@@ -43,8 +50,12 @@ public class XroadsGui extends JFrame {
 		
 		JButton btnGenerate = new JButton("Generate");
 		btnGenerate.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					// regenerate table city
+					city.generateCity(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
+					// Contact gui agent, that city is generated
 					mainAgent.spawnCrossroads(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
 				} catch (NumberFormatException error) {
 					System.out.println(error.getLocalizedMessage());
@@ -74,11 +85,23 @@ public class XroadsGui extends JFrame {
 		
 		JButton btnClear = new JButton("Clear");
 		btnClear.setBounds(211, 30, 77, 23);
-		panel.add(btnClear);
 		btnClear.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
+		panel.add(btnClear);
+		
+		city = new CityGenerator();
+		city.setBorder(new LineBorder(new Color(0, 0, 0)));
+		city.setBackground(UIManager.getColor("Panel.background"));
+		city.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		city.setRowSelectionAllowed(false);
+		city.setColumnSelectionAllowed(true);
+		city.setCellSelectionEnabled(true);
+		city.setBounds(5, 109, 751, 426);
+		contentPane.add(city);
+		
 		this.setVisible(true);
 	}
 }
