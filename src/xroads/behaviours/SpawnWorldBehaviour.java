@@ -11,13 +11,13 @@ import xroads.agents.CrossroadAgent;
 import xroads.agents.EndpointAgent;
 
 @SuppressWarnings("serial")
-public class SpawnBehaviour extends OneShotBehaviour {
+public class SpawnWorldBehaviour extends OneShotBehaviour {
 
 	private int gridWidth, gridHeight;
 
 
 
-	public SpawnBehaviour(int gridWidth, int gridHeight) {
+	public SpawnWorldBehaviour(int gridWidth, int gridHeight) {
 		this.gridWidth = gridWidth;
 		this.gridHeight = gridHeight;
 	}

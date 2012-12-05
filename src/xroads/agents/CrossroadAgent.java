@@ -2,12 +2,22 @@ package xroads.agents;
 
 import jade.core.Agent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("serial")
 public class CrossroadAgent extends Agent {
 
 	private int gridPosition = -1;
 	private int gridWidth = -1;
 	private int gridHeight = -1;
+
+
+	/**
+	 * Pamatujeme si radeji jmena agentu nez jejich objekty
+	 */
+	public List<String> carQueue = new ArrayList<String>();
+
 
 
 	protected void setup() {
