@@ -13,6 +13,7 @@ import jade.core.Agent;
 @SuppressWarnings("serial")
 public class EndpointAgent extends Agent {
 
+	@Override
 	protected void setup() {
 		System.out.println("EndpointAgent " + getAID().getName() + " is ready");
 	}
