@@ -175,6 +175,15 @@ public class XroadsGui extends JFrame {
 		lblFree.setBounds(766, 80, 70, 14);
 		contentPane.add(lblFree);
 		
+		JButton btnNewCar = new JButton("New Car");
+		btnNewCar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainAgent.spawnCarsFromTo("endpoint-n-0", "endpoint-w-1", 1);
+			}
+		});
+		btnNewCar.setBounds(353, 7, 89, 23);
+		contentPane.add(btnNewCar);
+		
 		
 		this.setVisible(true);
 	}
