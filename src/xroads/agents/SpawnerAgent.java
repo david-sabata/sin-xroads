@@ -1,13 +1,17 @@
 package xroads.agents;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.lang.acl.ACLMessage;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
+import xroads.behaviours.QueueLengthInformBehaviour;
+import xroads.behaviours.QueueLengthListener;
 import xroads.behaviours.SpawnWorldBehaviour;
 import xroads.gui.XroadsGui;
 
@@ -37,6 +41,9 @@ public class SpawnerAgent extends Agent {
 		// vytvoreni kontejneru na auta, ktery si budeme pamatovat
 		Profile p = new ProfileImpl();
 		carAgentContainer = Runtime.instance().createAgentContainer(p);
+
+		// naslouchani na oznameni o delkach front
+		addBehaviour(new QueueLengthListener());
 	}
 
 	/**
@@ -84,6 +91,33 @@ public class SpawnerAgent extends Agent {
 		});
 	}
 
+
+	/**
+	 * Vyzada si od krizovatky informace o stavu jeji fronty
+	 * 
+	 * @param agentName jmeno krizovatkoveho agenta
+	 */
+	public void requestCrossroadQueueLength(final String agentName) {
+		addBehaviour(new OneShotBehaviour() {
+			@Override
+			public void action() {
+				// poslat dotaz
+				ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+				request.addReceiver(new AID(agentName, AID.ISLOCALNAME));
+				request.setContent(QueueLengthInformBehaviour.REQUEST_QUEUE_LENGTH);
+				myAgent.send(request);
+			}
+		});
+	}
+
+
+	/**
+	 * Metoda volana z behaviouru v pripade ze nektera z krizovatek
+	 * odpovedela na dotaz na delku fronty. Zde je prostor pro GUI reagovat.
+	 */
+	public void onQueueLengthUpdate(CrossroadAgent.QueueStatus s) {
+
+	}
 
 
 }
