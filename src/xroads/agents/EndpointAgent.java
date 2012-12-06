@@ -15,7 +15,7 @@ public class EndpointAgent extends Agent {
 
 	@Override
 	protected void setup() {
-		System.out.println("EndpointAgent " + getAID().getName() + " is ready");
+		//		System.out.println("EndpointAgent " + getAID().getName() + " is ready");
 	}
 
 }
