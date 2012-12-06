@@ -62,6 +62,8 @@ public class CrossroadAgent extends Agent {
 	 * Pole jsou indexovana konstantami NORTH, EAST, SOUTH, WEST
 	 */
 	public static class QueueStatus {
+		public String crossroadName;
+
 		public int actualLength[] = new int[4];
 		public int maximumLength[] = new int[4];
 	}
