@@ -40,8 +40,8 @@ public class QueueLengthInformBehaviour extends CyclicBehaviour {
 				String content = "";
 				for (int dir : Constants.DIRECTIONS) {
 					ArrayList<String> queue = xroad.carQueue.get(dir);
-					content += queue.size() + "/" + xroad.maxQueueLength;
-
+					// TODO content += queue.size() + "/" + xroad.maxQueueLength;
+					content += 7 + "/" + xroad.maxQueueLength;
 					if (dir != Constants.WEST)
 						content += "|";
 				}
