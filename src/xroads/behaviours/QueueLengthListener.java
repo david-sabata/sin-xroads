@@ -1,8 +1,12 @@
 package xroads.behaviours;
 
+
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+
+import java.util.regex.Pattern;
+
 import xroads.Constants;
 import xroads.agents.CrossroadAgent.QueueStatus;
 import xroads.agents.SpawnerAgent;
@@ -23,7 +27,7 @@ public class QueueLengthListener extends CyclicBehaviour {
 			SpawnerAgent agent = (SpawnerAgent) myAgent;
 
 			String subject = msg.getContent();
-			String dirs[] = subject.split("|");
+			String dirs[] = subject.split(Pattern.quote("|"));
 
 			if (dirs.length != 4) {
 				System.err.println("QueueLengthListener recieved INFORM in bad format [" + subject + "]");
@@ -35,7 +39,7 @@ public class QueueLengthListener extends CyclicBehaviour {
 
 			// pro kazdy smer
 			for (int dir : Constants.DIRECTIONS) {
-				String parts[] = dirs[dir].split("/");
+				String parts[] = dirs[dir].split(Pattern.quote("/"));
 
 				if (parts.length != 2) {
 					System.err.println("QueueLengthListener recieved INFORM in bad format [" + subject + "]");
@@ -54,6 +58,4 @@ public class QueueLengthListener extends CyclicBehaviour {
 			block();
 		}
 	}
-
-
 }

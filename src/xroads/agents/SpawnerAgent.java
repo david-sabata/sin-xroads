@@ -37,15 +37,15 @@ public class SpawnerAgent extends Agent {
 		System.out.println("Spawner " + getAID().getName() + " is ready");
 
 		gui = new XroadsGui(this);
-		
-		
+
+
 		// vytvoreni kontejneru na auta, ktery si budeme pamatovat
 		Profile p = new ProfileImpl();
 		carAgentContainer = Runtime.instance().createAgentContainer(p);
 
 		// naslouchani na oznameni o delkach front
 		addBehaviour(new QueueLengthListener());
-		
+
 	}
 
 	/**
@@ -60,10 +60,10 @@ public class SpawnerAgent extends Agent {
 		gridHeight = pGridHeight;
 
 		addBehaviour(new SpawnWorldBehaviour(gridWidth, gridHeight));
-		
+
 		// Cyklicka kontrola krizovatek
 		addBehaviour(new GuiRefreshBehaviour(this, 1000, gridWidth, gridHeight));
-		
+
 	}
 
 	/**
