@@ -84,11 +84,13 @@ public class XroadsGui extends JFrame {
 		panel.add(lblWidth);
 		
 		widthDimens = new JTextField();
+		widthDimens.setText("5");
 		widthDimens.setBounds(85, 31, 86, 20);
 		panel.add(widthDimens);
 		widthDimens.setColumns(10);
 		
 		heightDimens = new JTextField();
+		heightDimens.setText("5");
 		heightDimens.setBounds(85, 60, 86, 20);
 		panel.add(heightDimens);
 		heightDimens.setColumns(10);
