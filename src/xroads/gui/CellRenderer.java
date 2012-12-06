@@ -69,6 +69,7 @@ public class CellRenderer extends DefaultTableCellRenderer {
 				setBackground(Color.WHITE);
 			} else if ((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
 				// TODO set sth, what will change color while value is changing
+			
 				if(value == null) {
 					setBackground(Color.GREEN);
 				} else {

@@ -43,7 +43,7 @@ public class XroadsGui extends JFrame {
 	 */
 	public XroadsGui(final SpawnerAgent mainAgent) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 886, 655);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -110,32 +110,32 @@ public class XroadsGui extends JFrame {
 		city = new CityGenerator();
 		city.setBorder(new LineBorder(new Color(0, 0, 0)));
 		city.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		city.setBounds(5, 109, 751, 426);
+		city.setBounds(5, 109, 855, 496);
 		contentPane.add(city);
 		
 		table = new JTable();
 		table.setBackground(Color.GRAY);
-		table.setBounds(577, 29, 22, 22);
+		table.setBounds(712, 35, 22, 22);
 		contentPane.add(table);
 		
 		table_1 = new JTable();
 		table_1.setBackground(Color.GRAY);
-		table_1.setBounds(599, 29, 22, 22);
+		table_1.setBounds(734, 35, 22, 22);
 		contentPane.add(table_1);
 		
 		table_2 = new JTable();
 		table_2.setBackground(Color.GRAY);
-		table_2.setBounds(599, 50, 22, 22);
+		table_2.setBounds(734, 56, 22, 22);
 		contentPane.add(table_2);
 		
 		table_3 = new JTable();
 		table_3.setBackground(Color.GRAY);
-		table_3.setBounds(577, 50, 22, 22);
+		table_3.setBounds(712, 56, 22, 22);
 		contentPane.add(table_3);
 		
 		table_4 = new JTable();
 		table_4.setBackground(Color.RED);
-		table_4.setBounds(623, 29, 22, 22);
+		table_4.setBounds(758, 35, 22, 22);
 		contentPane.add(table_4);
 		
 		table_5 = new JTable();
@@ -146,32 +146,32 @@ public class XroadsGui extends JFrame {
 			}
 		));
 		table_5.setBackground(Color.ORANGE);
-		table_5.setBounds(577, 5, 22, 22);
+		table_5.setBounds(712, 11, 22, 22);
 		contentPane.add(table_5);
 		
 		table_6 = new JTable();
 		table_6.setBackground(Color.ORANGE);
-		table_6.setBounds(553, 50, 22, 22);
+		table_6.setBounds(688, 56, 22, 22);
 		contentPane.add(table_6);
 		
 		table_7 = new JTable();
 		table_7.setBackground(Color.GREEN);
-		table_7.setBounds(599, 74, 22, 22);
+		table_7.setBounds(734, 80, 22, 22);
 		contentPane.add(table_7);
 		
 		JLabel lblLegend = new JLabel("Legend of crossroad :");
 		lblLegend.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblLegend.setBounds(413, 5, 132, 14);
+		lblLegend.setBounds(585, 5, 117, 14);
 		contentPane.add(lblLegend);
 		
 		JLabel lblStuck = new JLabel("Stuck road");
 		lblStuck.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblStuck.setBounds(655, 29, 70, 14);
+		lblStuck.setBounds(790, 35, 70, 14);
 		contentPane.add(lblStuck);
 		
 		JLabel lblFree = new JLabel("Free road");
 		lblFree.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblFree.setBounds(631, 74, 70, 14);
+		lblFree.setBounds(766, 80, 70, 14);
 		contentPane.add(lblFree);
 		
 		
