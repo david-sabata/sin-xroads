@@ -13,7 +13,7 @@ import xroads.agents.CrossroadAgent;
  * Chovani krizovatky, ktere informuje tazatele o poctu aut ve 
  * sve fronte a o jeji maximalni delce.
  * Dotaz je typu AclMessage.REQUEST s obsahem QueueLengthInformBehaviour.REQUEST_QUEUE_LENGTH
- * Odpoved je typu AclMessage.INFORM s obsahem [aktualni delka]/[maximalni delka]
+ * Odpoved je typu AclMessage.INFORM s obsahem [aktualni delka N]/[maximalni delka N]|[aktualni delka S]/[maximalni delka S]|...
  */
 @SuppressWarnings("serial")
 public class QueueLengthInformBehaviour extends CyclicBehaviour {
