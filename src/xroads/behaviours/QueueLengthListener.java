@@ -31,6 +31,7 @@ public class QueueLengthListener extends CyclicBehaviour {
 			}
 
 			QueueStatus s = new QueueStatus();
+			s.crossroadName = msg.getSender().getLocalName();
 
 			// pro kazdy smer
 			for (int dir : Constants.DIRECTIONS) {
