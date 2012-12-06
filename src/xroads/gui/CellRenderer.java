@@ -12,13 +12,14 @@ import javax.swing.table.TableCellRenderer;
 public class CellRenderer extends DefaultTableCellRenderer {
 	private DefaultTableModel model;
 	private float max = 30f; 
-	
+
 	/**
 	 * Associate renderer with table model
 	 * @param model
 	 */
 	public  CellRenderer(DefaultTableModel model) {
 			this.model = model;
+			
 	}
 
 	@Override
@@ -28,19 +29,56 @@ public class CellRenderer extends DefaultTableCellRenderer {
 		//System.out.println("Cell: " + Integer.toString(row) + " : " + Integer.toString(column));
 		//System.out.println("Row: " + row);
 		
-		if(row % 3 == 0 && column % 3 == 0) {
-			//System.out.println("Row formated: " + row);
-			setBackground(Color.WHITE);
-		} else if ((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
-			// TODO set sth, what will change color while value is changing
-			if(value == null) {
-				setBackground(Color.GREEN);
+		// Borders
+		if (row == 0 ||  column == 0 || row == model.getRowCount() - 1 || column == model.getColumnCount() - 1) {
+			if((row == 0 && column == 0) || 
+					(row == 0 &&  column == model.getRowCount() - 1)  ||
+					(row == model.getRowCount() - 1 && column == 0) ||
+					(row == model.getRowCount() - 1 && column == model.getColumnCount() - 1)) {
+				setBackground(Color.WHITE);
 			} else {
-				setBackground(interpolateColorFromValue(Integer.parseInt((String)value)));
+				if(row > 0)
+					row -= 1;
+				if(column > 0) 
+					column -= 1;
+				
+				if((row == 0 || column == 0) && !(row == model.getRowCount() -2 || column == model.getColumnCount() - 2)) {
+					if ((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
+						setBackground(Color.BLUE);
+					} else {
+						setBackground(Color.WHITE);
+					}
+				} else  {
+					if((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
+						//System.out.println("Row formated: " + row);
+						setBackground(Color.WHITE);
+					} else {
+						setBackground(Color.BLUE);
+					}
+				}
 			}
 			
-		} else if (row % 3 != 0 && column % 3 != 0){
-			setBackground(Color.GRAY);
+		} 
+		
+		
+		 // Others
+		else {
+			row -= 1;
+			column -= 1;
+			if(row % 3 == 0 && column % 3 == 0) {
+				//System.out.println("Row formated: " + row);
+				setBackground(Color.WHITE);
+			} else if ((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
+				// TODO set sth, what will change color while value is changing
+				if(value == null) {
+					setBackground(Color.GREEN);
+				} else {
+					setBackground(interpolateColorFromValue(Integer.parseInt((String)value)));
+				}
+				
+			} else if (row % 3 != 0 && column % 3 != 0){
+				setBackground(Color.GRAY);
+			}
 		}
 	
 		return this;

@@ -23,12 +23,14 @@ public class CityGenerator extends JTable {
 		this.height = calculateWithRoads(height);
 
 		tableModel = new DefaultTableModel(this.width, this.height);
-						
+					
+		this.setModel(tableModel);
+		
 		// Add cross roads, roads, in out to grid
 		renderer = new CellRenderer(tableModel);
 		this.setDefaultRenderer(Object.class , renderer);
 		
-		this.setModel(tableModel);
+		
 		
 		// Resize table layout to size of city
 		//resizeTable();
@@ -41,7 +43,7 @@ public class CityGenerator extends JTable {
 	 * @return
 	 */
 	private int calculateWithRoads(int n) {
-		return (n * 2) + n + 1;
+		return (n * 2) + n + 3;
 	}
 	
 	
