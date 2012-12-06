@@ -36,7 +36,8 @@ public class SpawnerAgent extends Agent {
 		System.out.println("Spawner " + getAID().getName() + " is ready");
 
 		gui = new XroadsGui(this);
-
+		
+		
 		// vytvoreni kontejneru na auta, ktery si budeme pamatovat
 		Profile p = new ProfileImpl();
 		carAgentContainer = Runtime.instance().createAgentContainer(p);
@@ -57,6 +58,7 @@ public class SpawnerAgent extends Agent {
 		gridHeight = pGridHeight;
 
 		addBehaviour(new SpawnWorldBehaviour(gridWidth, gridHeight));
+		gui.updateCrossRoadAt(4, 4, "11/20");
 	}
 
 	/**
