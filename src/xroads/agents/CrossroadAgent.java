@@ -20,6 +20,7 @@ public class CrossroadAgent extends Agent {
 
 
 
+	@Override
 	protected void setup() {
 		Object args[] = getArguments();
 		if (args.length != 3) {
