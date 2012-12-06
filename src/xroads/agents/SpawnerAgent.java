@@ -1,6 +1,13 @@
 package xroads.agents;
 
 import jade.core.Agent;
+import jade.core.Profile;
+import jade.core.ProfileImpl;
+import jade.core.Runtime;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.wrapper.AgentContainer;
+import jade.wrapper.AgentController;
+import jade.wrapper.StaleProxyException;
 import xroads.behaviours.SpawnWorldBehaviour;
 import xroads.gui.XroadsGui;
 
@@ -12,13 +19,23 @@ public class SpawnerAgent extends Agent {
 	private XroadsGui gui;
 
 
+	private AgentContainer carAgentContainer;
+
+	/**
+	 * Kontejner na agenty nema size()
+	 */
+	private int carAgents = 0;
+
 
 	@Override
 	protected void setup() {
 		System.out.println("Spawner " + getAID().getName() + " is ready");
-		
+
 		gui = new XroadsGui(this);
-		
+
+		// vytvoreni kontejneru na auta, ktery si budeme pamatovat
+		Profile p = new ProfileImpl();
+		carAgentContainer = Runtime.instance().createAgentContainer(p);
 	}
 
 	/**
@@ -31,7 +48,7 @@ public class SpawnerAgent extends Agent {
 	public void spawnCrossroads(int pGridWidth, int pGridHeight) {
 		gridWidth = pGridWidth;
 		gridHeight = pGridHeight;
-		
+
 		addBehaviour(new SpawnWorldBehaviour(gridWidth, gridHeight));
 	}
 
@@ -45,10 +62,25 @@ public class SpawnerAgent extends Agent {
 	 * @param endpointToName
 	 * @param count
 	 */
-	public void spawnCarsFromTo(String endpointFromName, String endpointToName, int count) {
+	public void spawnCarsFromTo(final String endpointFromName, final String endpointToName, int count) {
+		addBehaviour(new OneShotBehaviour() {
 
+			@Override
+			public void action() {
+				String args[] = { endpointFromName, endpointToName };
+
+				try {
+					AgentController agent = carAgentContainer.createNewAgent("car-" + carAgents, CarAgent.class.getCanonicalName(), args);
+					agent.start();
+					carAgents++;
+				} catch (StaleProxyException e) {
+					System.err.println("Error creating car agents");
+					e.printStackTrace();
+				}
+			}
+
+		});
 	}
-
 
 
 
