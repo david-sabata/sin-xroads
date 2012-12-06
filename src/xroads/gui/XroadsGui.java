@@ -94,13 +94,10 @@ public class XroadsGui extends JFrame {
 		
 		city = new CityGenerator();
 		city.setBorder(new LineBorder(new Color(0, 0, 0)));
-		city.setBackground(UIManager.getColor("Panel.background"));
 		city.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		city.setRowSelectionAllowed(false);
-		city.setColumnSelectionAllowed(true);
-		city.setCellSelectionEnabled(true);
 		city.setBounds(5, 109, 751, 426);
 		contentPane.add(city);
+		
 		
 		this.setVisible(true);
 	}
