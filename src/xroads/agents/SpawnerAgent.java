@@ -10,6 +10,7 @@ import jade.lang.acl.ACLMessage;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
+import xroads.behaviours.GuiRefreshBehaviour;
 import xroads.behaviours.QueueLengthInformBehaviour;
 import xroads.behaviours.QueueLengthListener;
 import xroads.behaviours.SpawnWorldBehaviour;
@@ -44,6 +45,7 @@ public class SpawnerAgent extends Agent {
 
 		// naslouchani na oznameni o delkach front
 		addBehaviour(new QueueLengthListener());
+		
 	}
 
 	/**
@@ -58,7 +60,10 @@ public class SpawnerAgent extends Agent {
 		gridHeight = pGridHeight;
 
 		addBehaviour(new SpawnWorldBehaviour(gridWidth, gridHeight));
-		gui.updateCrossRoadAt(4, 4, "11/20");
+		
+		// Cyklicka kontrola krizovatek
+		addBehaviour(new GuiRefreshBehaviour(this, 1000, gridWidth, gridHeight));
+		
 	}
 
 	/**
@@ -116,7 +121,7 @@ public class SpawnerAgent extends Agent {
 	 * odpovedela na dotaz na delku fronty. Zde je prostor pro GUI reagovat.
 	 */
 	public void onQueueLengthUpdate(CrossroadAgent.QueueStatus s) {
-
+		gui.updateCrossRoadAt(s);
 	}
 
 

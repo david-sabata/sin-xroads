@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import xroads.agents.CrossroadAgent;
 import xroads.agents.SpawnerAgent;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -184,7 +185,7 @@ public class XroadsGui extends JFrame {
 	 * @param y
 	 * @param value
 	 */
-	public void updateCrossRoadAt(int x, int y, String value) {
-		city.updateCrossRoadAt(x, y, value);
+	public void updateCrossRoadAt(CrossroadAgent.QueueStatus s) {
+		city.updateCrossRoadAt(s);
 	}
 }

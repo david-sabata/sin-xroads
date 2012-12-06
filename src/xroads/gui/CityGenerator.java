@@ -5,10 +5,15 @@ import java.awt.Dimension;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import xroads.Constants;
+import xroads.agents.CrossroadAgent;
+
 @SuppressWarnings("serial")
 public class CityGenerator extends JTable {
 	private int width;
 	private int height;
+	private int gridWidth; //original 
+	private int gridHeight; //original
 	
 	private DefaultTableModel tableModel;
 	private CellRenderer renderer;
@@ -20,6 +25,9 @@ public class CityGenerator extends JTable {
 	 */
 	public void generateCity(int width, int height) {
 		if(width > 0 && height > 0) {
+			this.gridWidth = width;
+			this.gridHeight = height;
+			
 			this.width = calculateWithRoads(width);
 			this.height = calculateWithRoads(height);
 	
@@ -73,26 +81,36 @@ public class CityGenerator extends JTable {
 	 * @param x
 	 * @param y
 	 */
-	public void updateCrossRoadAt(int x, int y, String value) {
+	public void updateCrossRoadAt(CrossroadAgent.QueueStatus s) {	
+		String name = s.crossroadName;
+		int pos = Integer.parseInt((name.split("-"))[1]);
+		
+		int x = pos / gridWidth;
+		int y = pos % gridWidth;
 		x *= 3;
 		y *= 3;
 		
 		//WEST
 		CoordRoad west = coordCrossRoadWest(x, y);
+		String westValue = Integer.toString(s.actualLength[Constants.WEST]) + "/" + Integer.toString(s.maximumLength[Constants.WEST]);
 		
 		// EAST
 		CoordRoad east = coordCrossRoadEast(x, y);
+		String eastValue = Integer.toString(s.actualLength[Constants.EAST]) + "/" + Integer.toString(s.maximumLength[Constants.EAST]);
 		
 		// NORTH
 		CoordRoad north = coordCrossRoadNorth(x, y);
+		String northValue = Integer.toString(s.actualLength[Constants.NORTH]) + "/" + Integer.toString(s.maximumLength[Constants.NORTH]);
 		
 		// SOUTH
 		CoordRoad south = coordCrossRoadSouth(x, y);
+		String southValue = Integer.toString(s.actualLength[Constants.SOUTH]) + "/" + Integer.toString(s.maximumLength[Constants.SOUTH]);
 		
-		tableModel.setValueAt(value, west.getY(), west.getX());
-		tableModel.setValueAt(value, east.getY(), east.getX());
-		tableModel.setValueAt(value, north.getY(), north.getX());
-		tableModel.setValueAt(value, south.getY(), south.getX());
+		
+		tableModel.setValueAt(westValue, west.getY(), west.getX());
+		tableModel.setValueAt(eastValue, east.getY(), east.getX());
+		tableModel.setValueAt(northValue, north.getY(), north.getX());
+		tableModel.setValueAt(southValue, south.getY(), south.getX());
 	
 	}
 	
