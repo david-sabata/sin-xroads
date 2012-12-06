@@ -11,7 +11,6 @@ import javax.swing.table.TableCellRenderer;
 @SuppressWarnings("serial")
 public class CellRenderer extends DefaultTableCellRenderer {
 	private DefaultTableModel model;
-	private float max = 30f; 
 
 	/**
 	 * Associate renderer with table model
@@ -73,7 +72,14 @@ public class CellRenderer extends DefaultTableCellRenderer {
 				if(value == null) {
 					setBackground(Color.GREEN);
 				} else {
-					setBackground(interpolateColorFromValue(Integer.parseInt((String)value)));
+					String [] temp;
+					String act;
+					String max;
+					temp = ((String) value).split("/");
+					act = temp[0];
+					max = temp [1];
+					
+					setBackground(interpolateColorFromValue(Integer.parseInt(act), Integer.parseInt(max)));
 				}
 				
 			} else if (row % 3 != 0 && column % 3 != 0){
@@ -89,8 +95,8 @@ public class CellRenderer extends DefaultTableCellRenderer {
 	 * @param parseInt
 	 * @return
 	 */
-	private Color interpolateColorFromValue(int cars) {
-		float carsf = cars / max;
+	private Color interpolateColorFromValue(int actCars, int maxCars) {
+		float carsf = actCars / (float)maxCars;
 		
 		// Green color channel
 		float origGreenRChannel = Color.GREEN.getRed() / 255f;

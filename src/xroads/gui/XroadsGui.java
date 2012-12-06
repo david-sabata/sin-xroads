@@ -21,6 +21,7 @@ import javax.swing.ListSelectionModel;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Font;
 
 public class XroadsGui extends JFrame {
 
@@ -54,10 +55,12 @@ public class XroadsGui extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblHeight = new JLabel("Height:");
+		lblHeight.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblHeight.setBounds(28, 63, 35, 14);
 		panel.add(lblHeight);
 		
 		JButton btnGenerate = new JButton("Generate");
+		btnGenerate.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		btnGenerate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -75,6 +78,7 @@ public class XroadsGui extends JFrame {
 		panel.add(btnGenerate);
 		
 		JLabel lblWidth = new JLabel("Width:");
+		lblWidth.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblWidth.setBounds(28, 34, 32, 14);
 		panel.add(lblWidth);
 		
@@ -89,10 +93,12 @@ public class XroadsGui extends JFrame {
 		heightDimens.setColumns(10);
 		
 		JLabel lblCityDimensions = new JLabel("Dimensions of city :");
+		lblCityDimensions.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblCityDimensions.setBounds(28, 9, 106, 14);
 		panel.add(lblCityDimensions);
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		btnClear.setBounds(211, 30, 77, 23);
 		btnClear.addActionListener(new ActionListener() {
 			@Override
@@ -154,18 +160,31 @@ public class XroadsGui extends JFrame {
 		contentPane.add(table_7);
 		
 		JLabel lblLegend = new JLabel("Legend of crossroad :");
+		lblLegend.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblLegend.setBounds(413, 5, 132, 14);
 		contentPane.add(lblLegend);
 		
 		JLabel lblStuck = new JLabel("Stuck road");
+		lblStuck.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblStuck.setBounds(655, 29, 70, 14);
 		contentPane.add(lblStuck);
 		
 		JLabel lblFree = new JLabel("Free road");
+		lblFree.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblFree.setBounds(631, 74, 70, 14);
 		contentPane.add(lblFree);
 		
 		
 		this.setVisible(true);
+	}
+	
+	/**
+	 * Update crossroad in the city
+	 * @param x
+	 * @param y
+	 * @param value
+	 */
+	public void updateCrossRoadAt(int x, int y, String value) {
+		city.updateCrossRoadAt(x, y, value);
 	}
 }
