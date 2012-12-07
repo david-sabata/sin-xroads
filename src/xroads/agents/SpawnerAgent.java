@@ -10,9 +10,10 @@ import jade.lang.acl.ACLMessage;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
+import xroads.CrossroadStatus;
 import xroads.behaviours.GuiRefreshBehaviour;
-import xroads.behaviours.QueueLengthInformBehaviour;
-import xroads.behaviours.QueueLengthListener;
+import xroads.behaviours.CrossroadStatusInformant;
+import xroads.behaviours.CrossroadStatusListener;
 import xroads.behaviours.SpawnWorldBehaviour;
 import xroads.gui.XroadsGui;
 
@@ -44,7 +45,7 @@ public class SpawnerAgent extends Agent {
 		carAgentContainer = Runtime.instance().createAgentContainer(p);
 
 		// naslouchani na oznameni o delkach front
-		addBehaviour(new QueueLengthListener());
+		addBehaviour(new CrossroadStatusListener());
 
 	}
 
@@ -109,7 +110,7 @@ public class SpawnerAgent extends Agent {
 				// poslat dotaz
 				ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
 				request.addReceiver(new AID(agentName, AID.ISLOCALNAME));
-				request.setContent(QueueLengthInformBehaviour.REQUEST_QUEUE_LENGTH);
+				request.setContent(CrossroadStatusInformant.REQUEST_QUEUE_LENGTH);
 				myAgent.send(request);
 			}
 		});
@@ -120,7 +121,7 @@ public class SpawnerAgent extends Agent {
 	 * Metoda volana z behaviouru v pripade ze nektera z krizovatek
 	 * odpovedela na dotaz na delku fronty. Zde je prostor pro GUI reagovat.
 	 */
-	public void onQueueLengthUpdate(CrossroadAgent.QueueStatus s) {
+	public void onCrossroadStatusUpdate(CrossroadStatus s) {
 		gui.updateCrossRoadAt(s);
 	}
 

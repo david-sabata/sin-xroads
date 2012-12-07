@@ -1,11 +1,10 @@
 package xroads.agents;
 
 import jade.core.Agent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import xroads.behaviours.QueueLengthInformBehaviour;
+import xroads.Constants;
+import xroads.CrossroadStatus;
+import xroads.behaviours.CrossroadLightsBehaviour;
+import xroads.behaviours.CrossroadStatusInformant;
 
 @SuppressWarnings("serial")
 public class CrossroadAgent extends Agent {
@@ -19,13 +18,7 @@ public class CrossroadAgent extends Agent {
 	/**
 	 * Pamatujeme si radeji jmena agentu nez jejich objekty
 	 */
-	public List<ArrayList<String>> carQueue = new ArrayList<ArrayList<String>>();
-
-	/**
-	 * Maximalni pocet aut stojici u teto krizovatky
-	 */
-	public int maxQueueLength = 10;
-
+	private CrossroadStatus crossroadStatus = new CrossroadStatus();
 
 
 
@@ -37,35 +30,33 @@ public class CrossroadAgent extends Agent {
 			doDelete();
 		}
 
-		// pripravit objekty pro fronty
-		for (int i = 0; i < 4; i++) {
-			ArrayList<String> l = new ArrayList<String>();
-			carQueue.add(l);
+		// inicializace krizovatky
+		for (int dir : Constants.DIRECTIONS) {
+			crossroadStatus.actualLength[dir] = 0;
+			crossroadStatus.maximumLength[dir] = 10;
+			crossroadStatus.semaphore[dir] = Constants.ORANGE;
 		}
+
+		crossroadStatus.name = getAID().getLocalName();
 
 		gridWidth = Integer.parseInt(args[0].toString());
 		gridHeight = Integer.parseInt(args[1].toString());
 		gridPosition = Integer.parseInt(args[2].toString());
 
-		//		System.out.println("CrossroadAgent " + getAID().getName() + " is ready on grid " + gridWidth + "x" + gridHeight + " @ " + gridPosition);
 
 		// informuje o delce fronty
-		addBehaviour(new QueueLengthInformBehaviour());
+		addBehaviour(new CrossroadStatusInformant());
+
+		// prepina semafory
+		addBehaviour(new CrossroadLightsBehaviour());
 	}
 
 
-
-
-
 	/**
-	 * Prenoska pro informaci o stavu fronty na krizovatce.
-	 * Pole jsou indexovana konstantami NORTH, EAST, SOUTH, WEST
+	 * Vraci objekt reprezentujici stav krizovatky
 	 */
-	public static class QueueStatus {
-		public String crossroadName;
-
-		public int actualLength[] = new int[4];
-		public int maximumLength[] = new int[4];
+	public CrossroadStatus getStatus() {
+		return crossroadStatus;
 	}
 
 
