@@ -1,5 +1,6 @@
 package xroads.agents;
 
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.Profile;
@@ -10,8 +11,12 @@ import jade.lang.acl.ACLMessage;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
+
+import java.util.regex.Pattern;
+
+import xroads.Constants;
 import xroads.CrossroadStatus;
-import xroads.behaviours.CrossroadStatusInformant;
+import xroads.World;
 import xroads.behaviours.CrossroadStatusListener;
 import xroads.behaviours.GuiRefreshBehaviour;
 import xroads.behaviours.SpawnWorldBehaviour;
@@ -20,8 +25,6 @@ import xroads.gui.XroadsGui;
 @SuppressWarnings("serial")
 public class SpawnerAgent extends Agent {
 
-	private int gridWidth = 3;
-	private int gridHeight = 3;
 	private XroadsGui gui;
 
 
@@ -39,15 +42,11 @@ public class SpawnerAgent extends Agent {
 
 		gui = new XroadsGui(this);
 
-
 		// vytvoreni kontejneru na auta, ktery si budeme pamatovat
 		Profile p = new ProfileImpl();
 		carAgentContainer = Runtime.instance().createAgentContainer(p);
-
-		// naslouchani na oznameni o delkach front
-		addBehaviour(new CrossroadStatusListener());
-
 	}
+
 
 	/**
 	 * Nastavuje velikost mesta
@@ -57,15 +56,16 @@ public class SpawnerAgent extends Agent {
 	 * @param pGridHeight
 	 */
 	public void spawnCrossroads(int pGridWidth, int pGridHeight) {
-		gridWidth = pGridWidth;
-		gridHeight = pGridHeight;
+		World.setGridSize(pGridWidth, pGridHeight);
 
-		addBehaviour(new SpawnWorldBehaviour(gridWidth, gridHeight));
+		addBehaviour(new SpawnWorldBehaviour(pGridWidth, pGridHeight));
 
 		// Cyklicka kontrola krizovatek
-		addBehaviour(new GuiRefreshBehaviour(this, 1000, gridWidth, gridHeight));
-
+		addBehaviour(new GuiRefreshBehaviour(this, 1000, pGridWidth, pGridHeight));
 	}
+
+
+
 
 	/**
 	 * Vpousti do systemu auta smerujici z jedne koncovky do jine. Obe koncovky
@@ -84,10 +84,42 @@ public class SpawnerAgent extends Agent {
 			public void action() {
 				String args[] = { endpointFromName, endpointToName };
 
+				// zjistit odkud auto do krizovatky (resp. koncovky) prijizdi
+				int dir = -1;
+				String parts[] = endpointFromName.split(Pattern.quote("-"));
+				switch (parts[1]) {
+					case "n":
+						dir = Constants.NORTH;
+						break;
+					case "s":
+						dir = Constants.SOUTH;
+						break;
+					case "e":
+						dir = Constants.EAST;
+						break;
+					case "w":
+						dir = Constants.WEST;
+						break;
+				}
+				final int incomingDir = dir;
+
+				// spawn
 				try {
 					AgentController agent = carAgentContainer.createNewAgent("car-" + carAgents, CarAgent.class.getCanonicalName(), args);
 					agent.start();
 					carAgents++;
+
+					// odeslat vstupni koncovce info o spawnu auta
+					addBehaviour(new OneShotBehaviour() {
+						@Override
+						public void action() {
+							ACLMessage request = new ACLMessage(ACLMessage.PROPOSE);
+							request.addReceiver(new AID(endpointFromName, AID.ISLOCALNAME));
+							request.setContent(String.valueOf(incomingDir));
+							myAgent.send(request);
+						}
+					});
+
 				} catch (StaleProxyException e) {
 					System.err.println("Error creating car agents");
 					e.printStackTrace();
@@ -97,33 +129,21 @@ public class SpawnerAgent extends Agent {
 		});
 	}
 
-
 	/**
-	 * Vyzada si od krizovatky informace o stavu jeji fronty
+	 * Vyzada si od krizovatky informace o jejim stavu
 	 * 
 	 * @param agentName jmeno krizovatkoveho agenta
 	 */
-	public void requestCrossroadQueueLength(final String agentName) {
-		addBehaviour(new OneShotBehaviour() {
-			@Override
-			public void action() {
-				// poslat dotaz
-				ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-				request.addReceiver(new AID(agentName, AID.ISLOCALNAME));
-				request.setContent(CrossroadStatusInformant.REQUEST_QUEUE_LENGTH);
-				myAgent.send(request);
-			}
-		});
+	public void requestCrossroadStatus(final String agentName) {
+		addBehaviour(new CrossroadStatusListener(agentName));
 	}
 
 
 	/**
-	 * Metoda volana z behaviouru v pripade ze nektera z krizovatek
-	 * odpovedela na dotaz na delku fronty. Zde je prostor pro GUI reagovat.
+	 * Dostali jsme informaci o stavu krizovatky, predame do GUI
 	 */
 	public void onCrossroadStatusUpdate(CrossroadStatus s) {
+		System.out.println("Got xroad status");
 		gui.updateCrossRoadAt(s);
 	}
-
-
 }

@@ -2,6 +2,7 @@ package xroads;
 
 import java.util.regex.Pattern;
 
+
 /**
  * Staticka trida (fuj) drzici informace o aktualnim svete
  * (mrizce), poskytujici moznost vzajemneho prevodu souradnic 
@@ -84,13 +85,13 @@ public class World {
 	}
 
 
-
 	/**
-	 * Pomucka pro uchovani souradnice ve svete
+	 * Zjistuje zda zadane jmeno agenta odpovida nektere koncovce
 	 */
-	public static class Position {
-		public int x;
-		public int y;
+	public boolean isAgentEndpoint(String name) {
+		String parts[] = name.split(Pattern.quote("-"));
+
+		return (parts.length == 3 && parts[0].equals("endpoint"));
 	}
 
 }

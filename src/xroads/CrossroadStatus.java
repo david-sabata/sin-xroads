@@ -7,18 +7,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import xroads.World.Position;
-
 /**
  * Prenoska pro informaci o stavu fronty na krizovatce.
- * Pole jsou indexovana konstantami NORTH, EAST, SOUTH, WEST
+ * Stavy jsou pro kazdy smer zvlast, indexovano NORTH, EAST, SOUTH, WEST
  */
 public class CrossroadStatus implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1685604929400573005L;
+	private static final long serialVersionUID = 1603663560954925848L;
+
 
 	/**
 	 * Jmeno krizovatkoveho agenta
@@ -31,19 +30,10 @@ public class CrossroadStatus implements Serializable {
 	public Position position;
 
 	/**
-	 * Aktualni delky front
+	 * Stavy pro kazdy smer zvlast
 	 */
-	public int actualLength[] = new int[4];
+	public DirectionStatus directions[] = new DirectionStatus[4];
 
-	/**
-	 * Maximalni delky front
-	 */
-	public int maximumLength[] = new int[4];
-
-	/**
-	 * Stavy semaforu (konstanty RED, ORANGE, GREEN)
-	 */
-	public int semaphore[] = new int[4];
 
 
 

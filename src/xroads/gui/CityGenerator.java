@@ -85,46 +85,49 @@ public class CityGenerator extends JTable {
 	 */
 	public void updateCrossRoadAt(CrossroadStatus s) {
 		String name = s.name;
-		int pos = Integer.parseInt((name.split("-"))[1]);
 
-		int x = pos / gridWidth;
-		int y = pos % gridWidth;
+		int x = s.position.x;
+		int y = s.position.y;
+
 		x *= 3;
 		y *= 3;
 
-		for( int i = 0; i < 4; i++) {
+		for (int dir : Constants.DIRECTIONS) {
 			CoordRoad coordRoad = null;
 			CoordRoad coordSem = null;
-			switch(i) {
-				case Constants.WEST: 
+			switch (dir) {
+				case Constants.WEST:
 					coordRoad = coordCrossRoadWest(x, y);
 					coordSem = coordCrossSemWest(x, y);
 					break;
-				case Constants.EAST: 
+				case Constants.EAST:
 					coordRoad = coordCrossRoadEast(x, y);
 					coordSem = coordCrossSemEast(x, y);
 					break;
-				case Constants.NORTH: 
+				case Constants.NORTH:
 					coordRoad = coordCrossRoadNorth(x, y);
 					coordSem = coordCrossSemNorth(x, y);
 					break;
-				case Constants.SOUTH: 
+				case Constants.SOUTH:
 					coordRoad = coordCrossRoadSouth(x, y);
 					coordSem = coordCrossSemSouth(x, y);
-					
+
 					break;
 				default:
 					break;
-				
+
 			}
-			
-			String valueRoadString = Integer.toString(s.actualLength[i]) + "/" + Integer.toString(s.maximumLength[i]);
-			String valueSemString = Integer.toString(s.semaphore[i]);
-			
-			if(coordRoad != null) {
+
+			int actualLenght = s.directions[dir].carQueue.size();
+			int maxLength = s.directions[dir].maximumLength;
+
+			String valueRoadString = actualLenght + "/" + maxLength;
+			String valueSemString = Integer.toString(s.directions[dir].semaphore);
+
+			if (coordRoad != null) {
 				tableModel.setValueAt(valueRoadString, coordRoad.getY(), coordRoad.getX());
 			}
-			if(coordSem != null) {
+			if (coordSem != null) {
 				tableModel.setValueAt(valueSemString, coordSem.getY(), coordSem.getX());
 			}
 		}
@@ -145,7 +148,7 @@ public class CityGenerator extends JTable {
 		return coordCrossRoadEast(x - 1, y);
 	}
 
-	private CoordRoad coordCrossSemWest(int x, int y) {	
+	private CoordRoad coordCrossSemWest(int x, int y) {
 		return coordCrossRoadWest(x + 1, y);
 	}
 

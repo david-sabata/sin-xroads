@@ -1,47 +1,55 @@
 package xroads.agents;
 
+import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.lang.acl.ACLMessage;
 import xroads.Constants;
 import xroads.CrossroadStatus;
+import xroads.DirectionStatus;
+import xroads.Position;
+import xroads.World;
+import xroads.behaviours.AcceptCarBehaviour;
 import xroads.behaviours.CrossroadLightsBehaviour;
 import xroads.behaviours.CrossroadStatusInformant;
+import xroads.behaviours.ReleaseCarBehaviour;
 
+/**
+ * Krizovatka
+ * 
+ * Samostatne prepina svetla, nejdrive ve vychozim intervalu, 
+ * pozdeji si casy prepnuti reguluje sama (TODO).
+ * 
+ * Reaguje na dotazy (zprava typu REQUEST s contentem REQUEST_QUEUE_LENGTH) 
+ * na stav - vraci zaplnenost svych prijezdovych cest a stavy semaforu.
+ * 
+ * Reaguje na snahy aut zaradit se (zprava typu PROPOSE s contentem oznacujicim 
+ * smer ze ktereho auto prijizdi), auta zarazuje do front a o zarazeni je 
+ * informuje zpet (ACCEPT_PROPOSAL | REJECT_PROPOSAL).
+ */
 @SuppressWarnings("serial")
 public class CrossroadAgent extends Agent {
 
-
-	private int gridPosition = -1;
-	private int gridWidth = -1;
-	private int gridHeight = -1;
+	protected Position gridPosition;
 
 
 	/**
 	 * Pamatujeme si radeji jmena agentu nez jejich objekty
 	 */
-	private CrossroadStatus crossroadStatus = new CrossroadStatus();
+	protected CrossroadStatus crossroadStatus = new CrossroadStatus();
 
 
 
 	@Override
 	protected void setup() {
-		Object args[] = getArguments();
-		if (args.length != 3) {
-			System.err.println("Unexpected arguments for CrossroadAgent. Call with <gridWidth> <gridHeight> <position>");
-			doDelete();
-		}
+		gridPosition = World.getAgentCoords(getLocalName());
 
 		// inicializace krizovatky
-		for (int dir : Constants.DIRECTIONS) {
-			crossroadStatus.actualLength[dir] = 0;
-			crossroadStatus.maximumLength[dir] = 10;
-			crossroadStatus.semaphore[dir] = Constants.ORANGE;
-		}
-
 		crossroadStatus.name = getAID().getLocalName();
-
-		gridWidth = Integer.parseInt(args[0].toString());
-		gridHeight = Integer.parseInt(args[1].toString());
-		gridPosition = Integer.parseInt(args[2].toString());
+		crossroadStatus.position = gridPosition;
+		for (int dir : Constants.DIRECTIONS) {
+			crossroadStatus.directions[dir] = new DirectionStatus();
+		}
 
 
 		// informuje o delce fronty
@@ -50,8 +58,13 @@ public class CrossroadAgent extends Agent {
 		// prepina semafory
 		long initialSwitchTimeout = 3 * Constants.TIMESTEP;
 		addBehaviour(new CrossroadLightsBehaviour(this, initialSwitchTimeout));
-	}
 
+		// radi prijizdejici auta do front
+		addBehaviour(new AcceptCarBehaviour());
+
+		// auta opousteji krizovatku
+		addBehaviour(new ReleaseCarBehaviour());
+	}
 
 	/**
 	 * Vraci objekt reprezentujici stav krizovatky
@@ -61,7 +74,56 @@ public class CrossroadAgent extends Agent {
 	}
 
 
+	/**
+	 * Zaradi do fronty z daneho smeru auto.
+	 * Pokud se auto do fronty nevleze vraci false
+	 */
+	public boolean enqueueCar(int direction, String agentName) {
+		DirectionStatus dirStatus = crossroadStatus.directions[direction];
 
+		if (dirStatus.carQueue.size() < dirStatus.maximumLength) {
+			dirStatus.carQueue.add(agentName);
 
+			// pokud je auto ve fronte jedine, rovnou mu zasleme info ze je prvni
+			final String carAgent = dirStatus.carQueue.get(0);
+
+			addBehaviour(new OneShotBehaviour() {
+				@Override
+				public void action() {
+					ACLMessage request = new ACLMessage(ACLMessage.INFORM);
+					request.addReceiver(new AID(carAgent, AID.ISLOCALNAME));
+					myAgent.send(request);
+				}
+			});
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Odebere z fronty daneho smeru auto a pokud jsou ve fronte dalsi 
+	 * auta, posle prvnimu z nich oznameni ze je na rade
+	 */
+	public void unqueueCar(int direction, String agentName) {
+		DirectionStatus dirStatus = crossroadStatus.directions[direction];
+		dirStatus.carQueue.remove(agentName);
+
+		// pokud je ve fronte dalsi auto, informujeme ho ze je prvni
+		if (dirStatus.carQueue.size() > 0) {
+			final String carAgent = dirStatus.carQueue.get(0);
+
+			addBehaviour(new OneShotBehaviour() {
+				@Override
+				public void action() {
+					ACLMessage request = new ACLMessage(ACLMessage.INFORM);
+					request.addReceiver(new AID(carAgent, AID.ISLOCALNAME));
+					myAgent.send(request);
+				}
+			});
+
+		}
+	}
 
 }

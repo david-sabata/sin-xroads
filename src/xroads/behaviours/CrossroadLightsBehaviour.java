@@ -4,6 +4,7 @@ import jade.core.Agent;
 import jade.core.behaviours.WakerBehaviour;
 import xroads.Constants;
 import xroads.CrossroadStatus;
+import xroads.DirectionStatus;
 import xroads.agents.CrossroadAgent;
 
 /**
@@ -27,18 +28,22 @@ public class CrossroadLightsBehaviour extends WakerBehaviour {
 	public void onWake() {
 		CrossroadAgent xroad = (CrossroadAgent) myAgent;
 		CrossroadStatus status = xroad.getStatus();
-		int semaphores[] = status.semaphore;
 
-		if (semaphores[Constants.NORTH] == Constants.GREEN && semaphores[Constants.SOUTH] == Constants.GREEN) {
-			semaphores[Constants.NORTH] = Constants.RED;
-			semaphores[Constants.SOUTH] = Constants.RED;
-			semaphores[Constants.EAST] = Constants.GREEN;
-			semaphores[Constants.WEST] = Constants.GREEN;
+		DirectionStatus north = status.directions[Constants.NORTH];
+		DirectionStatus south = status.directions[Constants.SOUTH];
+		DirectionStatus east = status.directions[Constants.EAST];
+		DirectionStatus west = status.directions[Constants.WEST];
+
+		if (north.semaphore == Constants.GREEN && south.semaphore == Constants.GREEN) {
+			north.semaphore = Constants.RED;
+			south.semaphore = Constants.RED;
+			east.semaphore = Constants.GREEN;
+			west.semaphore = Constants.GREEN;
 		} else {
-			semaphores[Constants.NORTH] = Constants.GREEN;
-			semaphores[Constants.SOUTH] = Constants.GREEN;
-			semaphores[Constants.EAST] = Constants.RED;
-			semaphores[Constants.WEST] = Constants.RED;
+			north.semaphore = Constants.GREEN;
+			south.semaphore = Constants.GREEN;
+			east.semaphore = Constants.RED;
+			west.semaphore = Constants.RED;
 		}
 
 		// znovu spustit za dany cas
