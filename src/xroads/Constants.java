@@ -9,4 +9,10 @@ public interface Constants {
 
 	public static final int[] DIRECTIONS = { NORTH, SOUTH, EAST, WEST };
 
+
+
+	public static final int RED = 0;
+	public static final int ORANGE = 1;
+	public static final int GREEN = 2;
+
 }

@@ -16,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import xroads.agents.CrossroadAgent;
+import xroads.CrossroadStatus;
 import xroads.agents.SpawnerAgent;
 
 public class XroadsGui extends JFrame {
@@ -186,7 +186,7 @@ public class XroadsGui extends JFrame {
 	 * @param y
 	 * @param value
 	 */
-	public void updateCrossRoadAt(CrossroadAgent.QueueStatus s) {
+	public void updateCrossRoadAt(CrossroadStatus s) {
 		city.updateCrossRoadAt(s);
 	}
 }
