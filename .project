@@ -14,4 +14,16 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>images/crossroad_green.png</name>
+			<type>1</type>
+			<location>C:/Projects/Sin-xroads/images/crossroad_green.png</location>
+		</link>
+		<link>
+			<name>images/crossroad_red.png</name>
+			<type>1</type>
+			<location>C:/Projects/Sin-xroads/images/crossroad_red.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>

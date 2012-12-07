@@ -3,6 +3,7 @@ package xroads.gui;
 import java.awt.Color;
 import java.awt.Component;
 
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +36,7 @@ public class CellRenderer extends DefaultTableCellRenderer {
 					(row == model.getRowCount() - 1 && column == 0) ||
 					(row == model.getRowCount() - 1 && column == model.getColumnCount() - 1)) {
 				setBackground(Color.WHITE);
+				setIcon(null);
 			} else {
 				if(row > 0)
 					row -= 1;
@@ -42,12 +44,15 @@ public class CellRenderer extends DefaultTableCellRenderer {
 					column -= 1;
 				
 				if((row == 0 || column == 0) && !(row == model.getRowCount() -2 || column == model.getColumnCount() - 2)) {
+					setIcon(null);
 					if ((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
 						setBackground(Color.BLUE);
 					} else {
 						setBackground(Color.WHITE);
+						
 					}
 				} else  {
+					setIcon(null);
 					if((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
 						//System.out.println("Row formated: " + row);
 						setBackground(Color.WHITE);
@@ -66,10 +71,11 @@ public class CellRenderer extends DefaultTableCellRenderer {
 			column -= 1;
 			if(row % 3 == 0 && column % 3 == 0) {
 				//System.out.println("Row formated: " + row);
+				setIcon(null);
 				setBackground(Color.WHITE);
 			} else if ((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
 				// TODO set sth, what will change color while value is changing
-			
+				setIcon(null);
 				if(value == null) {
 					setBackground(Color.GREEN);
 				} else {
@@ -84,6 +90,8 @@ public class CellRenderer extends DefaultTableCellRenderer {
 				}
 				
 			} else if (row % 3 != 0 && column % 3 != 0){
+				setIcon(new ImageIcon("images/crossroad_green.gif"));
+			
 				setBackground(Color.GRAY);
 			}
 		}
