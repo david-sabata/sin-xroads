@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import xroads.World.Position;
+
 /**
  * Prenoska pro informaci o stavu fronty na krizovatce.
  * Pole jsou indexovana konstantami NORTH, EAST, SOUTH, WEST
@@ -22,6 +24,11 @@ public class CrossroadStatus implements Serializable {
 	 * Jmeno krizovatkoveho agenta
 	 */
 	public String name;
+
+	/**
+	 * Souradnice v mrizce
+	 */
+	public Position position;
 
 	/**
 	 * Aktualni delky front

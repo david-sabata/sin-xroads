@@ -51,8 +51,7 @@ public class SpawnWorldBehaviour extends OneShotBehaviour {
 		AgentContainer container = Runtime.instance().createAgentContainer(p);
 
 		for (int i = 0; i < gridWidth * gridHeight; i++) {
-			Object args[] = { gridWidth, gridHeight, i };
-			AgentController agent = container.createNewAgent("xroad-" + i, CrossroadAgent.class.getCanonicalName(), args);
+			AgentController agent = container.createNewAgent("xroad-" + i, CrossroadAgent.class.getCanonicalName(), null);
 			agent.start();
 		}
 	}
