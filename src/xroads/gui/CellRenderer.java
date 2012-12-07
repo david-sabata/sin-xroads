@@ -92,18 +92,23 @@ public class CellRenderer extends DefaultTableCellRenderer {
 				}
 				
 			} else if (row % 3 != 0 && column % 3 != 0){
-				int sem = Integer.parseInt((String) value);
-				
-				switch(sem) {
-					case Constants.GREEN: 
-						setIcon(new ImageIcon("images/crossroad_green.gif"));
-						break;
-					case Constants.RED: 
-						setIcon(new ImageIcon("images/crossroad_red.gif"));
-						break;
-					case Constants.ORANGE: 
-						setIcon(new ImageIcon("images/crossroad_orange.gif"));
-						break;
+				if(value != null) {
+					int sem = Integer.parseInt((String) value);		
+					switch(sem) {
+						case Constants.GREEN: 
+							setIcon(new ImageIcon("images/crossroad_green.gif"));
+							break;
+						case Constants.RED: 
+							setIcon(new ImageIcon("images/crossroad_red.gif"));
+							break;
+						case Constants.ORANGE: 
+							setIcon(new ImageIcon("images/crossroad_orange.gif"));
+							break;
+						default:
+							setBackground(Color.GRAY);	
+							break;
+							
+					} 
 				}
 				
 				setBackground(Color.GRAY);
