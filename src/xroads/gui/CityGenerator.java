@@ -13,6 +13,8 @@ public class CityGenerator extends JTable {
 	private int width;
 	private int height;
 	private int gridWidth; //original 
+	@SuppressWarnings("unused")
+	// It will be maybe important in the future
 	private int gridHeight; //original
 
 	private DefaultTableModel tableModel;
@@ -91,8 +93,6 @@ public class CityGenerator extends JTable {
 		y *= 3;
 
 		for( int i = 0; i < 4; i++) {
-			int valueRoad = s.actualLength[i];
-			int valueSem = s.semaphore[i];
 			CoordRoad coordRoad = null;
 			CoordRoad coordSem = null;
 			switch(i) {

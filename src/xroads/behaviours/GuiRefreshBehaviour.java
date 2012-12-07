@@ -1,12 +1,11 @@
 package xroads.behaviours;
 
 import java.util.ArrayList;
-
-import xroads.agents.CrossroadAgent;
 import xroads.agents.SpawnerAgent;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 
+@SuppressWarnings("serial")
 public class GuiRefreshBehaviour extends TickerBehaviour{
 	private SpawnerAgent spawner;
 	

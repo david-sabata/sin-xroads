@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import xroads.Constants;
 

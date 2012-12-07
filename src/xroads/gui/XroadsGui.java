@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import xroads.CrossroadStatus;
 import xroads.agents.SpawnerAgent;
 
+@SuppressWarnings("serial")
 public class XroadsGui extends JFrame {
 
 	private JPanel contentPane;
