@@ -48,7 +48,8 @@ public class CrossroadAgent extends Agent {
 		addBehaviour(new CrossroadStatusInformant());
 
 		// prepina semafory
-		addBehaviour(new CrossroadLightsBehaviour());
+		long initialSwitchTimeout = 3 * Constants.TIMESTEP;
+		addBehaviour(new CrossroadLightsBehaviour(this, initialSwitchTimeout));
 	}
 
 

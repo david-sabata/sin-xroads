@@ -1,5 +1,6 @@
 package xroads;
 
+
 public interface Constants {
 
 	public static final int NORTH = 0;
@@ -15,4 +16,6 @@ public interface Constants {
 	public static final int ORANGE = 1;
 	public static final int GREEN = 2;
 
+
+	public static final int TIMESTEP = 1000; // 1 sekunda
 }

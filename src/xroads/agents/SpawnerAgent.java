@@ -11,9 +11,9 @@ import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import xroads.CrossroadStatus;
-import xroads.behaviours.GuiRefreshBehaviour;
 import xroads.behaviours.CrossroadStatusInformant;
 import xroads.behaviours.CrossroadStatusListener;
+import xroads.behaviours.GuiRefreshBehaviour;
 import xroads.behaviours.SpawnWorldBehaviour;
 import xroads.gui.XroadsGui;
 
