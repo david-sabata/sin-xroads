@@ -90,28 +90,63 @@ public class CityGenerator extends JTable {
 		x *= 3;
 		y *= 3;
 
-		//WEST
-		CoordRoad west = coordCrossRoadWest(x, y);
-		String westValue = Integer.toString(s.actualLength[Constants.WEST]) + "/" + Integer.toString(s.maximumLength[Constants.WEST]);
+		for( int i = 0; i < 4; i++) {
+			int valueRoad = s.actualLength[i];
+			int valueSem = s.semaphore[i];
+			CoordRoad coordRoad = null;
+			CoordRoad coordSem = null;
+			switch(i) {
+				case Constants.WEST: 
+					coordRoad = coordCrossRoadWest(x, y);
+					coordSem = coordCrossSemWest(x, y);
+					break;
+				case Constants.EAST: 
+					coordRoad = coordCrossRoadEast(x, y);
+					coordSem = coordCrossSemEast(x, y);
+					break;
+				case Constants.NORTH: 
+					coordRoad = coordCrossRoadNorth(x, y);
+					coordSem = coordCrossSemNorth(x, y);
+					break;
+				case Constants.SOUTH: 
+					coordRoad = coordCrossRoadSouth(x, y);
+					coordSem = coordCrossSemSouth(x, y);
+					
+					break;
+				default:
+					break;
+				
+			}
+			
+			String valueRoadString = Integer.toString(s.actualLength[i]) + "/" + Integer.toString(s.maximumLength[i]);
+			String valueSemString = Integer.toString(s.semaphore[i]);
+			
+			if(coordRoad != null) {
+				tableModel.setValueAt(valueRoadString, coordRoad.getY(), coordRoad.getX());
+			}
+			if(coordSem != null) {
+				tableModel.setValueAt(valueSemString, coordSem.getY(), coordSem.getX());
+			}
+		}
+	}
 
-		// EAST
-		CoordRoad east = coordCrossRoadEast(x, y);
-		String eastValue = Integer.toString(s.actualLength[Constants.EAST]) + "/" + Integer.toString(s.maximumLength[Constants.EAST]);
+	/****************************************************/
+	/*************** COORDINATES IN CITY ****************/
+	/****************************************************/
+	private CoordRoad coordCrossSemSouth(int x, int y) {
+		return coordCrossRoadSouth(x, y - 1);
+	}
 
-		// NORTH
-		CoordRoad north = coordCrossRoadNorth(x, y);
-		String northValue = Integer.toString(s.actualLength[Constants.NORTH]) + "/" + Integer.toString(s.maximumLength[Constants.NORTH]);
+	private CoordRoad coordCrossSemNorth(int x, int y) {
+		return coordCrossRoadNorth(x, y + 1);
+	}
 
-		// SOUTH
-		CoordRoad south = coordCrossRoadSouth(x, y);
-		String southValue = Integer.toString(s.actualLength[Constants.SOUTH]) + "/" + Integer.toString(s.maximumLength[Constants.SOUTH]);
+	private CoordRoad coordCrossSemEast(int x, int y) {
+		return coordCrossRoadEast(x - 1, y);
+	}
 
-
-		tableModel.setValueAt(westValue, west.getY(), west.getX());
-		tableModel.setValueAt(eastValue, east.getY(), east.getX());
-		tableModel.setValueAt(northValue, north.getY(), north.getX());
-		tableModel.setValueAt(southValue, south.getY(), south.getX());
-
+	private CoordRoad coordCrossSemWest(int x, int y) {	
+		return coordCrossRoadWest(x + 1, y);
 	}
 
 	/**

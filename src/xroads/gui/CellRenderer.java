@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import xroads.Constants;
+
 @SuppressWarnings("serial")
 public class CellRenderer extends DefaultTableCellRenderer {
 	private DefaultTableModel model;
@@ -90,8 +92,20 @@ public class CellRenderer extends DefaultTableCellRenderer {
 				}
 				
 			} else if (row % 3 != 0 && column % 3 != 0){
-				setIcon(new ImageIcon("images/crossroad_green.gif"));
-			
+				int sem = Integer.parseInt((String) value);
+				
+				switch(sem) {
+					case Constants.GREEN: 
+						setIcon(new ImageIcon("images/crossroad_green.gif"));
+						break;
+					case Constants.RED: 
+						setIcon(new ImageIcon("images/crossroad_red.gif"));
+						break;
+					case Constants.ORANGE: 
+						setIcon(new ImageIcon("images/crossroad_orange.gif"));
+						break;
+				}
+				
 				setBackground(Color.GRAY);
 			}
 		}

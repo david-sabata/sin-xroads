@@ -16,14 +16,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>images/crossroad_green.png</name>
+			<name>images/crossroad_orange.gif</name>
 			<type>1</type>
-			<location>C:/Projects/Sin-xroads/images/crossroad_green.png</location>
-		</link>
-		<link>
-			<name>images/crossroad_red.png</name>
-			<type>1</type>
-			<location>C:/Projects/Sin-xroads/images/crossroad_red.png</location>
+			<location>C:/Projects/Sin-xroads/images/crossroad_orange.gif</location>
 		</link>
 	</linkedResources>
 </projectDescription>
