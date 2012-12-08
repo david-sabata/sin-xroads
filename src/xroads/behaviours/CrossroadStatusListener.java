@@ -1,43 +1,32 @@
 package xroads.behaviours;
 
-import jade.core.AID;
-import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.io.IOException;
-import java.util.UUID;
 
 import xroads.CrossroadStatus;
 import xroads.agents.SpawnerAgent;
 
 @SuppressWarnings("serial")
-public class CrossroadStatusListener extends OneShotBehaviour {
+public class CrossroadStatusListener extends CyclicBehaviour {
 
-	private String crossroadName = null;
 	private String conversationId = null;
 
 
-	public CrossroadStatusListener(String crossroadName) {
+	public CrossroadStatusListener(String conversationId) {
 		super();
 
-		this.crossroadName = crossroadName;
+		// pro vsechny konverzace mezi spawnerem a krizovatkama
+		// tykajici se jejich stavu budeme pouzivat stejne ID
+		this.conversationId = conversationId;
 	}
 
 
 
 	@Override
 	public void action() {
-		// poslat dotaz
-		if (conversationId == null) {
-			ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-			request.setConversationId(UUID.randomUUID().toString());
-			request.addReceiver(new AID(crossroadName, AID.ISLOCALNAME));
-			myAgent.send(request);
-
-			conversationId = request.getConversationId();
-		}
-
 		MessageTemplate mt = MessageTemplate.MatchConversationId(conversationId);
 		ACLMessage msg = myAgent.receive(mt);
 		if (msg != null) {

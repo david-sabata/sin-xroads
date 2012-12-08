@@ -12,6 +12,7 @@ import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import xroads.Constants;
@@ -26,9 +27,14 @@ import xroads.gui.XroadsGui;
 public class SpawnerAgent extends Agent {
 
 	private XroadsGui gui;
-
-
 	private AgentContainer carAgentContainer;
+
+	/**
+	 * ID konverzace ktere pouzijeme pro vsechny zpravy 
+	 * tykajici se zjistovani/hlaseni stavu krizovatek.
+	 * Je nutne pro jemnejsi filtrovani zprav nez na urovni performative
+	 */
+	private final String statusInformConvId = UUID.randomUUID().toString();
 
 	/**
 	 * Kontejner na agenty nema size()
@@ -62,6 +68,9 @@ public class SpawnerAgent extends Agent {
 
 		// Cyklicka kontrola krizovatek
 		addBehaviour(new GuiRefreshBehaviour(this, 1000, pGridWidth, pGridHeight));
+
+		// naslouchani na infa o stavu
+		addBehaviour(new CrossroadStatusListener(statusInformConvId));
 	}
 
 
@@ -135,7 +144,15 @@ public class SpawnerAgent extends Agent {
 	 * @param agentName jmeno krizovatkoveho agenta
 	 */
 	public void requestCrossroadStatus(final String agentName) {
-		addBehaviour(new CrossroadStatusListener(agentName));
+		addBehaviour(new OneShotBehaviour() {
+			@Override
+			public void action() {
+				ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+				request.setConversationId(statusInformConvId);
+				request.addReceiver(new AID(agentName, AID.ISLOCALNAME));
+				myAgent.send(request);
+			}
+		});
 	}
 
 
@@ -143,7 +160,6 @@ public class SpawnerAgent extends Agent {
 	 * Dostali jsme informaci o stavu krizovatky, predame do GUI
 	 */
 	public void onCrossroadStatusUpdate(CrossroadStatus s) {
-		System.out.println("Got xroad status");
 		gui.updateCrossRoadAt(s);
 	}
 }
