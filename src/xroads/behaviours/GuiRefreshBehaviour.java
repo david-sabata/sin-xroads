@@ -22,7 +22,6 @@ public class GuiRefreshBehaviour extends TickerBehaviour{
 
 	@Override
 	protected void onTick() {
-		// TODO Auto-generated method stub
 		for(String x : crossroadsName) {
 			spawner.requestCrossroadQueueLength(x);
 		}

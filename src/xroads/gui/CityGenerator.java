@@ -34,14 +34,11 @@ public class CityGenerator extends JTable {
 			this.height = calculateWithRoads(height);
 
 			tableModel = new DefaultTableModel(this.width, this.height);
-
 			this.setModel(tableModel);
 
 			// Add cross roads, roads, in out to grid
 			renderer = new CellRenderer(tableModel);
 			this.setDefaultRenderer(Object.class, renderer);
-
-
 
 			// Resize table layout to size of city
 			resizeTable();
@@ -49,7 +46,7 @@ public class CityGenerator extends JTable {
 	}
 
 	/**
-	 * Return number of culomus (or row) with our graphics
+	 * Return number of columns (or row) with our graphics
 	 * @param n
 	 * @return
 	 */
@@ -58,7 +55,9 @@ public class CityGenerator extends JTable {
 	}
 
 
-
+	/**
+	 * It should resible table to constant values but DOESNT WORK
+	 */
 	private void resizeTable() {
 		int widthTable = 0;
 		int heightTable = 0;
