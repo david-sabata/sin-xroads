@@ -1,8 +1,11 @@
 package xroads.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import xroads.Constants;
@@ -10,6 +13,9 @@ import xroads.CrossroadStatus;
 
 @SuppressWarnings("serial")
 public class CityGenerator extends JTable {
+	private static final int crossSize = 16;
+	private static final int roadSize = 42;
+	
 	private int width;
 	private int height;
 	private int gridWidth; //original 
@@ -59,22 +65,52 @@ public class CityGenerator extends JTable {
 	 * It should resible table to constant values but DOESNT WORK
 	 */
 	private void resizeTable() {
-		int widthTable = 0;
-		int heightTable = 0;
-
-		// Get Width of table
-		for (int i = 0; i < this.getRowCount(); i++) {
-			heightTable += this.getRowHeight(i);
+		int rows = this.getRowCount();
+		int cols = this.getColumnCount();
+		int sizeHeight;
+		
+		this.setRowHeight(0, crossSize);
+		this.setRowHeight(rows - 1, crossSize);
+		sizeHeight = 2*crossSize;
+		for (int i = 1; i < rows - 1; i++) {
+			if (i % 3 == 1) {
+				this.setRowHeight(i, roadSize);
+				sizeHeight += roadSize;
+			} else {
+				this.setRowHeight(i, crossSize);
+				sizeHeight += crossSize;
+			}
 		}
+		
+		this.getColumnModel().getColumn(0).setMinWidth(1);
+		this.getColumnModel().getColumn(0).setMaxWidth(crossSize);
+		this.getColumnModel().getColumn(0).setPreferredWidth(crossSize);
+		this.getColumnModel().getColumn(cols - 1).setMinWidth(1);
+		this.getColumnModel().getColumn(cols - 1).setMaxWidth(crossSize);
+		this.getColumnModel().getColumn(cols - 1).setPreferredWidth(crossSize);
+		for (int i = 1; i < cols - 1; i++) {
+			this.getColumnModel().getColumn(i).setMinWidth(1);
+			if (i % 3 == 1) {	
+				this.getColumnModel().getColumn(i).setPreferredWidth(roadSize);
+				this.getColumnModel().getColumn(i).setMaxWidth(roadSize);
+			} else {
+				this.getColumnModel().getColumn(i).setPreferredWidth(crossSize);
+				this.getColumnModel().getColumn(i).setMaxWidth(crossSize);
+			}
+		}
+		this.setBorder(new LineBorder(new Color(0, 0, 0)));
+		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.setBounds(5, 109, this.getColumnModel().getTotalColumnWidth(), sizeHeight);
+		this.setPreferredSize(new Dimension(this.getColumnModel().getTotalColumnWidth(), sizeHeight));
+		// Get Width of table
+//		for (int i = 0; i < this.getRowCount(); i++) {
+	//		heightTable += this.getRowHeight(i);
+		//}
 
-		// Get Height of table
-		widthTable += this.getPreferredSize().width;
 
 		//this.setAlignmentX(widthTable);
 		//this.setAlignmentY(heightTable);
 		// Resize table
-		this.setPreferredSize(new Dimension(widthTable, heightTable));
-
 	}
 
 	/**
