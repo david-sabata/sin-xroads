@@ -30,6 +30,7 @@ public class EndpointAgent extends CrossroadAgent {
 		for (int dir : Constants.DIRECTIONS) {
 			crossroadStatus.directions[dir] = new DirectionStatus();
 			crossroadStatus.directions[dir].maximumLength = Integer.MAX_VALUE;
+			crossroadStatus.directions[dir].semaphore = Constants.GREEN; // koncovka ma vzdy zelenou
 		}
 
 

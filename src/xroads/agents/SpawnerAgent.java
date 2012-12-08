@@ -13,9 +13,7 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
 import java.util.UUID;
-import java.util.regex.Pattern;
 
-import xroads.Constants;
 import xroads.CrossroadStatus;
 import xroads.World;
 import xroads.behaviours.CrossroadStatusListener;
@@ -93,42 +91,11 @@ public class SpawnerAgent extends Agent {
 			public void action() {
 				String args[] = { endpointFromName, endpointToName };
 
-				// zjistit odkud auto do krizovatky (resp. koncovky) prijizdi
-				int dir = -1;
-				String parts[] = endpointFromName.split(Pattern.quote("-"));
-				switch (parts[1]) {
-					case "n":
-						dir = Constants.NORTH;
-						break;
-					case "s":
-						dir = Constants.SOUTH;
-						break;
-					case "e":
-						dir = Constants.EAST;
-						break;
-					case "w":
-						dir = Constants.WEST;
-						break;
-				}
-				final int incomingDir = dir;
-
 				// spawn
 				try {
 					AgentController agent = carAgentContainer.createNewAgent("car-" + carAgents, CarAgent.class.getCanonicalName(), args);
 					agent.start();
 					carAgents++;
-
-					// odeslat vstupni koncovce info o spawnu auta
-					addBehaviour(new OneShotBehaviour() {
-						@Override
-						public void action() {
-							ACLMessage request = new ACLMessage(ACLMessage.PROPOSE);
-							request.addReceiver(new AID(endpointFromName, AID.ISLOCALNAME));
-							request.setContent(String.valueOf(incomingDir));
-							myAgent.send(request);
-						}
-					});
-
 				} catch (StaleProxyException e) {
 					System.err.println("Error creating car agents");
 					e.printStackTrace();

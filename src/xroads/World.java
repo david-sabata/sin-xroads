@@ -31,21 +31,50 @@ public class World {
 
 
 	/**
-	 * Vraci pozici krizovatky v mrizce, pripadne 
-	 * null pro neznameho agenta
+	 * Vraci pozici krizovatky nebo koncovky v mrizce, pripadne 
+	 * null pro neznameho agenta.
+	 * Jelikoz muze vracet i pozice koncovek, muzou tyto byt
+	 * mimo hlavni mrizku, presneji po jejim okraji.
 	 */
 	public static Position getAgentCoords(String name) {
 		String[] parts = name.split(Pattern.quote("-"));
-		if (parts.length != 2)
-			return null;
 
-		int i = Integer.parseInt(parts[1]);
+		// krizovatka
+		if (parts.length == 2) {
+			int i = Integer.parseInt(parts[1]);
+			Position pos = new Position();
+			pos.x = i % gridWidth;
+			pos.y = i / gridWidth;
+			return pos;
+		}
 
-		Position pos = new Position();
-		pos.x = i % gridWidth;
-		pos.y = i / gridWidth;
+		// koncovka
+		if (parts.length == 3) {
+			int i = Integer.parseInt(parts[2]);
+			int dir = World.parseDirection(parts[1]);
+			Position pos = new Position();
 
-		return pos;
+			if (dir == Constants.NORTH) {
+				pos.x = i;
+				pos.y = -1;
+			}
+			if (dir == Constants.SOUTH) {
+				pos.x = i;
+				pos.y = gridHeight;
+			}
+			if (dir == Constants.EAST) {
+				pos.x = -1;
+				pos.y = i;
+			}
+			if (dir == Constants.WEST) {
+				pos.x = gridWidth;
+				pos.y = i;
+			}
+
+			return pos;
+		}
+
+		return null;
 	}
 
 	/**
@@ -93,5 +122,27 @@ public class World {
 
 		return (parts.length == 3 && parts[0].equals("endpoint"));
 	}
+
+
+	/**
+	 * Prevadi znak na konstantu smeru
+	 */
+	public static int parseDirection(String s) {
+		switch (s) {
+			case "n":
+				return Constants.NORTH;
+			case "s":
+				return Constants.SOUTH;
+			case "e":
+				return Constants.EAST;
+			case "w":
+				return Constants.WEST;
+		}
+
+		return -1;
+	}
+
+
+
 
 }

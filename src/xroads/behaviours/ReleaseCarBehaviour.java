@@ -14,11 +14,9 @@ import xroads.agents.CrossroadAgent;
 @SuppressWarnings("serial")
 public class ReleaseCarBehaviour extends CyclicBehaviour {
 
-	private final CrossroadAgent xroad = (CrossroadAgent) myAgent;
-
-
 	@Override
 	public void action() {
+		CrossroadAgent xroad = (CrossroadAgent) myAgent;
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 		ACLMessage msg = myAgent.receive(mt);
 

@@ -1,7 +1,12 @@
 package xroads.agents;
 
 import jade.core.Agent;
-import xroads.behaviours.CarOverallBehaviour;
+
+import java.util.regex.Pattern;
+
+import xroads.World;
+import xroads.behaviours.CarNewbornBehaviour;
+import xroads.behaviours.carfsm.CarOverallBehaviour;
 
 @SuppressWarnings("serial")
 public class CarAgent extends Agent {
@@ -16,6 +21,10 @@ public class CarAgent extends Agent {
 	private int currentDirection;
 
 
+	private String nextHopCrossroad;
+	private int nextHopDirection;
+
+
 	@Override
 	protected void setup() {
 		Object args[] = getArguments();
@@ -27,6 +36,16 @@ public class CarAgent extends Agent {
 		sourceCrossroad = args[0].toString();
 		currentCrossroad = sourceCrossroad;
 		destinationCrossroad = args[1].toString();
+
+		// auto stoji na zacatku vzdy v koncovce ze ktere muzeme vyparsovat smer
+		String parts[] = currentCrossroad.split(Pattern.quote("-"));
+		if (!parts[0].equals("endpoint")) {
+			throw new RuntimeException("Error: Car needs to be spawned at endpoint");
+		}
+		currentDirection = World.parseDirection(parts[1]);
+
+		// informovat koncovku ze v ni je auto
+		addBehaviour(new CarNewbornBehaviour());
 
 		// komplexni chovani auta definovane pomoci FSM
 		addBehaviour(new CarOverallBehaviour());
@@ -61,4 +80,17 @@ public class CarAgent extends Agent {
 	}
 
 
+
+	public void setNextHopCrossroad(String crossroad, int direction) {
+		nextHopCrossroad = crossroad;
+		nextHopDirection = direction;
+	}
+
+	public String getNextCrossroad() {
+		return nextHopCrossroad;
+	}
+
+	public int getNextCrossroadDir() {
+		return nextHopDirection;
+	}
 }
