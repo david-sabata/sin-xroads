@@ -9,14 +9,15 @@ import java.io.Serializable;
 
 /**
  * Prenoska pro informaci o stavu fronty na krizovatce.
- * Pole jsou indexovana konstantami NORTH, EAST, SOUTH, WEST
+ * Stavy jsou pro kazdy smer zvlast, indexovano NORTH, EAST, SOUTH, WEST
  */
 public class CrossroadStatus implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1685604929400573005L;
+	private static final long serialVersionUID = 1603663560954925848L;
+
 
 	/**
 	 * Jmeno krizovatkoveho agenta
@@ -24,19 +25,15 @@ public class CrossroadStatus implements Serializable {
 	public String name;
 
 	/**
-	 * Aktualni delky front
+	 * Souradnice v mrizce
 	 */
-	public int actualLength[] = new int[4];
+	public Position position;
 
 	/**
-	 * Maximalni delky front
+	 * Stavy pro kazdy smer zvlast
 	 */
-	public int maximumLength[] = new int[4];
+	public DirectionStatus directions[] = new DirectionStatus[4];
 
-	/**
-	 * Stavy semaforu (konstanty RED, ORANGE, GREEN)
-	 */
-	public int semaphore[] = new int[4];
 
 
 
