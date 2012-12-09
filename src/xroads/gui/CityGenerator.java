@@ -13,8 +13,9 @@ import xroads.CrossroadStatus;
 
 @SuppressWarnings("serial")
 public class CityGenerator extends JTable {
-	private static final int crossSize = 16;
-	private static final int roadSize = 42;
+	private static final int endpointSize = 24;
+	private static final int crossSize = 18;
+	private static final int roadSize = 46;
 	
 	private int width;
 	private int height;
@@ -69,9 +70,9 @@ public class CityGenerator extends JTable {
 		int cols = this.getColumnCount();
 		int sizeHeight;
 		
-		this.setRowHeight(0, crossSize);
-		this.setRowHeight(rows - 1, crossSize);
-		sizeHeight = 2*crossSize;
+		this.setRowHeight(0, endpointSize);
+		this.setRowHeight(rows - 1, endpointSize);
+		sizeHeight = 2*endpointSize;
 		for (int i = 1; i < rows - 1; i++) {
 			if (i % 3 == 1) {
 				this.setRowHeight(i, roadSize);
@@ -83,11 +84,11 @@ public class CityGenerator extends JTable {
 		}
 		
 		this.getColumnModel().getColumn(0).setMinWidth(1);
-		this.getColumnModel().getColumn(0).setMaxWidth(crossSize);
-		this.getColumnModel().getColumn(0).setPreferredWidth(crossSize);
+		this.getColumnModel().getColumn(0).setMaxWidth(endpointSize);
+		this.getColumnModel().getColumn(0).setPreferredWidth(endpointSize);
 		this.getColumnModel().getColumn(cols - 1).setMinWidth(1);
-		this.getColumnModel().getColumn(cols - 1).setMaxWidth(crossSize);
-		this.getColumnModel().getColumn(cols - 1).setPreferredWidth(crossSize);
+		this.getColumnModel().getColumn(cols - 1).setMaxWidth(endpointSize);
+		this.getColumnModel().getColumn(cols - 1).setPreferredWidth(endpointSize);
 		for (int i = 1; i < cols - 1; i++) {
 			this.getColumnModel().getColumn(i).setMinWidth(1);
 			if (i % 3 == 1) {	

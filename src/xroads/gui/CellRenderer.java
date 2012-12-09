@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -86,32 +87,57 @@ public class CellRenderer extends DefaultTableCellRenderer {
 
 					setBackground(interpolateColorFromValue(Integer.parseInt(act), Integer.parseInt(max)));
 				}
-
-			} else if (row % 3 != 0 && column % 3 != 0) {
-				if (value != null) {
-					int sem = Integer.parseInt((String) value);
-					switch (sem) {
-						case Constants.GREEN:
-							setIcon(new ImageIcon("images/crossroad_green.gif"));
-							break;
-						case Constants.RED:
-							setIcon(new ImageIcon("images/crossroad_red.gif"));
-							break;
-						case Constants.ORANGE:
-							setIcon(new ImageIcon("images/crossroad_orange.gif"));
-							break;
-						default:
-							setBackground(Color.GRAY);
-							break;
-
+				// vykreslení semaforů do buněk reprezentujících silnice
+				if (column % 3 == 1 && row % 3 == 0 && row < table.getRowCount() - 3) { // příjezd ze severu
+					String v = (String)table.getValueAt(row + 2, column + 1);
+					if (v != null) {
+						int sem = Integer.parseInt(v);
+						drawSemaphoreToCell(sem, 0, 20);
+					}
+				} else if (column % 3 == 2 && row % 3 == 0 && row > 1) { // příjezd z jihu
+					String v = (String)table.getValueAt(row, column + 1);
+					if (v != null) {
+						int sem = Integer.parseInt(v);
+						drawSemaphoreToCell(sem, 0, 0);
+					}
+				} else if (column > 1 && (column % 3 == 0) && (row % 3 == 1)) { // příjezd z východu
+					String v = (String)table.getValueAt(row + 1, column);
+					if (v != null) {
+						int sem = Integer.parseInt(v);
+						drawSemaphoreToCell(sem, 0, 0);
+					}
+				} else if (column % 3 == 0 && row % 3 == 2 && column < table.getColumnCount() - 3) { // příjezd ze západu
+					
+					String v = (String)table.getValueAt(row + 1, column + 2);
+					if (v != null) {
+						int sem = Integer.parseInt(v);
+						drawSemaphoreToCell(sem, 20, 0);
 					}
 				}
-
+			} else if (row % 3 != 0 && column % 3 != 0) {
+				setIcon(null); // jak kurva fungují podmínky v Javě?!!?
 				setBackground(Color.GRAY);
 			}
 		}
 
 		return this;
+	}
+	
+	private void drawSemaphoreToCell(int sem, int xPos, int yPos) {
+		switch (sem) {
+		case Constants.GREEN:
+			setIcon(new ImageIcon("images/crossroad_green.gif"));
+			break;
+		case Constants.RED:
+			setIcon(new ImageIcon("images/crossroad_red.gif"));
+			break;
+		case Constants.ORANGE:
+			setIcon(new ImageIcon("images/crossroad_orange.gif"));
+			break;
+		default:
+			setBackground(Color.GRAY);
+			break;
+		}
 	}
 
 	/**
