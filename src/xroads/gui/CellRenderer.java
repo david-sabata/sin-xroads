@@ -6,6 +6,7 @@ import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -92,26 +93,30 @@ public class CellRenderer extends DefaultTableCellRenderer {
 					String v = (String)table.getValueAt(row + 2, column + 1);
 					if (v != null) {
 						int sem = Integer.parseInt(v);
-						drawSemaphoreToCell(sem, 0, 20);
+						drawSemaphoreToCell(sem);
+						setVerticalAlignment(SwingConstants.BOTTOM);
 					}
 				} else if (column % 3 == 2 && row % 3 == 0 && row > 1) { // příjezd z jihu
 					String v = (String)table.getValueAt(row, column + 1);
 					if (v != null) {
 						int sem = Integer.parseInt(v);
-						drawSemaphoreToCell(sem, 0, 0);
+						drawSemaphoreToCell(sem);
+						setVerticalAlignment(SwingConstants.TOP);
 					}
 				} else if (column > 1 && (column % 3 == 0) && (row % 3 == 1)) { // příjezd z východu
 					String v = (String)table.getValueAt(row + 1, column);
 					if (v != null) {
 						int sem = Integer.parseInt(v);
-						drawSemaphoreToCell(sem, 0, 0);
+						drawSemaphoreToCell(sem);
+						setHorizontalAlignment(SwingConstants.LEFT);
 					}
 				} else if (column % 3 == 0 && row % 3 == 2 && column < table.getColumnCount() - 3) { // příjezd ze západu
 					
 					String v = (String)table.getValueAt(row + 1, column + 2);
 					if (v != null) {
 						int sem = Integer.parseInt(v);
-						drawSemaphoreToCell(sem, 20, 0);
+						drawSemaphoreToCell(sem);
+						setHorizontalAlignment(SwingConstants.RIGHT);
 					}
 				}
 			} else if (row % 3 != 0 && column % 3 != 0) {
@@ -123,7 +128,7 @@ public class CellRenderer extends DefaultTableCellRenderer {
 		return this;
 	}
 	
-	private void drawSemaphoreToCell(int sem, int xPos, int yPos) {
+	private void drawSemaphoreToCell(int sem) {
 		switch (sem) {
 		case Constants.GREEN:
 			setIcon(new ImageIcon("images/crossroad_green.gif"));
