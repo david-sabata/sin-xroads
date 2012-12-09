@@ -28,9 +28,6 @@ public class CellRenderer extends DefaultTableCellRenderer {
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
-		//System.out.println("Cell: " + Integer.toString(row) + " : " + Integer.toString(column));
-		//System.out.println("Row: " + row);
-
 		// Borders
 		if (row == 0 || column == 0 || row == model.getRowCount() - 1 || column == model.getColumnCount() - 1) {
 			if ((row == 0 && column == 0) || (row == 0 && column == model.getRowCount() - 1) || (row == model.getRowCount() - 1 && column == 0)
@@ -70,11 +67,9 @@ public class CellRenderer extends DefaultTableCellRenderer {
 			row -= 1;
 			column -= 1;
 			if (row % 3 == 0 && column % 3 == 0) {
-				//System.out.println("Row formated: " + row);
 				setIcon(null);
 				setBackground(Color.WHITE);
 			} else if ((row % 3 == 0 && column % 3 != 0) || (row % 3 != 0 && column % 3 == 0)) {
-				// TODO set sth, what will change color while value is changing
 				setIcon(null);
 				if (value == null) {
 					setBackground(Color.GREEN);
@@ -88,29 +83,29 @@ public class CellRenderer extends DefaultTableCellRenderer {
 
 					setBackground(interpolateColorFromValue(Integer.parseInt(act), Integer.parseInt(max)));
 				}
-				// vykreslení semaforů do buněk reprezentujících silnice
-				if (column % 3 == 1 && row % 3 == 0 && row < table.getRowCount() - 3) { // příjezd ze severu
+				// vykreslen isemaforu do bunek prezentujicich silnice
+				if (column % 3 == 1 && row % 3 == 0 && row < table.getRowCount() - 3) { // prijezd ze severu
 					String v = (String)table.getValueAt(row + 2, column + 1);
 					if (v != null) {
 						int sem = Integer.parseInt(v);
 						drawSemaphoreToCell(sem);
 						setVerticalAlignment(SwingConstants.BOTTOM);
 					}
-				} else if (column % 3 == 2 && row % 3 == 0 && row > 1) { // příjezd z jihu
+				} else if (column % 3 == 2 && row % 3 == 0 && row > 1) { // prijezd z jihu
 					String v = (String)table.getValueAt(row, column + 1);
 					if (v != null) {
 						int sem = Integer.parseInt(v);
 						drawSemaphoreToCell(sem);
 						setVerticalAlignment(SwingConstants.TOP);
 					}
-				} else if (column > 1 && (column % 3 == 0) && (row % 3 == 1)) { // příjezd z východu
+				} else if (column > 1 && (column % 3 == 0) && (row % 3 == 1)) { // prijezd z vychodu
 					String v = (String)table.getValueAt(row + 1, column);
 					if (v != null) {
 						int sem = Integer.parseInt(v);
 						drawSemaphoreToCell(sem);
 						setHorizontalAlignment(SwingConstants.LEFT);
 					}
-				} else if (column % 3 == 0 && row % 3 == 2 && column < table.getColumnCount() - 3) { // příjezd ze západu
+				} else if (column % 3 == 0 && row % 3 == 2 && column < table.getColumnCount() - 3) { // prijezd ze zapadu
 					
 					String v = (String)table.getValueAt(row + 1, column + 2);
 					if (v != null) {
