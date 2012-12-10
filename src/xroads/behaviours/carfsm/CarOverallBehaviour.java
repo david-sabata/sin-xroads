@@ -60,7 +60,7 @@ public class CarOverallBehaviour extends FSMBehaviour {
 	private OneShotBehaviour leaveToEndpoint = new OneShotBehaviour() {
 		@Override
 		public void action() {
-			System.out.println("Car is at endpoint");
+			System.out.println("Car [" + myAgent.getLocalName() + "] is at endpoint");
 
 			// do nothing
 		}

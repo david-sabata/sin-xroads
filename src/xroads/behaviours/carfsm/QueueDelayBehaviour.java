@@ -23,6 +23,7 @@ public class QueueDelayBehaviour extends OneShotBehaviour {
 	public void action() {
 		MessageTemplate mt = MessageTemplate.MatchConversationId("dummy message from hell");
 		long delay = 5 * World.TIMESTEP;
+		System.out.println("Car [" + myAgent.getLocalName() + "] will be delayed for " + delay);
 		myAgent.blockingReceive(mt, delay);
 	}
 

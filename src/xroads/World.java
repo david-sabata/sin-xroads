@@ -12,7 +12,7 @@ public class World {
 
 	private static int gridWidth;
 	private static int gridHeight;
-	public  static int TIMESTEP = 1000; // 1 sekunda
+	public static int TIMESTEP = 1000; // 1 sekunda
 
 
 	public static void setGridSize(int width, int height) {
@@ -63,11 +63,11 @@ public class World {
 				pos.y = gridHeight;
 			}
 			if (dir == Constants.EAST) {
-				pos.x = -1;
+				pos.x = gridWidth;
 				pos.y = i;
 			}
 			if (dir == Constants.WEST) {
-				pos.x = gridWidth;
+				pos.x = -1;
 				pos.y = i;
 			}
 
