@@ -56,7 +56,7 @@ public class EnqueueBehaviour extends OneShotBehaviour {
 			myAgent.send(request);
 
 			conversationId = request.getConversationId();
-			System.out.println("Car requests enqueuing");
+			System.out.println("Car [" + myAgent.getLocalName() + "] requests enqueuing");
 		}
 
 		// cekat na odpoved - prijde bud PROPOSE_ACCEPT nebo PROPOSE_REJECT
@@ -87,7 +87,8 @@ public class EnqueueBehaviour extends OneShotBehaviour {
 			agent.setCurrentCrossroad(agent.getNextCrossroad(), agent.getNextCrossroadDir());
 			agent.setNextHopCrossroad(null, -1);
 
-			System.out.println("Car is now enqueued at [" + agent.getCurrentCrossroad() + "] [dir:" + agent.getCurrentDirection() + "]");
+			System.out.println("Car [" + myAgent.getLocalName() + "] is now enqueued at [" + agent.getCurrentCrossroad() + "] [dir:"
+					+ agent.getCurrentDirection() + "]");
 
 			if (agent.getCurrentCrossroad().equals(agent.getDestinationCrossroad())) {
 				return ENQUEUE_ENDPOINT;

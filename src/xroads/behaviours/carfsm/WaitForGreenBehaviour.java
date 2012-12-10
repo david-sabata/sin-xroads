@@ -29,7 +29,7 @@ public class WaitForGreenBehaviour extends Behaviour {
 		isGreenLight = false;
 		conversationId = null;
 
-		System.out.println("Car waits for green light");
+		System.out.println("Car [" + myAgent.getLocalName() + "] waits for green light");
 	}
 
 

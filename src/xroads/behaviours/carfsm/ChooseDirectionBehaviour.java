@@ -65,7 +65,7 @@ public class ChooseDirectionBehaviour extends OneShotBehaviour {
 
 		// agent v cili - sem by se to nemelo dostat, toto chceme odchytit jinde
 		else {
-			System.out.println("Agent " + agent.getLocalName() + " has reached its destination");
+			System.out.println("Car [" + myAgent.getLocalName() + "] has reached its destination");
 			return;
 		}
 

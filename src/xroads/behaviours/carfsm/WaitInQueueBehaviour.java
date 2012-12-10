@@ -24,7 +24,7 @@ public class WaitInQueueBehaviour extends Behaviour {
 
 	@Override
 	public void action() {
-		System.out.println("Car waits in queue");
+		System.out.println("Car [" + myAgent.getLocalName() + "] waits in queue");
 
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 		ACLMessage msg = myAgent.receive(mt);
