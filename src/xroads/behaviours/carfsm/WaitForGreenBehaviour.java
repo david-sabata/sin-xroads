@@ -28,6 +28,8 @@ public class WaitForGreenBehaviour extends Behaviour {
 	public void onStart() {
 		isGreenLight = false;
 		conversationId = null;
+
+		System.out.println("Car waits for green light");
 	}
 
 
@@ -45,7 +47,6 @@ public class WaitForGreenBehaviour extends Behaviour {
 			myAgent.send(request);
 
 			conversationId = request.getConversationId();
-			System.out.println("Car waits for green light");
 		}
 
 		// cekat na odpoved
