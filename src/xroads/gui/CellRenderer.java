@@ -78,10 +78,13 @@ public class CellRenderer extends DefaultTableCellRenderer {
 					String act;
 					String max;
 					temp = ((String) value).split("/");
-					act = temp[0];
-					max = temp[1];
-
-					setBackground(interpolateColorFromValue(Integer.parseInt(act), Integer.parseInt(max)));
+					try { // pri zobrazeni obsazenosti silnice vedouci do koncovky hazi pristup mimo pole
+						act = temp[0];
+						max = temp[1];
+						setBackground(interpolateColorFromValue(Integer.parseInt(act), Integer.parseInt(max)));
+					} catch (java.lang.ArrayIndexOutOfBoundsException x) {
+						setBackground(Color.GREEN);
+					}
 				}
 				// vykreslen isemaforu do bunek prezentujicich silnice
 				if (column % 3 == 1 && row % 3 == 0 && row < table.getRowCount() - 3) { // prijezd ze severu
