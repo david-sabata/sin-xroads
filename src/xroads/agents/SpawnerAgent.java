@@ -13,8 +13,6 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
 import java.util.UUID;
-
-import xroads.Constants;
 import xroads.CrossroadStatus;
 import xroads.World;
 import xroads.behaviours.CrossroadStatusListener;
@@ -66,7 +64,7 @@ public class SpawnerAgent extends Agent {
 		addBehaviour(new SpawnWorldBehaviour(pGridWidth, pGridHeight));
 
 		// Cyklicka kontrola krizovatek
-		addBehaviour(new GuiRefreshBehaviour(this, (int) Constants.TIMESTEP, pGridWidth, pGridHeight));
+		addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight));
 
 		// naslouchani na infa o stavu
 		addBehaviour(new CrossroadStatusListener(statusInformConvId));
@@ -129,5 +127,16 @@ public class SpawnerAgent extends Agent {
 	 */
 	public void onCrossroadStatusUpdate(CrossroadStatus s) {
 		gui.updateCrossRoadAt(s);
+	}
+
+
+	/**
+	 * Tato funkce nastavuje promìnnou, ktera urèuje jak rychle bude ubihat simulaèni èas
+	 * @param parseInt
+	 */
+	public void setSimulationSpeed(int parseInt) {
+		
+		World.TIMESTEP = parseInt;
+		System.out.println(World.TIMESTEP);
 	}
 }

@@ -36,7 +36,7 @@ public class XroadsGui extends JFrame {
 	private JTable table_6;
 	private JTable table_7;
 	private JPanel panel_1;
-	private JTextField textField;
+	private JTextField simulationSpeedText;
 
 	/**
 	 * Create the frame.
@@ -181,15 +181,26 @@ public class XroadsGui extends JFrame {
 				panel_1.add(btnNewCar);
 				
 				JCheckBox chckbxRandomWay = new JCheckBox("Random way");
+				chckbxRandomWay.setSelected(true);
 				chckbxRandomWay.setBounds(19, 7, 97, 23);
 				panel_1.add(chckbxRandomWay);
 				
-				textField = new JTextField();
-				textField.setBounds(19, 62, 86, 20);
-				panel_1.add(textField);
-				textField.setColumns(10);
+				simulationSpeedText = new JTextField();
+				simulationSpeedText.setText("1000");
+				simulationSpeedText.setBounds(19, 62, 86, 20);
+				panel_1.add(simulationSpeedText);
+				simulationSpeedText.setColumns(10);
 				
 				JButton btnSetSpeed = new JButton("Set speed");
+				btnSetSpeed.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+						mainAgent.setSimulationSpeed(Integer.parseInt(simulationSpeedText.getText()));
+						} catch (NumberFormatException error) {
+							System.out.println(error.getLocalizedMessage());
+						}
+					}
+				});
 				btnSetSpeed.setBounds(137, 61, 86, 23);
 				panel_1.add(btnSetSpeed);
 				

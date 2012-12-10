@@ -12,7 +12,7 @@ public class World {
 
 	private static int gridWidth;
 	private static int gridHeight;
-
+	public  static int TIMESTEP = 1000; // 1 sekunda
 
 
 	public static void setGridSize(int width, int height) {
