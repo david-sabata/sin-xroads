@@ -48,8 +48,6 @@ public class CarOverallBehaviour extends FSMBehaviour {
 
 		// presun do ciloveho stavu v pripade ze se auto zaradi do fronty koncovky (bez zpozdeni)
 		registerTransition(STATE_ENQUEUE, STATE_AT_ENDPOINT, EnqueueBehaviour.ENQUEUE_ENDPOINT, new String[] { STATE_ENQUEUE });
-
-		System.out.print(stringifyTransitionTable());
 	}
 
 
