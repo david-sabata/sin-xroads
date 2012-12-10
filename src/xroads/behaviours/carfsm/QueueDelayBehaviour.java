@@ -2,7 +2,7 @@ package xroads.behaviours.carfsm;
 
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.MessageTemplate;
-import xroads.Constants;
+import xroads.World;
 
 /**
  * Toto chovani ma simulovat zpozdeni auta pri projizdeni krizovatkou.
@@ -21,7 +21,7 @@ public class QueueDelayBehaviour extends OneShotBehaviour {
 	@Override
 	public void action() {
 		MessageTemplate mt = MessageTemplate.MatchConversationId("dummy message from hell");
-		long delay = 5 * Constants.TIMESTEP;
+		long delay = 5 * World.TIMESTEP;
 		myAgent.blockingReceive(mt, delay);
 	}
 
