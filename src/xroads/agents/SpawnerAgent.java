@@ -14,6 +14,7 @@ import jade.wrapper.StaleProxyException;
 
 import java.util.UUID;
 
+import xroads.Constants;
 import xroads.CrossroadStatus;
 import xroads.World;
 import xroads.behaviours.CrossroadStatusListener;
@@ -65,7 +66,7 @@ public class SpawnerAgent extends Agent {
 		addBehaviour(new SpawnWorldBehaviour(pGridWidth, pGridHeight));
 
 		// Cyklicka kontrola krizovatek
-		addBehaviour(new GuiRefreshBehaviour(this, 1000, pGridWidth, pGridHeight));
+		addBehaviour(new GuiRefreshBehaviour(this, (int) Constants.TIMESTEP, pGridWidth, pGridHeight));
 
 		// naslouchani na infa o stavu
 		addBehaviour(new CrossroadStatusListener(statusInformConvId));

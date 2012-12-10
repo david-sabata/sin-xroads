@@ -103,15 +103,6 @@ public class CityGenerator extends JTable {
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setBounds(5, 109, this.getColumnModel().getTotalColumnWidth(), sizeHeight);
 		this.setPreferredSize(new Dimension(this.getColumnModel().getTotalColumnWidth(), sizeHeight));
-		// Get Width of table
-//		for (int i = 0; i < this.getRowCount(); i++) {
-	//		heightTable += this.getRowHeight(i);
-		//}
-
-
-		//this.setAlignmentX(widthTable);
-		//this.setAlignmentY(heightTable);
-		// Resize table
 	}
 
 	/**

@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import xroads.CrossroadStatus;
 import xroads.agents.SpawnerAgent;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class XroadsGui extends JFrame {
@@ -34,6 +35,8 @@ public class XroadsGui extends JFrame {
 	private JTable table_5;
 	private JTable table_6;
 	private JTable table_7;
+	private JPanel panel_1;
+	private JTextField textField;
 
 	/**
 	 * Create the frame.
@@ -109,73 +112,116 @@ public class XroadsGui extends JFrame {
 		city = new CityGenerator();
 		city.setBorder(new LineBorder(new Color(0, 0, 0)));
 		city.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		city.setBounds(5, 109, 855, 496);
+		city.setBounds(5, 118, 855, 487);
 		contentPane.add(city);
 
 		table = new JTable();
 		table.setBackground(Color.GRAY);
-		table.setBounds(712, 35, 22, 22);
+		table.setBounds(769, 45, 22, 22);
 		contentPane.add(table);
 
 		table_1 = new JTable();
 		table_1.setBackground(Color.GRAY);
-		table_1.setBounds(734, 35, 22, 22);
+		table_1.setBounds(791, 45, 22, 22);
 		contentPane.add(table_1);
 
 		table_2 = new JTable();
 		table_2.setBackground(Color.GRAY);
-		table_2.setBounds(734, 56, 22, 22);
+		table_2.setBounds(791, 66, 22, 22);
 		contentPane.add(table_2);
 
 		table_3 = new JTable();
 		table_3.setBackground(Color.GRAY);
-		table_3.setBounds(712, 56, 22, 22);
+		table_3.setBounds(769, 66, 22, 22);
 		contentPane.add(table_3);
 
 		table_4 = new JTable();
 		table_4.setBackground(Color.RED);
-		table_4.setBounds(758, 35, 22, 22);
+		table_4.setBounds(815, 45, 22, 22);
 		contentPane.add(table_4);
 
 		table_5 = new JTable();
 		table_5.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
 		table_5.setBackground(Color.ORANGE);
-		table_5.setBounds(712, 11, 22, 22);
+		table_5.setBounds(769, 21, 22, 22);
 		contentPane.add(table_5);
 
 		table_6 = new JTable();
 		table_6.setBackground(Color.ORANGE);
-		table_6.setBounds(688, 56, 22, 22);
+		table_6.setBounds(745, 66, 22, 22);
 		contentPane.add(table_6);
 
 		table_7 = new JTable();
 		table_7.setBackground(Color.GREEN);
-		table_7.setBounds(734, 80, 22, 22);
+		table_7.setBounds(791, 90, 22, 22);
 		contentPane.add(table_7);
 
 		JLabel lblLegend = new JLabel("Legend of crossroad :");
 		lblLegend.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblLegend.setBounds(585, 5, 117, 14);
+		lblLegend.setBounds(743, 5, 117, 14);
 		contentPane.add(lblLegend);
 
 		JLabel lblStuck = new JLabel("Stuck road");
 		lblStuck.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblStuck.setBounds(790, 35, 70, 14);
+		lblStuck.setBounds(815, 29, 70, 14);
 		contentPane.add(lblStuck);
 
 		JLabel lblFree = new JLabel("Free road");
 		lblFree.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblFree.setBounds(766, 80, 70, 14);
+		lblFree.setBounds(730, 89, 70, 14);
 		contentPane.add(lblFree);
-
-		JButton btnNewCar = new JButton("New Car");
-		btnNewCar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mainAgent.spawnCarsFromTo("endpoint-s-1", "endpoint-n-1", 1);
-			}
-		});
-		btnNewCar.setBounds(353, 7, 89, 23);
-		contentPane.add(btnNewCar);
+		
+		panel_1 = new JPanel();
+		panel_1.setBounds(313, 5, 246, 93);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+				JButton btnNewCar = new JButton("New Car");
+				btnNewCar.setBounds(137, 7, 86, 23);
+				panel_1.add(btnNewCar);
+				
+				JCheckBox chckbxRandomWay = new JCheckBox("Random way");
+				chckbxRandomWay.setBounds(19, 7, 97, 23);
+				panel_1.add(chckbxRandomWay);
+				
+				textField = new JTextField();
+				textField.setBounds(19, 62, 86, 20);
+				panel_1.add(textField);
+				textField.setColumns(10);
+				
+				JButton btnSetSpeed = new JButton("Set speed");
+				btnSetSpeed.setBounds(137, 61, 86, 23);
+				panel_1.add(btnSetSpeed);
+				
+				JLabel lblRychlostSimulace = new JLabel("Rychlost simulace (ms)");
+				lblRychlostSimulace.setBounds(19, 47, 116, 14);
+				panel_1.add(lblRychlostSimulace);
+				
+				JPanel panel_2 = new JPanel();
+				panel_2.setBounds(565, 5, 155, 93);
+				contentPane.add(panel_2);
+				panel_2.setLayout(null);
+				
+				JLabel lblStatistics = new JLabel("Statistics:");
+				lblStatistics.setBounds(10, 11, 80, 14);
+				panel_2.add(lblStatistics);
+				
+				JLabel lblAverageTime = new JLabel("Average time:");
+				lblAverageTime.setBounds(10, 31, 80, 14);
+				panel_2.add(lblAverageTime);
+				
+				JLabel label = new JLabel("0000");
+				label.setBounds(57, 50, 46, 14);
+				panel_2.add(label);
+				
+				JLabel lblS = new JLabel("s");
+				lblS.setBounds(99, 50, 46, 14);
+				panel_2.add(lblS);
+				btnNewCar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						mainAgent.spawnCarsFromTo("endpoint-s-1", "endpoint-n-1", 1);
+					}
+				});
 
 
 		this.setVisible(true);
