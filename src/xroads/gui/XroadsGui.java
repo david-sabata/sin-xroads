@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import xroads.CarStatus;
 import xroads.CrossroadStatus;
 import xroads.agents.SpawnerAgent;
 import javax.swing.JCheckBox;
@@ -47,6 +48,8 @@ public class XroadsGui extends JFrame {
 	private JTextField numOfcars;
 	private XroadsGui gui;
 	private JTextField sendTime;
+	private JLabel generatedCars;
+	private JLabel finishedCars;
 	/**
 	 * Create the frame.
 	 */
@@ -186,7 +189,7 @@ public class XroadsGui extends JFrame {
 
 		JLabel lblFree = new JLabel("Free road");
 		lblFree.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		lblFree.setBounds(730, 89, 70, 14);
+		lblFree.setBounds(730, 93, 70, 14);
 		contentPane.add(lblFree);
 		
 		panel_1 = new JPanel();
@@ -263,30 +266,48 @@ public class XroadsGui extends JFrame {
 				panel_2.add(lblStatistics);
 				
 				JLabel lblAverageTime = new JLabel("Average time:");
-				lblAverageTime.setBounds(10, 31, 80, 14);
+				lblAverageTime.setBounds(10, 25, 80, 14);
 				panel_2.add(lblAverageTime);
 				
 				JLabel simulationAverageTime = new JLabel("0");
 				simulationAverageTime.setHorizontalAlignment(SwingConstants.RIGHT);
-				simulationAverageTime.setBounds(92, 31, 46, 14);
+				simulationAverageTime.setBounds(92, 25, 46, 14);
 				panel_2.add(simulationAverageTime);
 				
 				JLabel lblS = new JLabel("s");
-				lblS.setBounds(138, 31, 17, 14);
+				lblS.setBounds(138, 25, 17, 14);
 				panel_2.add(lblS);
 				
 				lblNewLabel = new JLabel("Simulation time:");
-				lblNewLabel.setBounds(10, 53, 80, 14);
+				lblNewLabel.setBounds(10, 39, 80, 14);
 				panel_2.add(lblNewLabel);
 				
 				JLabel simulationTime = new JLabel("0");
 				simulationTime.setHorizontalAlignment(SwingConstants.RIGHT);
-				simulationTime.setBounds(92, 53, 46, 14);
+				simulationTime.setBounds(92, 39, 46, 14);
 				panel_2.add(simulationTime);
 				
 				JLabel label = new JLabel("s");
-				label.setBounds(138, 53, 17, 14);
+				label.setBounds(138, 39, 17, 14);
 				panel_2.add(label);
+				
+				JLabel lblGeneratedCars = new JLabel("Generated cars:");
+				lblGeneratedCars.setBounds(10, 52, 80, 14);
+				panel_2.add(lblGeneratedCars);
+				
+				generatedCars = new JLabel("0");
+				generatedCars.setHorizontalAlignment(SwingConstants.RIGHT);
+				generatedCars.setBounds(102, 52, 36, 14);
+				panel_2.add(generatedCars);
+				
+				JLabel lblCarsInEndpoint = new JLabel("Cars in endpoint:");
+				lblCarsInEndpoint.setBounds(10, 64, 90, 14);
+				panel_2.add(lblCarsInEndpoint);
+				
+				finishedCars = new JLabel("0");
+				finishedCars.setHorizontalAlignment(SwingConstants.RIGHT);
+				finishedCars.setBounds(92, 64, 46, 14);
+				panel_2.add(finishedCars);
 				btnNewCar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String startPoint = null;
@@ -334,5 +355,18 @@ public class XroadsGui extends JFrame {
 	 */
 	public void updateCrossRoadAt(CrossroadStatus s) {
 		city.updateCrossRoadAt(s);
+	}
+
+	/**
+	 * Update statistics
+	 * @param s
+	 * @param carAgents 
+	 */
+	public void updateCarStatus(CarStatus s, int carAgents) {
+		generatedCars.setText(Integer.toString(carAgents));
+		if(((String)s.currentCrossroad).equals((String)s.destinationCrossroad)) {
+			finishedCars.setText(Integer.toString(Integer.parseInt(finishedCars.getText()) + 1));
+		}
+		System.out.println("Update statistics");
 	}
 }

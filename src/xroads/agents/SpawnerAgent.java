@@ -56,6 +56,7 @@ public class SpawnerAgent extends Agent {
 		// vytvoreni kontejneru na auta, ktery si budeme pamatovat
 		Profile p = new ProfileImpl();
 		carAgentContainer = Runtime.instance().createAgentContainer(p);
+		
 	}
 
 
@@ -72,7 +73,7 @@ public class SpawnerAgent extends Agent {
 		addBehaviour(new SpawnWorldBehaviour(pGridWidth, pGridHeight));
 
 		// Cyklicka kontrola krizovatek
-		addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight));
+		addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight, carAgents));
 
 		// naslouchani na infa o stavu
 		addBehaviour(new CrossroadStatusListener(statusInformConvId));
@@ -149,6 +150,7 @@ public class SpawnerAgent extends Agent {
 	 * Vyzada si od auta informace o jeho stavu
 	 */
 	public void requestCarStatus(final String agentName) {
+		System.out.println("Request for update statistics");
 		addBehaviour(new OneShotBehaviour() {
 			@Override
 			public void action() {
@@ -164,7 +166,7 @@ public class SpawnerAgent extends Agent {
 	 * Dostali jsme informaci o stavu auta, predame do GUI
 	 */
 	public void onCarStatusUpdate(CarStatus s) {
-		// TODO
+		gui.updateCarStatus(s, carAgents);
 	}
 
 
