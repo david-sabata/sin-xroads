@@ -1,7 +1,9 @@
-package xroads.behaviours;
+package xroads.behaviours.xroadfsm;
 
-import jade.core.Agent;
-import jade.core.behaviours.WakerBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
+
+import java.util.Random;
+
 import xroads.Constants;
 import xroads.CrossroadStatus;
 import xroads.DirectionStatus;
@@ -9,24 +11,14 @@ import xroads.World;
 import xroads.agents.CrossroadAgent;
 
 /**
- * Prepinani svetel krizovatky
+ * Prepina svetla na krizovatce a svoji navratovou hodnotou
+ * udava za jak dlouho se budou svetla prepinat priste
  */
 @SuppressWarnings("serial")
-public class CrossroadLightsBehaviour extends WakerBehaviour {
-
-	// private long switchTimeout = 3 * World.TIMESTEP;
-
-
-	public CrossroadLightsBehaviour(Agent agent, long initialSwitchTimeout) {
-		super(agent, initialSwitchTimeout);
-
-	// switchTimeout = initialSwitchTimeout;
-	}
-
-
+public class TransitionBehaviour extends OneShotBehaviour {
 
 	@Override
-	public void onWake() {
+	public void action() {
 		CrossroadAgent xroad = (CrossroadAgent) myAgent;
 		CrossroadStatus status = xroad.getStatus();
 
@@ -47,9 +39,16 @@ public class CrossroadLightsBehaviour extends WakerBehaviour {
 			west.semaphore = Constants.RED;
 		}
 
-		// znovu spustit za dany cas
-		// reset(switchTimeout);
-		reset(3 * World.TIMESTEP);
 	}
+
+	@Override
+	public int onEnd() {
+		Random r = new Random();
+
+		return World.TIMESTEP * (1 + r.nextInt(5));
+	}
+
+
+
 
 }
