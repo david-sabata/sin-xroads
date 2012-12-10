@@ -40,7 +40,7 @@ public class CityGenerator extends JTable {
 			this.width = calculateWithRoads(width);
 			this.height = calculateWithRoads(height);
 
-			tableModel = new DefaultTableModel(this.width, this.height);
+			tableModel = new DefaultTableModel(this.height, this.width);
 			this.setModel(tableModel);
 
 			// Add cross roads, roads, in out to grid
@@ -152,10 +152,10 @@ public class CityGenerator extends JTable {
 			String valueSemString = Integer.toString(s.directions[dir].semaphore);
 
 			if (coordRoad != null) {
-				tableModel.setValueAt(valueRoadString, coordRoad.getX(), coordRoad.getY());
+				tableModel.setValueAt(valueRoadString, coordRoad.getY(), coordRoad.getX());
 			}
 			if (coordSem != null) {
-				tableModel.setValueAt(valueSemString, coordSem.getX(), coordSem.getY());
+				tableModel.setValueAt(valueSemString, coordSem.getY(), coordSem.getX());
 			}
 		}
 	}
