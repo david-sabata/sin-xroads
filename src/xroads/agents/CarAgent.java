@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import xroads.CarStatus;
 import xroads.World;
+import xroads.behaviours.CarNewbornBehaviour;
 import xroads.behaviours.CarStatusInformant;
 import xroads.behaviours.carfsm.CarOverallBehaviour;
 
@@ -46,7 +47,7 @@ public class CarAgent extends Agent {
 		currentDirection = World.parseDirection(parts[1]);
 
 		// informovat koncovku ze v ni je auto
-		addBehaviour(new CarStatusInformant());
+		addBehaviour(new CarNewbornBehaviour());
 
 		addBehaviour(new CarStatusInformant());
 
