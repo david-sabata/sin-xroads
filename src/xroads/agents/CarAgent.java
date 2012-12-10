@@ -4,8 +4,9 @@ import jade.core.Agent;
 
 import java.util.regex.Pattern;
 
+import xroads.CarStatus;
 import xroads.World;
-import xroads.behaviours.CarNewbornBehaviour;
+import xroads.behaviours.CarStatusInformant;
 import xroads.behaviours.carfsm.CarOverallBehaviour;
 
 @SuppressWarnings("serial")
@@ -45,7 +46,9 @@ public class CarAgent extends Agent {
 		currentDirection = World.parseDirection(parts[1]);
 
 		// informovat koncovku ze v ni je auto
-		addBehaviour(new CarNewbornBehaviour());
+		addBehaviour(new CarStatusInformant());
+
+		addBehaviour(new CarStatusInformant());
 
 		// komplexni chovani auta definovane pomoci FSM
 		addBehaviour(new CarOverallBehaviour());
@@ -93,4 +96,17 @@ public class CarAgent extends Agent {
 	public int getNextCrossroadDir() {
 		return nextHopDirection;
 	}
+
+
+	/**
+	 * Vraci objekt se stavem auta
+	 */
+	public CarStatus getStatus() {
+		CarStatus s = new CarStatus();
+		s.currentCrossroad = getCurrentCrossroad();
+		s.destinationCrossroad = getDestinationCrossroad();
+		return s;
+	}
+
+
 }

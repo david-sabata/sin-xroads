@@ -14,8 +14,10 @@ import jade.wrapper.StaleProxyException;
 
 import java.util.UUID;
 
+import xroads.CarStatus;
 import xroads.CrossroadStatus;
 import xroads.World;
+import xroads.behaviours.CarStatusListener;
 import xroads.behaviours.CrossroadStatusListener;
 import xroads.behaviours.GuiRefreshBehaviour;
 import xroads.behaviours.SpawnWorldBehaviour;
@@ -33,6 +35,10 @@ public class SpawnerAgent extends Agent {
 	 * Je nutne pro jemnejsi filtrovani zprav nez na urovni performative
 	 */
 	private final String statusInformConvId = UUID.randomUUID().toString();
+
+	private final String carStatusInformConvId = UUID.randomUUID().toString();
+
+
 
 	/**
 	 * Kontejner na agenty nema size()
@@ -69,6 +75,9 @@ public class SpawnerAgent extends Agent {
 
 		// naslouchani na infa o stavu
 		addBehaviour(new CrossroadStatusListener(statusInformConvId));
+
+		// naslouchani na infa o autech
+		addBehaviour(new CarStatusListener(carStatusInformConvId));
 	}
 
 
@@ -105,6 +114,8 @@ public class SpawnerAgent extends Agent {
 		});
 	}
 
+
+
 	/**
 	 * Vyzada si od krizovatky informace o jejim stavu
 	 * 
@@ -122,13 +133,41 @@ public class SpawnerAgent extends Agent {
 		});
 	}
 
-
 	/**
 	 * Dostali jsme informaci o stavu krizovatky, predame do GUI
 	 */
 	public void onCrossroadStatusUpdate(CrossroadStatus s) {
 		gui.updateCrossRoadAt(s);
 	}
+
+
+
+
+
+	/**
+	 * Vyzada si od auta informace o jeho stavu
+	 */
+	public void requestCarStatus(final String agentName) {
+		addBehaviour(new OneShotBehaviour() {
+			@Override
+			public void action() {
+				ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+				request.setConversationId(carStatusInformConvId);
+				request.addReceiver(new AID(agentName, AID.ISLOCALNAME));
+				myAgent.send(request);
+			}
+		});
+	}
+
+	/**
+	 * Dostali jsme informaci o stavu auta, predame do GUI
+	 */
+	public void onCarStatusUpdate(CarStatus s) {
+		// TODO
+	}
+
+
+
 
 
 	/**
