@@ -65,10 +65,7 @@ public class SpawnerAgent extends Agent {
 		addBehaviour(new SpawnWorldBehaviour(pGridWidth, pGridHeight));
 
 		// Cyklicka kontrola krizovatek
-		//addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight));
-
-		// testing - potrebuju updatovat krizovatky fakt rychle
-		addBehaviour(new GuiRefreshBehaviour(this, 100, pGridWidth, pGridHeight));
+		addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight));
 
 		// naslouchani na infa o stavu
 		addBehaviour(new CrossroadStatusListener(statusInformConvId));
