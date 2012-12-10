@@ -37,6 +37,8 @@ public class EnqueueBehaviour extends OneShotBehaviour {
 	public void onStart() {
 		isEnqueued = false;
 		conversationId = null;
+
+		System.out.println("Car [" + myAgent.getLocalName() + "] requests enqueuing");
 	}
 
 
@@ -56,7 +58,6 @@ public class EnqueueBehaviour extends OneShotBehaviour {
 			myAgent.send(request);
 
 			conversationId = request.getConversationId();
-			System.out.println("Car [" + myAgent.getLocalName() + "] requests enqueuing");
 		}
 
 		// cekat na odpoved - prijde bud PROPOSE_ACCEPT nebo PROPOSE_REJECT
@@ -72,6 +73,10 @@ public class EnqueueBehaviour extends OneShotBehaviour {
 				request.addReceiver(new AID(agent.getCurrentCrossroad(), AID.ISLOCALNAME));
 				request.setContent(String.valueOf(agent.getCurrentDirection()));
 				myAgent.send(request);
+			}
+			// jinak chceme vyslat novy pozadavek
+			else {
+				conversationId = null;
 			}
 		} else {
 			block();
