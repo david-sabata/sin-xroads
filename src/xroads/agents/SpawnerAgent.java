@@ -87,7 +87,7 @@ public class SpawnerAgent extends Agent {
 	 * @param endpointToName
 	 * @param count
 	 */
-	public void spawnCarsFromTo(final String endpointFromName, final String endpointToName, int count) {
+	public void spawnCarsFromTo(final String endpointFromName, final String endpointToName) {
 		addBehaviour(new OneShotBehaviour() {
 
 			@Override
