@@ -15,7 +15,7 @@ import xroads.CrossroadStatus;
 public class CityGenerator extends JTable {
 	private static final int endpointSize = 24;
 	private static final int crossSize = 18;
-	private static final int roadSize = 46;
+	private static final int roadSize = 75;
 	
 	private int width;
 	private int height;
