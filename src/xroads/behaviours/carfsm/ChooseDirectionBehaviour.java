@@ -69,6 +69,13 @@ public class ChooseDirectionBehaviour extends OneShotBehaviour {
 			return;
 		}
 
+		// kontrola
+		if (targetCrossroad == null || targetCrossroadDir == -1) {
+			System.err.println("MyPos " + myPos.toString());
+			System.err.println("DstPos" + dstPos.toString());
+			System.err.println("Target crossroad or direction is null");
+		}
+
 		// zapamatovat si v agentovi (mezi stavy FSM jde predavat pouze int)
 		agent.setNextHopCrossroad(targetCrossroad, targetCrossroadDir);
 	}

@@ -14,4 +14,11 @@ public class Position implements Serializable {
 
 	public int x;
 	public int y;
+
+
+	@Override
+	public String toString() {
+		return "Position [x=" + x + ", y=" + y + "]";
+	}
+
 }
