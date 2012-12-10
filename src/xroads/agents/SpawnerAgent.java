@@ -186,7 +186,7 @@ public class SpawnerAgent extends Agent {
 	 * @param startEndPoint
 	 */
 	public void addNewCarsToCityUniformly(String startPoint, String endPoint, int count, int time) {
-		addBehaviour(new UniformAddingCarsBehaviour(this, time / count, count, startPoint, endPoint));
+		addBehaviour(new UniformAddingCarsBehaviour(this, time / count / (1000 / World.TIMESTEP), count, startPoint, endPoint));
 	}
 	
 	/**
