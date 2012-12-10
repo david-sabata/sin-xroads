@@ -116,6 +116,7 @@ public abstract class CustomWakerBehaviour extends SimpleBehaviour {
 		finished = false;
 	}
 
+	@Override
 	public final void action() {
 		if (!finished) {
 			switch (state) {
@@ -169,6 +170,7 @@ public abstract class CustomWakerBehaviour extends SimpleBehaviour {
 	/**
 	 * @deprecated Use onWake() instead
 	 */
+	@Deprecated
 	protected void handleElapsedTimeout() {
 	}
 
@@ -194,6 +196,7 @@ public abstract class CustomWakerBehaviour extends SimpleBehaviour {
 	/**
 	 * This method must be called to reset the behaviour and starts again
 	 */
+	@Override
 	public void reset() {
 		super.reset();
 		wakeupTime = -1;
@@ -218,6 +221,7 @@ public abstract class CustomWakerBehaviour extends SimpleBehaviour {
 		restart();
 	}
 
+	@Override
 	public final boolean done() {
 		return finished;
 	}

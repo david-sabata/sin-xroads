@@ -32,7 +32,7 @@ public class Statistics {
 	public void updateCarStatus(CarStatus s, int carAgents) {
 		generatedCars.setText(Integer.toString(carAgents));
 		if(!agentsName.contains(s.name)) {
-			if(((String) s.currentCrossroad).equals((String) s.destinationCrossroad)) {
+			if(s.currentCrossroad.equals(s.destinationCrossroad)) {
 				finishedCars.setText(Integer.toString(Integer.parseInt(finishedCars.getText()) + 1));
 				agentsName.add(s.name);
 			}

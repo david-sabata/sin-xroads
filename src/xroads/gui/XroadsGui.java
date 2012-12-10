@@ -4,13 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.Time;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -216,6 +212,7 @@ public class XroadsGui extends JFrame {
 				
 				JButton btnSetSpeed = new JButton("Set speed");
 				btnSetSpeed.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						try {
 						mainAgent.setSimulationSpeed(Integer.parseInt(simulationSpeedText.getText()));
@@ -310,6 +307,7 @@ public class XroadsGui extends JFrame {
 				finishedCars.setBounds(92, 64, 46, 14);
 				panel_2.add(finishedCars);
 				btnNewCar.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						String startPoint = null;
 						String endPoint = null;

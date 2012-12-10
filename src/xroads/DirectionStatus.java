@@ -14,7 +14,7 @@ public class DirectionStatus implements Serializable {
 	/**
 	 * Maximalni delka fronty
 	 */
-	public int maximumLength = 2;
+	public int maximumLength = 15;
 
 	/**
 	 * Samotna fronta aut, obsahujici jejich agentska jmena
