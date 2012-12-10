@@ -27,7 +27,7 @@ public class EndpointsGenerator {
 		}
 		
 		// east, west
-		for (int i = 0; i < gridWidth; i++) {
+		for (int i = 0; i < gridHeight; i++) {
 			endpointNames.add("endpoint-e-" + i);
 			endpointNames.add("endpoint-w-" + i);	
 		}
@@ -42,6 +42,6 @@ public class EndpointsGenerator {
 		if(endpointNames.size() == 0) {
 				return null;
 		} 
-		return endpointNames.get(generator.nextInt(gridWidth * gridHeight));
+		return endpointNames.get(generator.nextInt((gridWidth + gridHeight) * 2));
 	}
 }

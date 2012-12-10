@@ -72,7 +72,7 @@ public class XroadsGui extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblHeight = new JLabel("Height:");
+		JLabel lblHeight = new JLabel("Width:");
 		lblHeight.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblHeight.setBounds(28, 63, 35, 14);
 		panel.add(lblHeight);
@@ -99,7 +99,7 @@ public class XroadsGui extends JFrame {
 		btnGenerate.setBounds(211, 59, 77, 23);
 		panel.add(btnGenerate);
 
-		JLabel lblWidth = new JLabel("Width:");
+		JLabel lblWidth = new JLabel("Height");
 		lblWidth.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblWidth.setBounds(28, 34, 32, 14);
 		panel.add(lblWidth);

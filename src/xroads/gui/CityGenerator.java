@@ -152,10 +152,10 @@ public class CityGenerator extends JTable {
 			String valueSemString = Integer.toString(s.directions[dir].semaphore);
 
 			if (coordRoad != null) {
-				tableModel.setValueAt(valueRoadString, coordRoad.getY(), coordRoad.getX());
+				tableModel.setValueAt(valueRoadString, coordRoad.getX(), coordRoad.getY());
 			}
 			if (coordSem != null) {
-				tableModel.setValueAt(valueSemString, coordSem.getY(), coordSem.getX());
+				tableModel.setValueAt(valueSemString, coordSem.getX(), coordSem.getY());
 			}
 		}
 	}
