@@ -8,6 +8,7 @@ import jade.lang.acl.MessageTemplate;
  * Ceka ve fronte dokud nebude prvni. To je symbolizovano 
  * prichozi zpravou INFORM
  */
+@SuppressWarnings("serial")
 public class WaitInQueueBehaviour extends Behaviour {
 
 	private boolean isFirstInQueue = false;
