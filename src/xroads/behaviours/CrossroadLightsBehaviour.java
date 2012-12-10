@@ -5,6 +5,7 @@ import jade.core.behaviours.WakerBehaviour;
 import xroads.Constants;
 import xroads.CrossroadStatus;
 import xroads.DirectionStatus;
+import xroads.World;
 import xroads.agents.CrossroadAgent;
 
 /**
@@ -13,13 +14,13 @@ import xroads.agents.CrossroadAgent;
 @SuppressWarnings("serial")
 public class CrossroadLightsBehaviour extends WakerBehaviour {
 
-	private long switchTimeout = 3 * Constants.TIMESTEP;
+	// private long switchTimeout = 3 * World.TIMESTEP;
 
 
 	public CrossroadLightsBehaviour(Agent agent, long initialSwitchTimeout) {
 		super(agent, initialSwitchTimeout);
 
-		switchTimeout = initialSwitchTimeout;
+	// switchTimeout = initialSwitchTimeout;
 	}
 
 
@@ -47,7 +48,8 @@ public class CrossroadLightsBehaviour extends WakerBehaviour {
 		}
 
 		// znovu spustit za dany cas
-		reset(switchTimeout);
+		// reset(switchTimeout);
+		reset(3 * World.TIMESTEP);
 	}
 
 }

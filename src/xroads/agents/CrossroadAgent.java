@@ -56,7 +56,7 @@ public class CrossroadAgent extends Agent {
 		addBehaviour(new CrossroadStatusInformant());
 
 		// prepina semafory
-		long initialSwitchTimeout = 3 * Constants.TIMESTEP;
+		long initialSwitchTimeout = 3 * World.TIMESTEP;
 		addBehaviour(new CrossroadLightsBehaviour(this, initialSwitchTimeout));
 
 		// radi prijizdejici auta do front
