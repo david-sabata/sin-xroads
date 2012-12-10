@@ -10,9 +10,9 @@ import xroads.DirectionStatus;
 import xroads.Position;
 import xroads.World;
 import xroads.behaviours.AcceptCarBehaviour;
-import xroads.behaviours.CrossroadLightsBehaviour;
 import xroads.behaviours.CrossroadStatusInformant;
 import xroads.behaviours.ReleaseCarBehaviour;
+import xroads.behaviours.xroadfsm.CrossroadLightsBehaviour;
 
 /**
  * Krizovatka
@@ -56,8 +56,7 @@ public class CrossroadAgent extends Agent {
 		addBehaviour(new CrossroadStatusInformant());
 
 		// prepina semafory
-		long initialSwitchTimeout = 3 * World.TIMESTEP;
-		addBehaviour(new CrossroadLightsBehaviour(this, initialSwitchTimeout));
+		addBehaviour(new CrossroadLightsBehaviour());
 
 		// radi prijizdejici auta do front
 		addBehaviour(new AcceptCarBehaviour());

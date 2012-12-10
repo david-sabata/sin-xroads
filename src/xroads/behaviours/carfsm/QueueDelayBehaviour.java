@@ -16,6 +16,7 @@ import xroads.World;
  * uspani celeho agentskeho vlakna a vsech jeho chovani. Diky tomu ho neprobudi 
  * pripadny prubeh vedlejsich chovani.
  */
+@SuppressWarnings("serial")
 public class QueueDelayBehaviour extends OneShotBehaviour {
 
 	@Override

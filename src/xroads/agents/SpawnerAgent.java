@@ -13,6 +13,7 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
 import java.util.UUID;
+
 import xroads.CrossroadStatus;
 import xroads.World;
 import xroads.behaviours.CrossroadStatusListener;
@@ -64,7 +65,10 @@ public class SpawnerAgent extends Agent {
 		addBehaviour(new SpawnWorldBehaviour(pGridWidth, pGridHeight));
 
 		// Cyklicka kontrola krizovatek
-		addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight));
+		//addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight));
+
+		// testing - potrebuju updatovat krizovatky fakt rychle
+		addBehaviour(new GuiRefreshBehaviour(this, 100, pGridWidth, pGridHeight));
 
 		// naslouchani na infa o stavu
 		addBehaviour(new CrossroadStatusListener(statusInformConvId));
@@ -135,7 +139,7 @@ public class SpawnerAgent extends Agent {
 	 * @param parseInt
 	 */
 	public void setSimulationSpeed(int parseInt) {
-		
+
 		World.TIMESTEP = parseInt;
 		System.out.println(World.TIMESTEP);
 	}
