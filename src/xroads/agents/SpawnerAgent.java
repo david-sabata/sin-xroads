@@ -21,6 +21,7 @@ import xroads.behaviours.CarStatusListener;
 import xroads.behaviours.CrossroadStatusListener;
 import xroads.behaviours.GuiRefreshBehaviour;
 import xroads.behaviours.SpawnWorldBehaviour;
+import xroads.behaviours.UniformAddingCarsBehaviour;
 import xroads.gui.XroadsGui;
 
 @SuppressWarnings("serial")
@@ -171,12 +172,20 @@ public class SpawnerAgent extends Agent {
 
 
 	/**
-	 * Tato funkce nastavuje promìnnou, ktera urèuje jak rychle bude ubihat simulaèni èas
+	 * Tato metoda nastavuje promìnnou, ktera urèuje jak rychle bude ubihat simulaèni èas
 	 * @param parseInt
 	 */
 	public void setSimulationSpeed(int parseInt) {
-
 		World.TIMESTEP = parseInt;
-		System.out.println(World.TIMESTEP);
 	}
+
+	/**
+	 *  Tato metoda pøidá halvním spawnerovi takové chování, které definuje kolik aute se v urèitém èasovém intervalu vygeneruje 
+	 * @param time 
+	 * @param startEndPoint
+	 */
+	public void addNewCarsToCityUniformly(String startPoint, String endPoint, int count, int time) {
+		addBehaviour(new UniformAddingCarsBehaviour(this, time / count, count, startPoint, endPoint));
+	}
+
 }

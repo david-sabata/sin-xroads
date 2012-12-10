@@ -46,6 +46,7 @@ public class XroadsGui extends JFrame {
 	private EndpointsGenerator endpointGen;
 	private JTextField numOfcars;
 	private XroadsGui gui;
+	private JTextField sendTime;
 	/**
 	 * Create the frame.
 	 */
@@ -229,13 +230,28 @@ public class XroadsGui extends JFrame {
 				numOfcars = new JTextField();
 				numOfcars.setHorizontalAlignment(SwingConstants.RIGHT);
 				numOfcars.setText("1");
-				numOfcars.setBounds(137, 5, 86, 20);
+				numOfcars.setBounds(46, 5, 59, 20);
 				panel_1.add(numOfcars);
 				numOfcars.setColumns(10);
 				
-				JLabel lblNumboerOfCars = new JLabel("Number of cars:");
-				lblNumboerOfCars.setBounds(19, 8, 97, 14);
+				JLabel lblNumboerOfCars = new JLabel("Send");
+				lblNumboerOfCars.setBounds(10, 8, 29, 14);
 				panel_1.add(lblNumboerOfCars);
+				
+				JLabel lblIn = new JLabel("cars in");
+				lblIn.setBounds(111, 8, 39, 14);
+				panel_1.add(lblIn);
+				
+				sendTime = new JTextField();
+				sendTime.setHorizontalAlignment(SwingConstants.RIGHT);
+				sendTime.setText("30");
+				sendTime.setBounds(147, 5, 76, 20);
+				panel_1.add(sendTime);
+				sendTime.setColumns(10);
+				
+				JLabel lblS_1 = new JLabel("s");
+				lblS_1.setBounds(226, 8, 20, 14);
+				panel_1.add(lblS_1);
 				
 				JPanel panel_2 = new JPanel();
 				panel_2.setBounds(565, 5, 155, 102);
@@ -281,9 +297,11 @@ public class XroadsGui extends JFrame {
 							startPoint = endpointGen.getRandomEndPoint();
 							endPoint = endpointGen.getRandomEndPoint();
 							
-							// endPoint and startPoint cant be the same
-							while(startPoint.equals(endPoint)) {
-								endPoint = endpointGen.getRandomEndPoint();
+							if(startPoint != null && endPoint != null) {
+								// endPoint and startPoint cant be the same
+								while(startPoint.equals(endPoint)) {
+									endPoint = endpointGen.getRandomEndPoint();
+								}
 							}
 						} 
 						// set by user
@@ -292,12 +310,9 @@ public class XroadsGui extends JFrame {
 						}
 						
 						int cars = Integer.parseInt(numOfcars.getText());
-						
-						if(startPoint != null && endPoint != null && cars > 0) {
-							for (int i = 0; i < cars; i++) {
-								// TODO nahradit prirazenim chovani mainAgentoj, kterej bude generovat X aute s urcitym rozlozenim
-								mainAgent.spawnCarsFromTo(startPoint, endPoint);
-							}
+						int time = Integer.parseInt(sendTime.getText()) * 1000;
+						if(startPoint != null && endPoint != null && cars > 0 && time > 0) {
+							mainAgent.addNewCarsToCityUniformly(startPoint, endPoint, cars, time);			
 						} else {
 							// TODO zobrazit dialog, ze pocatecni a koncovy bod, popripade pocet aut jsou spatne definovany
 							// JOptionPane.showMessageDialog(null, gui, "Eggs are not supposed to be green.", JOptionPane.WARNING_MESSAGE);
