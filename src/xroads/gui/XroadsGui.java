@@ -47,6 +47,7 @@ public class XroadsGui extends JFrame {
 	private EndpointsGenerator endpointGen;
 	private JTextField numOfcars;
 	private XroadsGui gui;
+	private Statistics statistics;
 	private JTextField sendTime;
 	private JLabel generatedCars;
 	private JLabel finishedCars;
@@ -343,7 +344,7 @@ public class XroadsGui extends JFrame {
 					}
 				});
 
-
+		statistics = new Statistics(generatedCars, finishedCars);
 		this.setVisible(true);
 	}
 
@@ -363,10 +364,6 @@ public class XroadsGui extends JFrame {
 	 * @param carAgents 
 	 */
 	public void updateCarStatus(CarStatus s, int carAgents) {
-		generatedCars.setText(Integer.toString(carAgents));
-		if(((String)s.currentCrossroad).equals((String)s.destinationCrossroad)) {
-			finishedCars.setText(Integer.toString(Integer.parseInt(finishedCars.getText()) + 1));
-		}
-		System.out.println("Update statistics");
+		statistics.updateCarStatus(s, carAgents);
 	}
 }

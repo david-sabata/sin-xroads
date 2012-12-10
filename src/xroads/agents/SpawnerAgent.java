@@ -73,7 +73,7 @@ public class SpawnerAgent extends Agent {
 		addBehaviour(new SpawnWorldBehaviour(pGridWidth, pGridHeight));
 
 		// Cyklicka kontrola krizovatek
-		addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight, carAgents));
+		addBehaviour(new GuiRefreshBehaviour(this, (int) World.TIMESTEP / 3, pGridWidth, pGridHeight));
 
 		// naslouchani na infa o stavu
 		addBehaviour(new CrossroadStatusListener(statusInformConvId));
@@ -150,7 +150,6 @@ public class SpawnerAgent extends Agent {
 	 * Vyzada si od auta informace o jeho stavu
 	 */
 	public void requestCarStatus(final String agentName) {
-		System.out.println("Request for update statistics");
 		addBehaviour(new OneShotBehaviour() {
 			@Override
 			public void action() {
@@ -188,6 +187,14 @@ public class SpawnerAgent extends Agent {
 	 */
 	public void addNewCarsToCityUniformly(String startPoint, String endPoint, int count, int time) {
 		addBehaviour(new UniformAddingCarsBehaviour(this, time / count, count, startPoint, endPoint));
+	}
+	
+	/**
+	 * Vraci pocet agentu
+	 * @return
+	 */
+	public int getCarAgents() {
+		return carAgents;
 	}
 
 }

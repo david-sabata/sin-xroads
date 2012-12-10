@@ -12,22 +12,14 @@ public class GuiRefreshBehaviour extends TickerBehaviour {
 	private SpawnerAgent spawner;
 
 	private ArrayList<String> crossroadsName = new ArrayList<String>();
-	private ArrayList<String> carsName = new ArrayList<String>();
 	
-
-	public GuiRefreshBehaviour(Agent spawnerAgent, long period, int gridWidth, int gridHeight, int carAgents) {
+	public GuiRefreshBehaviour(Agent spawnerAgent, long period, int gridWidth, int gridHeight) {
 		super(spawnerAgent, period);
 		spawner = (SpawnerAgent) spawnerAgent;
 
 		// it generates names for crossroad
 		for (int i = 0; i < gridWidth * gridHeight; i++) {
 			crossroadsName.add("xroad-" + i);
-		}
-		
-		//it generate names for cars
-		for (int i = 0; i < carAgents; i ++) {
-			System.out.println("Test in gui refresher");
-			carsName.add("car-" + i);
 		}
 	}
 
@@ -39,8 +31,8 @@ public class GuiRefreshBehaviour extends TickerBehaviour {
 		}
 		
 		//refresh cars
-		for(String x : carsName) {
-			spawner.requestCarStatus(x);
+		for (int i = 0; i < spawner.getCarAgents(); i ++) {
+			spawner.requestCarStatus("car-" + i);
 		}
 	}
 
