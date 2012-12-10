@@ -44,10 +44,13 @@ public class XroadsGui extends JFrame {
 	private JLabel lblNewLabel;
 
 	private EndpointsGenerator endpointGen;
+	private JTextField numOfcars;
+	private XroadsGui gui;
 	/**
 	 * Create the frame.
 	 */
 	public XroadsGui(final SpawnerAgent mainAgent) {
+		gui = this;
 		
 		// initialize endpoint generator
 		endpointGen = new EndpointsGenerator(System.currentTimeMillis());
@@ -60,7 +63,7 @@ public class XroadsGui extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 298, 93);
+		panel.setBounds(5, 5, 298, 102);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -186,22 +189,23 @@ public class XroadsGui extends JFrame {
 		contentPane.add(lblFree);
 		
 		panel_1 = new JPanel();
-		panel_1.setBounds(313, 5, 246, 93);
+		panel_1.setBounds(313, 5, 246, 102);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-				JButton btnNewCar = new JButton("New Car");
-				btnNewCar.setBounds(137, 7, 86, 23);
+				JButton btnNewCar = new JButton("New Cars");
+				btnNewCar.setBounds(137, 29, 86, 23);
 				panel_1.add(btnNewCar);
 				
 				final JCheckBox randomWayCheckbox = new JCheckBox("Random way");
 				randomWayCheckbox.setSelected(true);
-				randomWayCheckbox.setBounds(19, 7, 97, 23);
+				randomWayCheckbox.setBounds(19, 29, 97, 23);
 				panel_1.add(randomWayCheckbox);
 				
 				simulationSpeedText = new JTextField();
+				simulationSpeedText.setHorizontalAlignment(SwingConstants.RIGHT);
 				simulationSpeedText.setText("1000");
-				simulationSpeedText.setBounds(19, 62, 86, 20);
+				simulationSpeedText.setBounds(19, 69, 86, 20);
 				panel_1.add(simulationSpeedText);
 				simulationSpeedText.setColumns(10);
 				
@@ -215,15 +219,26 @@ public class XroadsGui extends JFrame {
 						}
 					}
 				});
-				btnSetSpeed.setBounds(137, 61, 86, 23);
+				btnSetSpeed.setBounds(137, 68, 86, 23);
 				panel_1.add(btnSetSpeed);
 				
 				JLabel lblRychlostSimulace = new JLabel("Rychlost simulace (ms)");
-				lblRychlostSimulace.setBounds(19, 47, 116, 14);
+				lblRychlostSimulace.setBounds(19, 54, 116, 14);
 				panel_1.add(lblRychlostSimulace);
 				
+				numOfcars = new JTextField();
+				numOfcars.setHorizontalAlignment(SwingConstants.RIGHT);
+				numOfcars.setText("1");
+				numOfcars.setBounds(137, 5, 86, 20);
+				panel_1.add(numOfcars);
+				numOfcars.setColumns(10);
+				
+				JLabel lblNumboerOfCars = new JLabel("Number of cars:");
+				lblNumboerOfCars.setBounds(19, 8, 97, 14);
+				panel_1.add(lblNumboerOfCars);
+				
 				JPanel panel_2 = new JPanel();
-				panel_2.setBounds(565, 5, 155, 93);
+				panel_2.setBounds(565, 5, 155, 102);
 				contentPane.add(panel_2);
 				panel_2.setLayout(null);
 				
@@ -261,7 +276,7 @@ public class XroadsGui extends JFrame {
 						String startPoint = null;
 						String endPoint = null;
 						
-						// if random way is selected we will choose random wndpoint
+						// if random way is selected we will choose random endpoint
 						if(randomWayCheckbox.isSelected()) {
 							startPoint = endpointGen.getRandomEndPoint();
 							endPoint = endpointGen.getRandomEndPoint();
@@ -270,13 +285,22 @@ public class XroadsGui extends JFrame {
 							while(startPoint.equals(endPoint)) {
 								endPoint = endpointGen.getRandomEndPoint();
 							}
+						} 
+						// set by user
+						else {
+							
 						}
 						
-						if(startPoint != null && endPoint != null) {
-							System.out.println("Start_:" + startPoint + "; EndPoint: " + endPoint);
-							mainAgent.spawnCarsFromTo(startPoint, endPoint, 1);
+						int cars = Integer.parseInt(numOfcars.getText());
+						
+						if(startPoint != null && endPoint != null && cars > 0) {
+							for (int i = 0; i < cars; i++) {
+								// TODO nahradit prirazenim chovani mainAgentoj, kterej bude generovat X aute s urcitym rozlozenim
+								mainAgent.spawnCarsFromTo(startPoint, endPoint);
+							}
 						} else {
-							//JOptionPane.showMessageDialog(rootPane, this, "Eggs are not supposed to be green.", JOptionPane.WARNING_MESSAGE);
+							// TODO zobrazit dialog, ze pocatecni a koncovy bod, popripade pocet aut jsou spatne definovany
+							// JOptionPane.showMessageDialog(null, gui, "Eggs are not supposed to be green.", JOptionPane.WARNING_MESSAGE);
 						}
 						
 						
