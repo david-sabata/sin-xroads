@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.Time;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -19,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import xroads.CrossroadStatus;
 import xroads.agents.SpawnerAgent;
 import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class XroadsGui extends JFrame {
@@ -37,11 +41,17 @@ public class XroadsGui extends JFrame {
 	private JTable table_7;
 	private JPanel panel_1;
 	private JTextField simulationSpeedText;
+	private JLabel lblNewLabel;
 
+	private EndpointsGenerator endpointGen;
 	/**
 	 * Create the frame.
 	 */
 	public XroadsGui(final SpawnerAgent mainAgent) {
+		
+		// initialize endpoint generator
+		endpointGen = new EndpointsGenerator(System.currentTimeMillis());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 886, 655);
 		contentPane = new JPanel();
@@ -67,6 +77,10 @@ public class XroadsGui extends JFrame {
 				try {
 					// regenerate table city
 					city.generateCity(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
+					
+					// regenerate endpoint names
+					endpointGen.regenerateEndpoints(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
+					
 					// Contact gui agent, that city is generated
 					mainAgent.spawnCrossroads(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
 				} catch (NumberFormatException error) {
@@ -180,10 +194,10 @@ public class XroadsGui extends JFrame {
 				btnNewCar.setBounds(137, 7, 86, 23);
 				panel_1.add(btnNewCar);
 				
-				JCheckBox chckbxRandomWay = new JCheckBox("Random way");
-				chckbxRandomWay.setSelected(true);
-				chckbxRandomWay.setBounds(19, 7, 97, 23);
-				panel_1.add(chckbxRandomWay);
+				final JCheckBox randomWayCheckbox = new JCheckBox("Random way");
+				randomWayCheckbox.setSelected(true);
+				randomWayCheckbox.setBounds(19, 7, 97, 23);
+				panel_1.add(randomWayCheckbox);
 				
 				simulationSpeedText = new JTextField();
 				simulationSpeedText.setText("1000");
@@ -221,16 +235,51 @@ public class XroadsGui extends JFrame {
 				lblAverageTime.setBounds(10, 31, 80, 14);
 				panel_2.add(lblAverageTime);
 				
-				JLabel label = new JLabel("0000");
-				label.setBounds(57, 50, 46, 14);
-				panel_2.add(label);
+				JLabel simulationAverageTime = new JLabel("0");
+				simulationAverageTime.setHorizontalAlignment(SwingConstants.RIGHT);
+				simulationAverageTime.setBounds(92, 31, 46, 14);
+				panel_2.add(simulationAverageTime);
 				
 				JLabel lblS = new JLabel("s");
-				lblS.setBounds(99, 50, 46, 14);
+				lblS.setBounds(138, 31, 17, 14);
 				panel_2.add(lblS);
+				
+				lblNewLabel = new JLabel("Simulation time:");
+				lblNewLabel.setBounds(10, 53, 80, 14);
+				panel_2.add(lblNewLabel);
+				
+				JLabel simulationTime = new JLabel("0");
+				simulationTime.setHorizontalAlignment(SwingConstants.RIGHT);
+				simulationTime.setBounds(92, 53, 46, 14);
+				panel_2.add(simulationTime);
+				
+				JLabel label = new JLabel("s");
+				label.setBounds(138, 53, 17, 14);
+				panel_2.add(label);
 				btnNewCar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						mainAgent.spawnCarsFromTo("endpoint-s-1", "endpoint-n-1", 1);
+						String startPoint = null;
+						String endPoint = null;
+						
+						// if random way is selected we will choose random wndpoint
+						if(randomWayCheckbox.isSelected()) {
+							startPoint = endpointGen.getRandomEndPoint();
+							endPoint = endpointGen.getRandomEndPoint();
+							
+							// endPoint and startPoint cant be the same
+							while(startPoint.equals(endPoint)) {
+								endPoint = endpointGen.getRandomEndPoint();
+							}
+						}
+						
+						if(startPoint != null && endPoint != null) {
+							System.out.println("Start_:" + startPoint + "; EndPoint: " + endPoint);
+							mainAgent.spawnCarsFromTo(startPoint, endPoint, 1);
+						} else {
+							//JOptionPane.showMessageDialog(rootPane, this, "Eggs are not supposed to be green.", JOptionPane.WARNING_MESSAGE);
+						}
+						
+						
 					}
 				});
 
