@@ -104,6 +104,7 @@ public class CarAgent extends Agent {
 	 */
 	public CarStatus getStatus() {
 		CarStatus s = new CarStatus();
+		s.name = getLocalName();
 		s.currentCrossroad = getCurrentCrossroad();
 		s.destinationCrossroad = getDestinationCrossroad();
 		return s;

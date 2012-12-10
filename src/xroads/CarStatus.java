@@ -19,6 +19,11 @@ public class CarStatus implements Serializable {
 	private static final long serialVersionUID = 3597511256900703490L;
 
 	/**
+	 * Jmeno auta
+	 */
+	public String name;
+
+	/**
 	 * Nazev krizovatky na ktere auto aktualne je
 	 */
 	public String currentCrossroad;
