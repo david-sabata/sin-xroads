@@ -65,7 +65,7 @@ public class CarAgent extends Agent {
 		currentCrossroad = newCurrent;
 		currentDirection = newCurrentDir;
 
-		System.out.println("Car is at [" + newCurrent + "] in direction [" + newCurrentDir + "]");
+		//		System.out.println("Car is at [" + newCurrent + "] in direction [" + newCurrentDir + "]");
 	}
 
 

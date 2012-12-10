@@ -3,6 +3,7 @@ package xroads.behaviours.carfsm;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import xroads.agents.CarAgent;
 
 /**
  * Ceka ve fronte dokud nebude prvni. To je symbolizovano 
@@ -24,7 +25,7 @@ public class WaitInQueueBehaviour extends Behaviour {
 
 	@Override
 	public void action() {
-		System.out.println("Car [" + myAgent.getLocalName() + "] waits in queue");
+		System.out.println("Car [" + myAgent.getLocalName() + "] waits in queue of [" + ((CarAgent) myAgent).getCurrentCrossroad() + "]");
 
 		MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 		ACLMessage msg = myAgent.receive(mt);

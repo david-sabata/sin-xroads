@@ -88,7 +88,7 @@ public class EnqueueBehaviour extends OneShotBehaviour {
 			agent.setNextHopCrossroad(null, -1);
 
 			System.out.println("Car [" + myAgent.getLocalName() + "] is now enqueued at [" + agent.getCurrentCrossroad() + "] [dir:"
-					+ agent.getCurrentDirection() + "]");
+					+ agent.getCurrentDirection() + "] and goes to [" + agent.getDestinationCrossroad() + "]");
 
 			if (agent.getCurrentCrossroad().equals(agent.getDestinationCrossroad())) {
 				return ENQUEUE_ENDPOINT;
