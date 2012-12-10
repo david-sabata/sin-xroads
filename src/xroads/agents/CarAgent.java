@@ -16,7 +16,7 @@ public class CarAgent extends Agent {
 	private String sourceCrossroad;
 	private String currentCrossroad;
 	private String destinationCrossroad;
-
+//	private 
 	/**
 	 * Smer ze ktere auto stoji na aktualni krizovatce
 	 */

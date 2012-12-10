@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 import xroads.CarStatus;
 import xroads.CrossroadStatus;
+import xroads.World;
 import xroads.agents.SpawnerAgent;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
@@ -73,7 +74,7 @@ public class XroadsGui extends JFrame {
 		lblHeight.setBounds(28, 33, 35, 14);
 		panel.add(lblHeight);
 
-		JButton btnGenerate = new JButton("Generate");
+		final JButton btnGenerate = new JButton("Start");
 		btnGenerate.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		btnGenerate.addActionListener(new ActionListener() {
 			@Override
@@ -87,6 +88,11 @@ public class XroadsGui extends JFrame {
 					
 					// Contact gui agent, that city is generated
 					mainAgent.spawnCrossroads(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
+					if(Integer.parseInt(simulationSpeedText.getText()) > 0) {
+						World.TIMESTEP = Integer.parseInt(simulationSpeedText.getText());
+					}
+					
+					btnGenerate.setEnabled(false);
 				} catch (NumberFormatException error) {
 					System.out.println(error.getLocalizedMessage());
 				}
@@ -102,13 +108,13 @@ public class XroadsGui extends JFrame {
 
 		widthDimens = new JTextField();
 		widthDimens.setText("3");
-		widthDimens.setBounds(85, 31, 86, 20);
+		widthDimens.setBounds(60, 31, 86, 20);
 		panel.add(widthDimens);
 		widthDimens.setColumns(10);
 
 		heightDimens = new JTextField();
 		heightDimens.setText("3");
-		heightDimens.setBounds(85, 60, 86, 20);
+		heightDimens.setBounds(60, 61, 86, 20);
 		panel.add(heightDimens);
 		heightDimens.setColumns(10);
 
@@ -116,16 +122,25 @@ public class XroadsGui extends JFrame {
 		lblCityDimensions.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblCityDimensions.setBounds(28, 9, 106, 14);
 		panel.add(lblCityDimensions);
-
-		JButton btnClear = new JButton("Clear");
-		btnClear.setFont(new Font("SansSerif", Font.PLAIN, 11));
-		btnClear.setBounds(211, 30, 77, 23);
-		btnClear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		panel.add(btnClear);
+		
+		JLabel lblRychlostSimulace = new JLabel("Rychlost simulace");
+		lblRychlostSimulace.setBounds(153, 10, 135, 14);
+		panel.add(lblRychlostSimulace);
+		
+		simulationSpeedText = new JTextField();
+		simulationSpeedText.setBounds(185, 31, 86, 20);
+		panel.add(simulationSpeedText);
+		simulationSpeedText.setHorizontalAlignment(SwingConstants.RIGHT);
+		simulationSpeedText.setText("1000");
+		simulationSpeedText.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("1s = ");
+		lblNewLabel_1.setBounds(156, 34, 25, 14);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblMs = new JLabel("ms");
+		lblMs.setBounds(274, 34, 24, 14);
+		panel.add(lblMs);
 
 		city = new CityGenerator();
 		city.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -195,63 +210,38 @@ public class XroadsGui extends JFrame {
 		panel_1.setLayout(null);
 		
 				JButton btnNewCar = new JButton("New Cars");
-				btnNewCar.setBounds(137, 29, 86, 23);
+				btnNewCar.setBounds(137, 56, 86, 23);
 				panel_1.add(btnNewCar);
 				
 				final JCheckBox randomWayCheckbox = new JCheckBox("Random way");
 				randomWayCheckbox.setSelected(true);
-				randomWayCheckbox.setBounds(19, 29, 97, 23);
+				randomWayCheckbox.setBounds(19, 56, 97, 23);
 				panel_1.add(randomWayCheckbox);
-				
-				simulationSpeedText = new JTextField();
-				simulationSpeedText.setHorizontalAlignment(SwingConstants.RIGHT);
-				simulationSpeedText.setText("1000");
-				simulationSpeedText.setBounds(19, 69, 86, 20);
-				panel_1.add(simulationSpeedText);
-				simulationSpeedText.setColumns(10);
-				
-				JButton btnSetSpeed = new JButton("Set speed");
-				btnSetSpeed.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						try {
-						mainAgent.setSimulationSpeed(Integer.parseInt(simulationSpeedText.getText()));
-						} catch (NumberFormatException error) {
-							System.out.println(error.getLocalizedMessage());
-						}
-					}
-				});
-				btnSetSpeed.setBounds(137, 68, 86, 23);
-				panel_1.add(btnSetSpeed);
-				
-				JLabel lblRychlostSimulace = new JLabel("Rychlost simulace (ms)");
-				lblRychlostSimulace.setBounds(19, 54, 116, 14);
-				panel_1.add(lblRychlostSimulace);
 				
 				numOfcars = new JTextField();
 				numOfcars.setHorizontalAlignment(SwingConstants.RIGHT);
 				numOfcars.setText("1");
-				numOfcars.setBounds(46, 5, 59, 20);
+				numOfcars.setBounds(46, 32, 59, 20);
 				panel_1.add(numOfcars);
 				numOfcars.setColumns(10);
 				
 				JLabel lblNumboerOfCars = new JLabel("Send");
-				lblNumboerOfCars.setBounds(10, 8, 29, 14);
+				lblNumboerOfCars.setBounds(10, 35, 29, 14);
 				panel_1.add(lblNumboerOfCars);
 				
 				JLabel lblIn = new JLabel("cars in");
-				lblIn.setBounds(111, 8, 39, 14);
+				lblIn.setBounds(111, 35, 39, 14);
 				panel_1.add(lblIn);
 				
 				sendTime = new JTextField();
 				sendTime.setHorizontalAlignment(SwingConstants.RIGHT);
 				sendTime.setText("30");
-				sendTime.setBounds(147, 5, 76, 20);
+				sendTime.setBounds(151, 32, 72, 20);
 				panel_1.add(sendTime);
 				sendTime.setColumns(10);
 				
 				JLabel lblS_1 = new JLabel("s");
-				lblS_1.setBounds(226, 8, 20, 14);
+				lblS_1.setBounds(226, 35, 20, 14);
 				panel_1.add(lblS_1);
 				
 				JPanel panel_2 = new JPanel();
