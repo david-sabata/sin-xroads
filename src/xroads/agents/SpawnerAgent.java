@@ -57,7 +57,7 @@ public class SpawnerAgent extends Agent {
 		// vytvoreni kontejneru na auta, ktery si budeme pamatovat
 		Profile p = new ProfileImpl();
 		carAgentContainer = Runtime.instance().createAgentContainer(p);
-		
+
 	}
 
 
@@ -174,27 +174,27 @@ public class SpawnerAgent extends Agent {
 
 
 	/**
-	 * Tato metoda nastavuje promìnnou, ktera urèuje jak rychle bude ubihat simulaèni èas
+	 * Tato metoda nastavuje promennou, ktera urcuje jak rychle bude ubihat simulacni cas
 	 * @param parseInt
 	 */
 	public void setSimulationSpeed(int parseInt) {
 		World.TIMESTEP = parseInt;
 	}
-	
-	
+
+
 	public void setStartOfSimulation() {
 		startTimestampOfSimulation = System.currentTimeMillis();
 	}
 
 	/**
-	 *  Tato metoda pøidá halvním spawnerovi takové chování, které definuje kolik aute se v urèitém èasovém intervalu vygeneruje 
+	 *  Tato metoda prida hlavnimu spawnerovi takove chovani, ktere definuje kolik aute se v urcitem casovem intervalu vygeneruje 
 	 * @param time 
 	 * @param startEndPoint
 	 */
 	public void addNewCarsToCityUniformly(String startPoint, String endPoint, int count, int time) {
 		addBehaviour(new UniformAddingCarsBehaviour(this, time / count / (1000 / World.TIMESTEP), count, startPoint, endPoint));
 	}
-	
+
 	/**
 	 * Vraci pocet agentu
 	 * @return
