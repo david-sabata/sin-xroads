@@ -59,7 +59,13 @@ public class WaitForGreenBehaviour extends Behaviour {
 
 			try {
 				s = CrossroadStatus.deserialize(serialized);
-			} catch (ClassNotFoundException | IOException e) {
+			} catch (ClassNotFoundException e) {
+				System.err.println("Error: CarOverallBehaviour.waitForGreen recieved malformed message");
+				e.printStackTrace();
+
+				myAgent.doDelete();
+				return;
+			} catch (IOException e) {
 				System.err.println("Error: CarOverallBehaviour.waitForGreen recieved malformed message");
 				e.printStackTrace();
 

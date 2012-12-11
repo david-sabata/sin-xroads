@@ -128,16 +128,14 @@ public class World {
 	 * Prevadi znak na konstantu smeru
 	 */
 	public static int parseDirection(String s) {
-		switch (s) {
-			case "n":
-				return Constants.NORTH;
-			case "s":
-				return Constants.SOUTH;
-			case "e":
-				return Constants.EAST;
-			case "w":
-				return Constants.WEST;
-		}
+		if (s.equals("n"))
+			return Constants.NORTH;
+		if (s.equals("s"))
+			return Constants.SOUTH;
+		if (s.equals("e"))
+			return Constants.EAST;
+		if (s.equals("w"))
+			return Constants.WEST;
 
 		return -1;
 	}
