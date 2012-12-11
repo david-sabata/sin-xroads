@@ -332,7 +332,7 @@ public class XroadsGui extends JFrame {
 					}
 				});
 
-		statistics = new Statistics(generatedCars, finishedCars);
+		statistics = new Statistics(generatedCars, finishedCars, simulationTime, simulationAverageTime );
 		this.setVisible(true);
 	}
 

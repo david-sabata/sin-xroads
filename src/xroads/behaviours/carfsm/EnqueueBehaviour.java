@@ -96,6 +96,7 @@ public class EnqueueBehaviour extends OneShotBehaviour {
 					+ agent.getCurrentDirection() + "] and goes to [" + agent.getDestinationCrossroad() + "]");
 
 			if (agent.getCurrentCrossroad().equals(agent.getDestinationCrossroad())) {
+				agent.setTimestampEnd(System.currentTimeMillis());
 				return ENQUEUE_ENDPOINT;
 			} else {
 				return ENQUEUE_OK;

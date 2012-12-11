@@ -33,6 +33,16 @@ public class CarStatus implements Serializable {
 	 */
 	public String destinationCrossroad;
 
+	/**
+	 * Cas kdy auto vyjelo do simulace
+	 */
+	public long startTime;
+
+	/**
+	 * as kdy auto zkoncilo simulaci
+	 */
+	public long endTime;
+
 
 
 

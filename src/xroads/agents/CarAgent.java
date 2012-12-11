@@ -2,6 +2,7 @@ package xroads.agents;
 
 import jade.core.Agent;
 
+import java.sql.Date;
 import java.util.regex.Pattern;
 
 import xroads.CarStatus;
@@ -16,7 +17,9 @@ public class CarAgent extends Agent {
 	private String sourceCrossroad;
 	private String currentCrossroad;
 	private String destinationCrossroad;
-//	private 
+	private long timestampStart = 0;
+	private long timestampEnd = 0;
+	
 	/**
 	 * Smer ze ktere auto stoji na aktualni krizovatce
 	 */
@@ -46,6 +49,8 @@ public class CarAgent extends Agent {
 		}
 		currentDirection = World.parseDirection(parts[1]);
 
+		timestampStart = System.currentTimeMillis();
+				
 		// informovat koncovku ze v ni je auto
 		addBehaviour(new CarNewbornBehaviour());
 
@@ -83,7 +88,13 @@ public class CarAgent extends Agent {
 		return currentDirection;
 	}
 
-
+	public long getStartTimestamp() {
+		return timestampStart;
+	}
+	
+	public long getEndTimestamp() {
+		return timestampEnd;
+	}
 
 	public void setNextHopCrossroad(String crossroad, int direction) {
 		nextHopCrossroad = crossroad;
@@ -107,8 +118,13 @@ public class CarAgent extends Agent {
 		s.name = getLocalName();
 		s.currentCrossroad = getCurrentCrossroad();
 		s.destinationCrossroad = getDestinationCrossroad();
+		s.startTime = getStartTimestamp();
+		s.endTime = getEndTimestamp();
 		return s;
 	}
 
 
+	public void setTimestampEnd(long currentTimeMillis) {
+	   timestampEnd = currentTimeMillis;	
+	}
 }
