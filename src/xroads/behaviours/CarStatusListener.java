@@ -35,7 +35,11 @@ public class CarStatusListener extends CyclicBehaviour {
 
 			try {
 				s = CarStatus.deserialize(serialized);
-			} catch (ClassNotFoundException | IOException e) {
+			} catch (ClassNotFoundException e) {
+				System.err.println("Error: SpawnerAgent.requestCrossroadStatus recieved malformed message");
+				e.printStackTrace();
+				return;
+			} catch (IOException e) {
 				System.err.println("Error: SpawnerAgent.requestCrossroadStatus recieved malformed message");
 				e.printStackTrace();
 				return;
