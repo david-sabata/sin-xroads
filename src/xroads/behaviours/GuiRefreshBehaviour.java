@@ -34,6 +34,8 @@ public class GuiRefreshBehaviour extends TickerBehaviour {
 		for (int i = 0; i < spawner.getCarAgents(); i ++) {
 			spawner.requestCarStatus("car-" + i);
 		}
+		
+		spawner.updateSimulationTime();
 	}
 
 }

@@ -48,12 +48,13 @@ public class XroadsGui extends JFrame {
 	private JTextField sendTime;
 	private JLabel generatedCars;
 	private JLabel finishedCars;
+	private SpawnerAgent mainAgent;
 	/**
 	 * Create the frame.
 	 */
 	public XroadsGui(final SpawnerAgent mainAgent) {
 		gui = this;
-		
+		this.mainAgent = mainAgent;
 		// initialize endpoint generator
 		endpointGen = new EndpointsGenerator(System.currentTimeMillis());
 		
@@ -91,6 +92,8 @@ public class XroadsGui extends JFrame {
 					if(Integer.parseInt(simulationSpeedText.getText()) > 0) {
 						World.TIMESTEP = Integer.parseInt(simulationSpeedText.getText());
 					}
+					
+					mainAgent.setStartOfSimulation();
 					
 					btnGenerate.setEnabled(false);
 				} catch (NumberFormatException error) {
@@ -353,5 +356,9 @@ public class XroadsGui extends JFrame {
 	 */
 	public void updateCarStatus(CarStatus s, int carAgents) {
 		statistics.updateCarStatus(s, carAgents);
+	}
+	
+	public void updateSimulationTime() {
+		statistics.updateSimulationTime(mainAgent);
 	}
 }

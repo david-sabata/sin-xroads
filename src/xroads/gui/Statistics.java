@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import xroads.CarStatus;
 import xroads.World;
+import xroads.agents.SpawnerAgent;
 
 public class Statistics {
 	
@@ -63,6 +64,12 @@ public class Statistics {
 
 	private long getTimeofCar(CarStatus s) {
 		return s.endTime - s.startTime;	
+	}
+
+
+	public void updateSimulationTime(SpawnerAgent mainAgent) {
+		// TODO Auto-generated method stub
+		simulationTime.setText(Integer.toString((int) (System.currentTimeMillis() - mainAgent.getStartTimeOfSimulation()) / 1000));
 	}
 	
 	

@@ -46,6 +46,7 @@ public class SpawnerAgent extends Agent {
 	 */
 	private int carAgents = 0;
 
+	private long startTimestampOfSimulation;
 
 	@Override
 	protected void setup() {
@@ -179,6 +180,11 @@ public class SpawnerAgent extends Agent {
 	public void setSimulationSpeed(int parseInt) {
 		World.TIMESTEP = parseInt;
 	}
+	
+	
+	public void setStartOfSimulation() {
+		startTimestampOfSimulation = System.currentTimeMillis();
+	}
 
 	/**
 	 *  Tato metoda pøidá halvním spawnerovi takové chování, které definuje kolik aute se v urèitém èasovém intervalu vygeneruje 
@@ -195,6 +201,18 @@ public class SpawnerAgent extends Agent {
 	 */
 	public int getCarAgents() {
 		return carAgents;
+	}
+
+
+	public long getStartTimeOfSimulation() {
+		// TODO Auto-generated method stub
+		return startTimestampOfSimulation;
+	}
+
+
+	public void updateSimulationTime() {
+		// TODO Auto-generated method stub
+		gui.updateSimulationTime();
 	}
 
 }
