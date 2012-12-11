@@ -19,7 +19,6 @@ import xroads.CarStatus;
 import xroads.CrossroadStatus;
 import xroads.World;
 import xroads.agents.SpawnerAgent;
-import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
@@ -216,11 +215,6 @@ public class XroadsGui extends JFrame {
 				btnNewCar.setBounds(137, 56, 86, 23);
 				panel_1.add(btnNewCar);
 				
-				final JCheckBox randomWayCheckbox = new JCheckBox("Random way");
-				randomWayCheckbox.setSelected(true);
-				randomWayCheckbox.setBounds(19, 56, 97, 23);
-				panel_1.add(randomWayCheckbox);
-				
 				numOfcars = new JTextField();
 				numOfcars.setHorizontalAlignment(SwingConstants.RIGHT);
 				numOfcars.setText("1");
@@ -306,7 +300,7 @@ public class XroadsGui extends JFrame {
 						String endPoint = null;
 						
 						// if random way is selected we will choose random endpoint
-						if(randomWayCheckbox.isSelected()) {
+						
 							startPoint = endpointGen.getRandomEndPoint();
 							endPoint = endpointGen.getRandomEndPoint();
 							
@@ -316,11 +310,6 @@ public class XroadsGui extends JFrame {
 									endPoint = endpointGen.getRandomEndPoint();
 								}
 							}
-						} 
-						// set by user
-						else {
-							
-						}
 						
 						int cars = Integer.parseInt(numOfcars.getText());
 						int time = Integer.parseInt(sendTime.getText()) * 1000;

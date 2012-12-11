@@ -17,6 +17,7 @@ public class UniformAddingCarsBehaviour extends TickerBehaviour {
 	private int addedCars = 0;
 	
 	public UniformAddingCarsBehaviour(Agent pSpawnerAgent, long pPeriod, int pNumberOfCars, String pStartPoint, String pEndPoint) {
+		
 		super(pSpawnerAgent, pPeriod);
 		
 		// number of cars to generate
