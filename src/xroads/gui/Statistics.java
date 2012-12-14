@@ -1,9 +1,8 @@
 package xroads.gui;
 
-import java.util.ArrayList;
-import java.util.Locale;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
 
@@ -12,7 +11,7 @@ import xroads.World;
 import xroads.agents.SpawnerAgent;
 
 public class Statistics {
-	
+
 	ArrayList<String> agentsName = new ArrayList<String>();
 	private JLabel generatedCars;
 	private JLabel finishedCars;
@@ -20,7 +19,7 @@ public class Statistics {
 	private JLabel averageTime;
 	private long allTime = 0;
 	private double averageTimeCalc = 0;
-	
+
 	/**
 	 * Assign text field to variables
 	 * @param generatedCars
@@ -42,11 +41,17 @@ public class Statistics {
 	 */
 	public void updateCarStatus(CarStatus s, int carAgents) {
 		generatedCars.setText(Integer.toString(carAgents));
-		if(!agentsName.contains(s.name)) {
-			if(s.currentCrossroad.equals(s.destinationCrossroad)) {
+
+		// ve statistikach ignorujeme prvnich 50 aut, ktere predstavuji provoz
+		String[] parts = s.name.split(Pattern.quote("-"));
+		if (Integer.parseInt(parts[1]) < 50)
+			return;
+
+		if (!agentsName.contains(s.name)) {
+			if (s.currentCrossroad.equals(s.destinationCrossroad)) {
 				finishedCars.setText(Integer.toString(Integer.parseInt(finishedCars.getText()) + 1));
 				agentsName.add(s.name);
-				
+
 				long tradeTime = getTimeofCar(s);
 				averageTime.setText(getAverageTime(tradeTime));
 			}
@@ -54,16 +59,16 @@ public class Statistics {
 	}
 
 	private String getAverageTime(long tradeTime) {
-		allTime += tradeTime;	
-		double temp =  (((double) allTime) / ((double)Integer.parseInt((finishedCars.getText())) / (((double)1000.) / ((double)World.TIMESTEP)))) / 1000.;
+		allTime += tradeTime;
+		double temp = (((double) allTime) / ((double) Integer.parseInt((finishedCars.getText())) / (((double) 1000.) / ((double) World.TIMESTEP)))) / 1000.;
 		DecimalFormat threeDots = new DecimalFormat("0.000"); // we want dot
 		return threeDots.format(temp);
-		
+
 	}
 
 
 	private long getTimeofCar(CarStatus s) {
-		return s.endTime - s.startTime;	
+		return s.endTime - s.startTime;
 	}
 
 
@@ -71,6 +76,6 @@ public class Statistics {
 		// TODO Auto-generated method stub
 		simulationTime.setText(Integer.toString((int) (System.currentTimeMillis() - mainAgent.getStartTimeOfSimulation()) / 1000));
 	}
-	
-	
+
+
 }

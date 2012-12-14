@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +21,6 @@ import xroads.CarStatus;
 import xroads.CrossroadStatus;
 import xroads.World;
 import xroads.agents.SpawnerAgent;
-import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class XroadsGui extends JFrame {
@@ -48,6 +49,7 @@ public class XroadsGui extends JFrame {
 	private JLabel generatedCars;
 	private JLabel finishedCars;
 	private SpawnerAgent mainAgent;
+
 	/**
 	 * Create the frame.
 	 */
@@ -56,7 +58,7 @@ public class XroadsGui extends JFrame {
 		this.mainAgent = mainAgent;
 		// initialize endpoint generator
 		endpointGen = new EndpointsGenerator(System.currentTimeMillis());
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 886, 655);
 		contentPane = new JPanel();
@@ -82,18 +84,18 @@ public class XroadsGui extends JFrame {
 				try {
 					// regenerate table city
 					city.generateCity(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
-					
+
 					// regenerate endpoint names
 					endpointGen.regenerateEndpoints(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
-					
+
 					// Contact gui agent, that city is generated
 					mainAgent.spawnCrossroads(Integer.parseInt(widthDimens.getText()), Integer.parseInt(heightDimens.getText()));
-					if(Integer.parseInt(simulationSpeedText.getText()) > 0) {
+					if (Integer.parseInt(simulationSpeedText.getText()) > 0) {
 						World.TIMESTEP = Integer.parseInt(simulationSpeedText.getText());
 					}
-					
+
 					mainAgent.setStartOfSimulation();
-					
+
 					btnGenerate.setEnabled(false);
 				} catch (NumberFormatException error) {
 					System.out.println(error.getLocalizedMessage());
@@ -124,22 +126,22 @@ public class XroadsGui extends JFrame {
 		lblCityDimensions.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblCityDimensions.setBounds(28, 9, 106, 14);
 		panel.add(lblCityDimensions);
-		
+
 		JLabel lblRychlostSimulace = new JLabel("Rychlost simulace");
 		lblRychlostSimulace.setBounds(153, 10, 135, 14);
 		panel.add(lblRychlostSimulace);
-		
+
 		simulationSpeedText = new JTextField();
 		simulationSpeedText.setBounds(185, 31, 86, 20);
 		panel.add(simulationSpeedText);
 		simulationSpeedText.setHorizontalAlignment(SwingConstants.RIGHT);
 		simulationSpeedText.setText("1000");
 		simulationSpeedText.setColumns(10);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("1s = ");
 		lblNewLabel_1.setBounds(156, 34, 25, 14);
 		panel.add(lblNewLabel_1);
-		
+
 		JLabel lblMs = new JLabel("ms");
 		lblMs.setBounds(274, 34, 24, 14);
 		panel.add(lblMs);
@@ -205,126 +207,131 @@ public class XroadsGui extends JFrame {
 		lblFree.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lblFree.setBounds(730, 93, 70, 14);
 		contentPane.add(lblFree);
-		
+
 		panel_1 = new JPanel();
 		panel_1.setBounds(313, 5, 246, 102);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
-		
-				JButton btnNewCar = new JButton("New Cars");
-				btnNewCar.setBounds(137, 56, 86, 23);
-				panel_1.add(btnNewCar);
-				
-				numOfcars = new JTextField();
-				numOfcars.setHorizontalAlignment(SwingConstants.RIGHT);
-				numOfcars.setText("1");
-				numOfcars.setBounds(46, 32, 59, 20);
-				panel_1.add(numOfcars);
-				numOfcars.setColumns(10);
-				
-				JLabel lblNumboerOfCars = new JLabel("Send");
-				lblNumboerOfCars.setBounds(10, 35, 29, 14);
-				panel_1.add(lblNumboerOfCars);
-				
-				JLabel lblIn = new JLabel("cars in");
-				lblIn.setBounds(111, 35, 39, 14);
-				panel_1.add(lblIn);
-				
-				sendTime = new JTextField();
-				sendTime.setHorizontalAlignment(SwingConstants.RIGHT);
-				sendTime.setText("30");
-				sendTime.setBounds(151, 32, 72, 20);
-				panel_1.add(sendTime);
-				sendTime.setColumns(10);
-				
-				JLabel lblS_1 = new JLabel("s");
-				lblS_1.setBounds(226, 35, 20, 14);
-				panel_1.add(lblS_1);
-				
-				JPanel panel_2 = new JPanel();
-				panel_2.setBounds(565, 5, 155, 102);
-				contentPane.add(panel_2);
-				panel_2.setLayout(null);
-				
-				JLabel lblStatistics = new JLabel("Statistics:");
-				lblStatistics.setBounds(10, 11, 80, 14);
-				panel_2.add(lblStatistics);
-				
-				JLabel lblAverageTime = new JLabel("Average time:");
-				lblAverageTime.setBounds(10, 25, 80, 14);
-				panel_2.add(lblAverageTime);
-				
-				JLabel simulationAverageTime = new JLabel("0");
-				simulationAverageTime.setHorizontalAlignment(SwingConstants.RIGHT);
-				simulationAverageTime.setBounds(92, 25, 46, 14);
-				panel_2.add(simulationAverageTime);
-				
-				JLabel lblS = new JLabel("s");
-				lblS.setBounds(138, 25, 17, 14);
-				panel_2.add(lblS);
-				
-				lblNewLabel = new JLabel("Simulation time:");
-				lblNewLabel.setBounds(10, 39, 80, 14);
-				panel_2.add(lblNewLabel);
-				
-				JLabel simulationTime = new JLabel("0");
-				simulationTime.setHorizontalAlignment(SwingConstants.RIGHT);
-				simulationTime.setBounds(92, 39, 46, 14);
-				panel_2.add(simulationTime);
-				
-				JLabel label = new JLabel("s");
-				label.setBounds(138, 39, 17, 14);
-				panel_2.add(label);
-				
-				JLabel lblGeneratedCars = new JLabel("Generated cars:");
-				lblGeneratedCars.setBounds(10, 52, 80, 14);
-				panel_2.add(lblGeneratedCars);
-				
-				generatedCars = new JLabel("0");
-				generatedCars.setHorizontalAlignment(SwingConstants.RIGHT);
-				generatedCars.setBounds(102, 52, 36, 14);
-				panel_2.add(generatedCars);
-				
-				JLabel lblCarsInEndpoint = new JLabel("Cars in endpoint:");
-				lblCarsInEndpoint.setBounds(10, 64, 90, 14);
-				panel_2.add(lblCarsInEndpoint);
-				
-				finishedCars = new JLabel("0");
-				finishedCars.setHorizontalAlignment(SwingConstants.RIGHT);
-				finishedCars.setBounds(92, 64, 46, 14);
-				panel_2.add(finishedCars);
-				btnNewCar.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						String startPoint = null;
-						String endPoint = null;
-						
-						// if random way is selected we will choose random endpoint
-						
-							startPoint = endpointGen.getRandomEndPoint();
-							endPoint = endpointGen.getRandomEndPoint();
-							
-							if(startPoint != null && endPoint != null) {
-								// endPoint and startPoint cant be the same
-								while(startPoint.equals(endPoint)) {
-									endPoint = endpointGen.getRandomEndPoint();
-								}
-							}
-						
-						int cars = Integer.parseInt(numOfcars.getText());
-						int time = Integer.parseInt(sendTime.getText()) * 1000;
-						if(startPoint != null && endPoint != null && cars > 0 && time > 0) {
-							mainAgent.addNewCarsToCityUniformly(startPoint, endPoint, cars, time);			
-						} else {
-							// TODO zobrazit dialog, ze pocatecni a koncovy bod, popripade pocet aut jsou spatne definovany
-							// JOptionPane.showMessageDialog(null, gui, "Eggs are not supposed to be green.", JOptionPane.WARNING_MESSAGE);
-						}
-						
-						
-					}
-				});
 
-		statistics = new Statistics(generatedCars, finishedCars, simulationTime, simulationAverageTime );
+		JButton btnNewCar = new JButton("New Cars");
+		btnNewCar.setBounds(137, 56, 86, 23);
+		panel_1.add(btnNewCar);
+
+		numOfcars = new JTextField();
+		numOfcars.setHorizontalAlignment(SwingConstants.RIGHT);
+		numOfcars.setText("20");
+		numOfcars.setBounds(46, 32, 59, 20);
+		panel_1.add(numOfcars);
+		numOfcars.setColumns(10);
+
+		JLabel lblNumboerOfCars = new JLabel("Send");
+		lblNumboerOfCars.setBounds(10, 35, 29, 14);
+		panel_1.add(lblNumboerOfCars);
+
+		JLabel lblIn = new JLabel("cars in");
+		lblIn.setBounds(111, 35, 39, 14);
+		panel_1.add(lblIn);
+
+		sendTime = new JTextField();
+		sendTime.setHorizontalAlignment(SwingConstants.RIGHT);
+		sendTime.setText("5");
+		sendTime.setBounds(151, 32, 72, 20);
+		panel_1.add(sendTime);
+		sendTime.setColumns(10);
+
+		JLabel lblS_1 = new JLabel("s");
+		lblS_1.setBounds(226, 35, 20, 14);
+		panel_1.add(lblS_1);
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(565, 5, 155, 102);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+
+		JLabel lblStatistics = new JLabel("Statistics:");
+		lblStatistics.setBounds(10, 11, 80, 14);
+		panel_2.add(lblStatistics);
+
+		JLabel lblAverageTime = new JLabel("Average time:");
+		lblAverageTime.setBounds(10, 25, 80, 14);
+		panel_2.add(lblAverageTime);
+
+		JLabel simulationAverageTime = new JLabel("0");
+		simulationAverageTime.setHorizontalAlignment(SwingConstants.RIGHT);
+		simulationAverageTime.setBounds(92, 25, 46, 14);
+		panel_2.add(simulationAverageTime);
+
+		JLabel lblS = new JLabel("s");
+		lblS.setBounds(138, 25, 17, 14);
+		panel_2.add(lblS);
+
+		lblNewLabel = new JLabel("Simulation time:");
+		lblNewLabel.setBounds(10, 39, 80, 14);
+		panel_2.add(lblNewLabel);
+
+		JLabel simulationTime = new JLabel("0");
+		simulationTime.setHorizontalAlignment(SwingConstants.RIGHT);
+		simulationTime.setBounds(92, 39, 46, 14);
+		panel_2.add(simulationTime);
+
+		JLabel label = new JLabel("s");
+		label.setBounds(138, 39, 17, 14);
+		panel_2.add(label);
+
+		JLabel lblGeneratedCars = new JLabel("Generated cars:");
+		lblGeneratedCars.setBounds(10, 52, 80, 14);
+		panel_2.add(lblGeneratedCars);
+
+		generatedCars = new JLabel("0");
+		generatedCars.setHorizontalAlignment(SwingConstants.RIGHT);
+		generatedCars.setBounds(102, 52, 36, 14);
+		panel_2.add(generatedCars);
+
+		JLabel lblCarsInEndpoint = new JLabel("Cars in endpoint:");
+		lblCarsInEndpoint.setBounds(10, 64, 90, 14);
+		panel_2.add(lblCarsInEndpoint);
+
+		finishedCars = new JLabel("0");
+		finishedCars.setHorizontalAlignment(SwingConstants.RIGHT);
+		finishedCars.setBounds(92, 64, 46, 14);
+		panel_2.add(finishedCars);
+		btnNewCar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String startPoint = null;
+				String endPoint = null;
+
+				// if random way is selected we will choose random endpoint
+				/*
+					startPoint = endpointGen.getRandomEndPoint();
+					endPoint = endpointGen.getRandomEndPoint();
+					
+					if(startPoint != null && endPoint != null) {
+						// endPoint and startPoint cant be the same
+						while(startPoint.equals(endPoint)) {
+							endPoint = endpointGen.getRandomEndPoint();
+						}
+					}
+				*/
+
+				// pro ucely statistik pevne dany start a cil
+				startPoint = "endpoint-w-1";
+				endPoint = "endpoint-e-1";
+
+				int cars = Integer.parseInt(numOfcars.getText());
+				int time = Integer.parseInt(sendTime.getText()) * 1000;
+				if (startPoint != null && endPoint != null && cars > 0 && time > 0) {
+					mainAgent.addNewCarsToCityUniformly(startPoint, endPoint, cars, time);
+				} else {
+					// TODO zobrazit dialog, ze pocatecni a koncovy bod, popripade pocet aut jsou spatne definovany
+					// JOptionPane.showMessageDialog(null, gui, "Eggs are not supposed to be green.", JOptionPane.WARNING_MESSAGE);
+				}
+
+
+			}
+		});
+
+		statistics = new Statistics(generatedCars, finishedCars, simulationTime, simulationAverageTime);
 		this.setVisible(true);
 	}
 
@@ -346,7 +353,7 @@ public class XroadsGui extends JFrame {
 	public void updateCarStatus(CarStatus s, int carAgents) {
 		statistics.updateCarStatus(s, carAgents);
 	}
-	
+
 	public void updateSimulationTime() {
 		statistics.updateSimulationTime(mainAgent);
 	}

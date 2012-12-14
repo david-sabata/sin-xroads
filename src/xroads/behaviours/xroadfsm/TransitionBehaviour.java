@@ -46,6 +46,7 @@ public class TransitionBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
+		/*
 		// cekame o [timeout] dele
 		actualWaitingTime += nextSwitchTimeout;
 
@@ -79,7 +80,8 @@ public class TransitionBehaviour extends OneShotBehaviour {
 				return;
 			}
 		}
-
+		*/
+		switchLights();
 	}
 
 

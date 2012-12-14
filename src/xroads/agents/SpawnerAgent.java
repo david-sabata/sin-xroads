@@ -81,6 +81,211 @@ public class SpawnerAgent extends Agent {
 
 		// naslouchani na infa o autech
 		addBehaviour(new CarStatusListener(carStatusInformConvId));
+
+		// testovaci provoz ve meste pro 3x3
+
+		spawnCarsFromTo("xroad-8", "endpoint-e-2", 0);
+		spawnCarsFromTo("xroad-3", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-4", "endpoint-w-0", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-n-0", 1);
+		spawnCarsFromTo("xroad-3", "endpoint-s-1", 1);
+		spawnCarsFromTo("xroad-1", "endpoint-n-1", 2);
+		spawnCarsFromTo("xroad-2", "endpoint-w-1", 2);
+		spawnCarsFromTo("xroad-8", "endpoint-s-1", 0);
+		spawnCarsFromTo("xroad-0", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-4", "endpoint-e-2", 2);
+		spawnCarsFromTo("xroad-2", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-e-1", 3);
+		spawnCarsFromTo("xroad-8", "endpoint-s-0", 0);
+		spawnCarsFromTo("xroad-5", "endpoint-s-2", 2);
+		spawnCarsFromTo("xroad-4", "endpoint-n-2", 2);
+		spawnCarsFromTo("xroad-6", "endpoint-s-2", 2);
+		spawnCarsFromTo("xroad-8", "endpoint-e-1", 3);
+		spawnCarsFromTo("xroad-4", "endpoint-e-0", 3);
+		spawnCarsFromTo("xroad-8", "endpoint-e-2", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-s-1", 2);
+		spawnCarsFromTo("xroad-2", "endpoint-e-2", 1);
+		spawnCarsFromTo("xroad-0", "endpoint-n-2", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-3", "endpoint-w-2", 2);
+		spawnCarsFromTo("xroad-7", "endpoint-e-0", 0);
+		spawnCarsFromTo("xroad-3", "endpoint-w-0", 1);
+		spawnCarsFromTo("xroad-5", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-e-1", 3);
+		spawnCarsFromTo("xroad-5", "endpoint-s-1", 3);
+		spawnCarsFromTo("xroad-3", "endpoint-n-2", 2);
+		spawnCarsFromTo("xroad-6", "endpoint-w-2", 2);
+		spawnCarsFromTo("xroad-7", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-5", "endpoint-n-2", 3);
+		spawnCarsFromTo("xroad-0", "endpoint-e-2", 0);
+		spawnCarsFromTo("xroad-0", "endpoint-e-2", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-s-1", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-e-2", 2);
+		spawnCarsFromTo("xroad-4", "endpoint-e-1", 3);
+		spawnCarsFromTo("xroad-5", "endpoint-s-2", 2);
+		spawnCarsFromTo("xroad-2", "endpoint-n-1", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-w-0", 0);
+		spawnCarsFromTo("xroad-5", "endpoint-e-2", 2);
+		spawnCarsFromTo("xroad-3", "endpoint-w-2", 0);
+		spawnCarsFromTo("xroad-4", "endpoint-n-0", 0);
+		spawnCarsFromTo("xroad-7", "endpoint-n-0", 0);
+		spawnCarsFromTo("xroad-4", "endpoint-s-0", 1);
+		spawnCarsFromTo("xroad-3", "endpoint-n-1", 3);
+		spawnCarsFromTo("xroad-4", "endpoint-e-0", 2);
+		spawnCarsFromTo("xroad-6", "endpoint-n-1", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-n-0", 0);
+		/*spawnCarsFromTo("xroad-5", "endpoint-s-1", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-w-1", 2);
+		spawnCarsFromTo("xroad-3", "endpoint-s-2", 0);
+		spawnCarsFromTo("xroad-8", "endpoint-s-0", 3);
+		spawnCarsFromTo("xroad-5", "endpoint-w-1", 0);
+		spawnCarsFromTo("xroad-0", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-n-2", 0);
+		spawnCarsFromTo("xroad-5", "endpoint-s-0", 2);
+		spawnCarsFromTo("xroad-6", "endpoint-s-0", 0);
+		spawnCarsFromTo("xroad-4", "endpoint-n-1", 3);
+		spawnCarsFromTo("xroad-1", "endpoint-n-0", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-n-2", 3);
+		spawnCarsFromTo("xroad-5", "endpoint-n-0", 0);
+		spawnCarsFromTo("xroad-2", "endpoint-e-1", 2);
+		spawnCarsFromTo("xroad-6", "endpoint-s-0", 2);
+		spawnCarsFromTo("xroad-5", "endpoint-e-1", 3);
+		spawnCarsFromTo("xroad-1", "endpoint-s-1", 0);
+		spawnCarsFromTo("xroad-1", "endpoint-w-1", 0);
+		spawnCarsFromTo("xroad-7", "endpoint-w-1", 3);
+		spawnCarsFromTo("xroad-8", "endpoint-n-0", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-w-0", 0);
+		spawnCarsFromTo("xroad-3", "endpoint-w-1", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-w-1", 1);
+		spawnCarsFromTo("xroad-3", "endpoint-s-2", 2);
+		spawnCarsFromTo("xroad-4", "endpoint-w-1", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-w-0", 0);
+		spawnCarsFromTo("xroad-3", "endpoint-s-2", 3);
+		spawnCarsFromTo("xroad-1", "endpoint-s-1", 1);
+		spawnCarsFromTo("xroad-2", "endpoint-n-1", 3);
+		spawnCarsFromTo("xroad-3", "endpoint-e-0", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-w-1", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-s-0", 2);
+		spawnCarsFromTo("xroad-6", "endpoint-e-2", 0);
+		spawnCarsFromTo("xroad-1", "endpoint-n-2", 0);
+		spawnCarsFromTo("xroad-7", "endpoint-w-2", 1);
+		spawnCarsFromTo("xroad-2", "endpoint-n-1", 2);
+		spawnCarsFromTo("xroad-7", "endpoint-e-1", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-e-2", 2);
+		spawnCarsFromTo("xroad-5", "endpoint-s-1", 0);
+		spawnCarsFromTo("xroad-6", "endpoint-e-0", 0);
+		spawnCarsFromTo("xroad-6", "endpoint-w-2", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-w-1", 3);
+		spawnCarsFromTo("xroad-0", "endpoint-w-2", 0);
+		spawnCarsFromTo("xroad-2", "endpoint-n-2", 1);
+		spawnCarsFromTo("xroad-3", "endpoint-s-1", 0);
+		spawnCarsFromTo("xroad-8", "endpoint-n-0", 1);
+		spawnCarsFromTo("xroad-2", "endpoint-n-1", 0);
+		spawnCarsFromTo("xroad-1", "endpoint-e-0", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-s-1", 3);
+		*/
+		/*spawnCarsFromTo("xroad-5", "endpoint-n-2", 2);
+		spawnCarsFromTo("xroad-2", "endpoint-s-1", 0);
+		spawnCarsFromTo("xroad-1", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-e-0", 2);
+		spawnCarsFromTo("xroad-5", "endpoint-w-2", 2);
+		spawnCarsFromTo("xroad-8", "endpoint-n-0", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-e-2", 0);
+		spawnCarsFromTo("xroad-4", "endpoint-s-0", 2);
+		spawnCarsFromTo("xroad-6", "endpoint-e-0", 0);
+		spawnCarsFromTo("xroad-2", "endpoint-n-0", 2);
+		spawnCarsFromTo("xroad-8", "endpoint-e-1", 2);
+		spawnCarsFromTo("xroad-8", "endpoint-s-2", 3);
+		spawnCarsFromTo("xroad-0", "endpoint-n-2", 0);
+		spawnCarsFromTo("xroad-3", "endpoint-e-2", 0);
+		spawnCarsFromTo("xroad-6", "endpoint-n-2", 3);
+		spawnCarsFromTo("xroad-1", "endpoint-e-2", 3);
+		spawnCarsFromTo("xroad-5", "endpoint-s-1", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-s-2", 1);
+		spawnCarsFromTo("xroad-5", "endpoint-e-0", 1);
+		spawnCarsFromTo("xroad-0", "endpoint-s-0", 1);
+		spawnCarsFromTo("xroad-3", "endpoint-e-0", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-s-0", 0);
+		spawnCarsFromTo("xroad-6", "endpoint-n-0", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-s-0", 2);
+		spawnCarsFromTo("xroad-3", "endpoint-w-1", 3);
+		spawnCarsFromTo("xroad-8", "endpoint-w-0", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-s-1", 2);
+		spawnCarsFromTo("xroad-0", "endpoint-w-2", 0);
+		spawnCarsFromTo("xroad-5", "endpoint-e-0", 0);
+		spawnCarsFromTo("xroad-8", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-s-2", 0);
+		spawnCarsFromTo("xroad-1", "endpoint-e-1", 2);
+		spawnCarsFromTo("xroad-0", "endpoint-s-1", 0);
+		spawnCarsFromTo("xroad-5", "endpoint-w-1", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-s-2", 0);
+		spawnCarsFromTo("xroad-8", "endpoint-e-2", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-0", "endpoint-s-2", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-n-0", 3);
+		spawnCarsFromTo("xroad-4", "endpoint-w-2", 0);
+		spawnCarsFromTo("xroad-5", "endpoint-s-1", 3);
+		spawnCarsFromTo("xroad-1", "endpoint-n-2", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-e-0", 0);
+		spawnCarsFromTo("xroad-6", "endpoint-e-0", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-e-2", 3);
+		spawnCarsFromTo("xroad-8", "endpoint-s-2", 1);
+		spawnCarsFromTo("xroad-2", "endpoint-n-1", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-0", "endpoint-w-0", 0);
+		spawnCarsFromTo("xroad-4", "endpoint-w-2", 2);
+		spawnCarsFromTo("xroad-8", "endpoint-s-1", 1);
+		spawnCarsFromTo("xroad-3", "endpoint-n-0", 3);
+		spawnCarsFromTo("xroad-5", "endpoint-e-1", 0);
+		spawnCarsFromTo("xroad-7", "endpoint-e-2", 3);
+		spawnCarsFromTo("xroad-7", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-3", "endpoint-e-1", 2);
+		spawnCarsFromTo("xroad-7", "endpoint-w-1", 1);
+		spawnCarsFromTo("xroad-8", "endpoint-s-1", 3);
+		spawnCarsFromTo("xroad-7", "endpoint-n-0", 0);
+		spawnCarsFromTo("xroad-2", "endpoint-n-2", 3);
+		spawnCarsFromTo("xroad-4", "endpoint-s-2", 3);
+		spawnCarsFromTo("xroad-2", "endpoint-s-1", 0);
+		spawnCarsFromTo("xroad-6", "endpoint-e-2", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-e-0", 2);
+		spawnCarsFromTo("xroad-8", "endpoint-s-1", 1);
+		spawnCarsFromTo("xroad-7", "endpoint-w-1", 0);
+		spawnCarsFromTo("xroad-2", "endpoint-s-2", 3);
+		spawnCarsFromTo("xroad-8", "endpoint-w-0", 0);
+		spawnCarsFromTo("xroad-1", "endpoint-e-1", 0);
+		spawnCarsFromTo("xroad-5", "endpoint-s-0", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-5", "endpoint-n-1", 3);
+		spawnCarsFromTo("xroad-0", "endpoint-n-0", 3);
+		spawnCarsFromTo("xroad-5", "endpoint-w-0", 1);
+		spawnCarsFromTo("xroad-4", "endpoint-n-1", 3);
+		spawnCarsFromTo("xroad-3", "endpoint-n-1", 2);
+		spawnCarsFromTo("xroad-5", "endpoint-n-0", 3);
+		spawnCarsFromTo("xroad-7", "endpoint-w-0", 0);
+		spawnCarsFromTo("xroad-1", "endpoint-w-2", 2);
+		spawnCarsFromTo("xroad-4", "endpoint-n-1", 2);
+		spawnCarsFromTo("xroad-8", "endpoint-s-2", 3);
+		spawnCarsFromTo("xroad-1", "endpoint-n-2", 0);
+		spawnCarsFromTo("xroad-5", "endpoint-n-2", 1);
+		spawnCarsFromTo("xroad-6", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-8", "endpoint-w-2", 3);
+		spawnCarsFromTo("xroad-7", "endpoint-w-1", 3);
+		spawnCarsFromTo("xroad-6", "endpoint-e-1", 0);
+		spawnCarsFromTo("xroad-2", "endpoint-s-1", 2);
+		spawnCarsFromTo("xroad-6", "endpoint-w-0", 0);
+		spawnCarsFromTo("xroad-6", "endpoint-e-1", 1);
+		spawnCarsFromTo("xroad-5", "endpoint-s-1", 0);
+		spawnCarsFromTo("xroad-0", "endpoint-e-1", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-n-0", 1);
+		spawnCarsFromTo("xroad-7", "endpoint-n-0", 1);
+		spawnCarsFromTo("xroad-1", "endpoint-e-2", 0);
+		spawnCarsFromTo("xroad-8", "endpoint-w-1", 0);
+		spawnCarsFromTo("xroad-3", "endpoint-w-1", 2);
+		spawnCarsFromTo("xroad-1", "endpoint-e-2", 3);
+		spawnCarsFromTo("xroad-4", "endpoint-n-1", 1);
+		*/
 	}
 
 
@@ -102,6 +307,29 @@ public class SpawnerAgent extends Agent {
 			@Override
 			public void action() {
 				String args[] = { endpointFromName, endpointToName };
+
+				// spawn
+				try {
+					AgentController agent = carAgentContainer.createNewAgent("car-" + carAgents, CarAgent.class.getCanonicalName(), args);
+					agent.start();
+					carAgents++;
+				} catch (StaleProxyException e) {
+					System.err.println("Error creating car agents");
+					e.printStackTrace();
+				}
+			}
+
+		});
+	}
+
+
+
+	public void spawnCarsFromTo(final String endpointFromName, final String endpointToName, final int direction) {
+		addBehaviour(new OneShotBehaviour() {
+
+			@Override
+			public void action() {
+				String args[] = { endpointFromName, endpointToName, String.valueOf(direction) };
 
 				// spawn
 				try {

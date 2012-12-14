@@ -2,10 +2,10 @@ package xroads.agents;
 
 import jade.core.Agent;
 
-import java.sql.Date;
 import java.util.regex.Pattern;
 
 import xroads.CarStatus;
+import xroads.Constants;
 import xroads.World;
 import xroads.behaviours.CarNewbornBehaviour;
 import xroads.behaviours.CarStatusInformant;
@@ -19,11 +19,11 @@ public class CarAgent extends Agent {
 	private String destinationCrossroad;
 	private long timestampStart = 0;
 	private long timestampEnd = 0;
-	
+
 	/**
 	 * Smer ze ktere auto stoji na aktualni krizovatce
 	 */
-	private int currentDirection;
+	private int currentDirection = -1;
 
 
 	private String nextHopCrossroad;
@@ -33,9 +33,13 @@ public class CarAgent extends Agent {
 	@Override
 	protected void setup() {
 		Object args[] = getArguments();
-		if (args.length != 2) {
+		if (args.length < 2) {
 			System.err.println("Unexpected arguments for CarAgent. Call with <src> <dst>");
 			doDelete();
+		}
+
+		if (args.length == 3) {
+			currentDirection = Integer.valueOf(args[2].toString());
 		}
 
 		sourceCrossroad = args[0].toString();
@@ -44,13 +48,18 @@ public class CarAgent extends Agent {
 
 		// auto stoji na zacatku vzdy v koncovce ze ktere muzeme vyparsovat smer
 		String parts[] = currentCrossroad.split(Pattern.quote("-"));
-		if (!parts[0].equals("endpoint")) {
-			throw new RuntimeException("Error: Car needs to be spawned at endpoint");
+		if (currentDirection == -1 && parts[0].equals("endpoint")) {
+			currentDirection = World.parseDirection(parts[1]);
 		}
-		currentDirection = World.parseDirection(parts[1]);
+
+		if (currentDirection == -1) {
+			currentDirection = Constants.WEST;
+			//throw new RuntimeException("Car has no implicit direction");
+		}
+
 
 		timestampStart = System.currentTimeMillis();
-				
+
 		// informovat koncovku ze v ni je auto
 		addBehaviour(new CarNewbornBehaviour());
 
@@ -59,7 +68,6 @@ public class CarAgent extends Agent {
 		// komplexni chovani auta definovane pomoci FSM
 		addBehaviour(new CarOverallBehaviour());
 	}
-
 
 	/**
 	 * Oznamuje autu, ze se presunulo do nove krizovatky
@@ -91,7 +99,7 @@ public class CarAgent extends Agent {
 	public long getStartTimestamp() {
 		return timestampStart;
 	}
-	
+
 	public long getEndTimestamp() {
 		return timestampEnd;
 	}
@@ -125,6 +133,6 @@ public class CarAgent extends Agent {
 
 
 	public void setTimestampEnd(long currentTimeMillis) {
-	   timestampEnd = currentTimeMillis;	
+		timestampEnd = currentTimeMillis;
 	}
 }
